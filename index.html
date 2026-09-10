@@ -15,7 +15,7 @@
 
     <div class="video-overlay"></div>
 
-    <!-- Petal Transition Overlay -->
+    <!-- Full-Screen Petal Transition Overlay -->
     <div id="petalTransition" class="petal-transition-container"></div>
 
     <!-- Scene 1: Intro -->
@@ -53,24 +53,36 @@
 
                 <div class="story-line"></div>
                 
-                <button id="nextToScene3Btn" class="story-btn">Step Inside ❤️</button>
+                <button id="nextToScene3Btn" class="story-btn">Dive Inside ❤️</button>
             </div>
 
         </div>
     </section>
 
-    <!-- Scene 3: Rainbow Sakura Mini-Game -->
+    <!-- Scene 3: VIBGYOR Rainbow Sakura Game -->
     <section class="game-section" id="gameSection">
-        <div class="game-header">
-            <span class="story-label">Petals of Light</span>
-            <h2>Catch All 6 Rainbow Blossoms ✨</h2>
-            <div id="counter" class="counter-badge">Blossoms Caught: 0 / 6</div>
+
+        <!-- Pre-Game Lead-in Prompt -->
+        <div id="preGamePrompt" class="story-content">
+            <span class="story-label">A Little Secret...</span>
+            <h2>Wanna know how much you mean to me? ❤️</h2>
+            <p class="instruction-text">Catch all 7 rainbow blossoms to unlock every note...</p>
+            <button id="startGameBtn" class="story-btn glow-btn">Start Game 🌸</button>
         </div>
 
-        <!-- Floating Rainbow Sakura Area -->
-        <div id="rainbowContainer" class="rainbow-container"></div>
+        <!-- Active Game Layout -->
+        <div id="gamePlayArea" class="hidden">
+            <div class="game-header">
+                <span class="story-label">Petals of Light</span>
+                <h2>Catch All 7 Rainbow Flowers ✨</h2>
+                <div id="counter" class="counter-badge">Blossoms Caught: 0 / 7</div>
+            </div>
 
-        <!-- Pop-up Compliment Card -->
+            <!-- VIBGYOR Floating Sakura Area -->
+            <div id="rainbowContainer" class="rainbow-container"></div>
+        </div>
+
+        <!-- Pop-up Compliment Modal -->
         <div id="complimentModal" class="compliment-modal hidden">
             <div class="modal-content">
                 <span class="modal-icon">🌸</span>
@@ -79,12 +91,17 @@
             </div>
         </div>
 
-        <!-- Final Unlock Card -->
+        <!-- Final Unlock: Big Golden Sakura "Congratulations" Button -->
         <div id="finalUnlockCard" class="final-card hidden">
-            <h2>You Found Every Piece... ❤️</h2>
-            <p>Now there's just one final thing left to ask.</p>
-            <button id="toProposalBtn" class="story-btn glow-btn">Ask Me ❤️</button>
+            <div class="golden-sakura-wrapper">
+                <button id="congratsBtn" class="golden-sakura-btn">
+                    <span class="golden-icon">🌸</span>
+                    <span class="golden-text">Congratulations ✨</span>
+                </button>
+            </div>
+            <p class="gold-subtext">You found every piece of my heart... Tap to see what comes next ❤️</p>
         </div>
+
     </section>
 
     <script src="script.js"></script>
