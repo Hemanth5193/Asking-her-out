@@ -22,12 +22,12 @@
     <div class="container" id="introContainer">
         <h1>Hey, Ananya...</h1>
         <p>I made something special just for YOU.</p>
-        <button id="beginButton">Begin</button>
+        <button id="beginButton" class="glass-btn">Begin</button>
     </div>
 
     <!-- Scene 2: Story, Floating Sakura & Poem -->
     <section class="story-section" id="storySection">
-        <div class="story-content">
+        <div class="story-content glass-card">
 
             <!-- Initial Intro Content -->
             <div id="scene2Intro">
@@ -53,7 +53,7 @@
 
                 <div class="story-line"></div>
                 
-                <button id="nextToScene3Btn" class="story-btn">Dive Inside ❤️</button>
+                <button id="nextToScene3Btn" class="story-btn">Step Inside ❤️</button>
             </div>
 
         </div>
@@ -63,7 +63,7 @@
     <section class="game-section" id="gameSection">
 
         <!-- Pre-Game Lead-in Prompt -->
-        <div id="preGamePrompt" class="story-content">
+        <div id="preGamePrompt" class="story-content glass-card">
             <span class="story-label">A Little Secret...</span>
             <h2>Wanna know how much you mean to me? ❤️</h2>
             <p class="instruction-text">Catch all 7 rainbow blossoms to unlock every note...</p>
@@ -71,35 +71,39 @@
         </div>
 
         <!-- Active Game Layout -->
-        <div id="gamePlayArea" class="hidden">
+        <div id="gamePlayArea" class="game-play-area hidden">
             <div class="game-header">
                 <span class="story-label">Petals of Light</span>
                 <h2>Catch All 7 Rainbow Flowers ✨</h2>
                 <div id="counter" class="counter-badge">Blossoms Caught: 0 / 7</div>
             </div>
 
-            <!-- VIBGYOR Floating Sakura Area -->
+            <!-- VIBGYOR Floating Sakura Container -->
             <div id="rainbowContainer" class="rainbow-container"></div>
         </div>
 
         <!-- Pop-up Compliment Modal -->
         <div id="complimentModal" class="compliment-modal hidden">
-            <div class="modal-content">
+            <div class="modal-content glass-card">
                 <span class="modal-icon">🌸</span>
                 <p id="complimentText" class="compliment-text"></p>
                 <button id="continueGameBtn" class="modal-btn">Keep Collecting ✨</button>
             </div>
         </div>
 
-        <!-- Final Unlock: Big Golden Sakura "Congratulations" Button -->
+        <!-- Final Unlock: Grand Golden Sakura Emblem -->
         <div id="finalUnlockCard" class="final-card hidden">
-            <div class="golden-sakura-wrapper">
-                <button id="congratsBtn" class="golden-sakura-btn">
-                    <span class="golden-icon">🌸</span>
-                    <span class="golden-text">Congratulations ✨</span>
+            <div class="golden-emblem-container">
+                <div class="golden-aura-ring"></div>
+                <button id="congratsBtn" class="golden-sakura-card">
+                    <div class="golden-flower-icon">🌸</div>
+                    <div class="golden-text-group">
+                        <span class="gold-badge-label">UNLOCKED ✨</span>
+                        <span class="gold-main-title">Congratulations</span>
+                    </div>
                 </button>
             </div>
-            <p class="gold-subtext">You found every piece of my heart... Tap to see what comes next ❤️</p>
+            <p class="gold-subtext">You caught every petal of my heart... Tap to see what comes next ❤️</p>
         </div>
 
     </section>
