@@ -25,6 +25,7 @@ const finalUnlockCard = document.getElementById("finalUnlockCard");
 const congratsBtn = document.getElementById("congratsBtn");
 
 let moveInterval;
+let activePetals = [];
 
 // Scene 1 -> Scene 2
 beginButton.addEventListener("click", function () {
@@ -61,7 +62,7 @@ sakuraBtn.addEventListener("click", function () {
     poemContainer.classList.add("fade-in");
 });
 
-// Scene 2 -> Scene 3 (Full-Screen Sakura Burst Transition)
+// Scene 2 -> Scene 3 Transition
 nextToScene3Btn.addEventListener("click", function () {
     triggerPetalTransition(() => {
         storySection.classList.remove("show");
@@ -70,28 +71,28 @@ nextToScene3Btn.addEventListener("click", function () {
     });
 });
 
-// Full-screen Burst Effect for Mobile & Laptop
+// Cinematic Full-Screen Cherry Storm Transition
 function triggerPetalTransition(callback) {
     petalTransition.innerHTML = "";
-    const petalCount = window.innerWidth > 768 ? 70 : 40;
+    const petalCount = window.innerWidth > 768 ? 80 : 45;
 
     for (let i = 0; i < petalCount; i++) {
         const petal = document.createElement("div");
         petal.classList.add("transition-petal");
         petal.style.left = `${Math.random() * 100}vw`;
-        petal.style.animationDuration = `${1.0 + Math.random() * 1.0}s`;
-        petal.style.animationDelay = `${Math.random() * 0.4}s`;
+        petal.style.animationDuration = `${1.2 + Math.random() * 1.2}s`;
+        petal.style.animationDelay = `${Math.random() * 0.5}s`;
         petalTransition.appendChild(petal);
     }
 
-    setTimeout(callback, 1000);
+    setTimeout(callback, 1100);
 
     setTimeout(() => {
         petalTransition.innerHTML = "";
-    }, 2200);
+    }, 2500);
 }
 
-// Start Game from Scene 3 Prompt
+// Start Game Prompt Action
 startGameBtn.addEventListener("click", () => {
     preGamePrompt.classList.add("hidden");
     gamePlayArea.classList.remove("hidden");
@@ -100,26 +101,25 @@ startGameBtn.addEventListener("click", () => {
 });
 
 /* ========================================
-   SCENE 3: VIBGYOR RAINBOW SAKURA GAME
+   SCENE 3: VIBGYOR RAINBOW SAKURA ENGINE
    ======================================== */
 
 const compliments = [
-    "Violet 💜 — Your grace and gentle energy make every moment feel peaceful.",
-    "Indigo 💙 — The deep, thoughtful way you care for everyone around you.",
-    "Blue 🩵 — How effortless it is to talk to you for hours about anything.",
-    "Green 💚 — Your smile always brings fresh joy into my life.",
-    "Yellow 💛 — Your radiant warmth literally brightens up my worst days.",
-    "Orange 🧡 — Every simple memory with you becomes my instant favorite.",
-    "Red ❤️ — Just being near you makes my whole world complete."
+    "Violet 💜 — Your grace and calm presence soothe my mind in every way.",
+    "Indigo 💙 — The profound, gentle depth in the way you care about people.",
+    "Blue 🩵 — How time completely dissolves when we talk for hours.",
+    "Green 💚 — Your radiant smile instantly fills my life with comfort.",
+    "Yellow 💛 — Your warm brightness turns my hardest days into light.",
+    "Orange 🧡 — Every ordinary memory with you turns into pure gold.",
+    "Red ❤️ — You are my favorite place to be, today and always."
 ];
 
-// 7 VIBGYOR Palette
 const vibgyorColors = ["violet", "indigo", "blue", "green", "yellow", "orange", "red"];
 let caughtCount = 0;
-let rainbowIntervals = [];
 
 function initRainbowGame() {
     rainbowContainer.innerHTML = "";
+    activePetals = [];
     caughtCount = 0;
     counterBadge.textContent = `Blossoms Caught: 0 / 7`;
 
@@ -129,58 +129,69 @@ function initRainbowGame() {
         btn.innerHTML = "🌸";
         btn.setAttribute("data-index", i);
         
-        // Initial positioning
-        positionRandomly(btn);
+        // Initial Screen Placement
+        setRandomInitialPosition(btn);
         rainbowContainer.appendChild(btn);
 
-        // Smooth 1.4s movement timing (slower & cleaner across all screens)
-        const interval = setInterval(() => {
-            moveSmooth(btn);
-        }, 1400);
-
-        rainbowIntervals.push(interval);
+        // Continuous Smooth Physics Motion
+        const petalObj = {
+            element: btn,
+            interval: setInterval(() => glidePetal(btn), 1800 + Math.random() * 600)
+        };
+        activePetals.push(petalObj);
 
         btn.addEventListener("click", () => handlePetalCatch(btn, i));
     }
 }
 
-function positionRandomly(element) {
-    const paddingX = 80;
-    const paddingY = 160;
-    const x = paddingX + Math.random() * (window.innerWidth - paddingX * 2);
-    const y = paddingY + Math.random() * (window.innerHeight - paddingY * 2);
+function setRandomInitialPosition(element) {
+    const marginX = 80;
+    const marginY = 120;
+    const startX = marginX + Math.random() * (window.innerWidth - marginX * 2);
+    const startY = marginY + Math.random() * (window.innerHeight - marginY * 2);
     
-    element.style.left = `${x}px`;
-    element.style.top = `${y}px`;
+    element.style.left = `${startX}px`;
+    element.style.top = `${startY}px`;
+    element.style.transform = `translate(0px, 0px) scale(1)`;
 }
 
-function moveSmooth(element) {
+function glidePetal(element) {
     if (element.classList.contains("caught")) return;
-    
-    const paddingX = 80;
-    const paddingY = 160;
-    const targetX = paddingX + Math.random() * (window.innerWidth - paddingX * 2);
-    const targetY = paddingY + Math.random() * (window.innerHeight - paddingY * 2);
 
-    const currentX = parseFloat(element.style.left) || window.innerWidth / 2;
-    const currentY = parseFloat(element.style.top) || window.innerHeight / 2;
+    const currentLeft = parseFloat(element.style.left);
+    const currentTop = parseFloat(element.style.top);
 
-    const deltaX = targetX - currentX;
-    const deltaY = targetY - currentY;
+    // Calculate dynamic float trajectory across laptop and mobile viewports
+    const moveRangeX = window.innerWidth > 768 ? 240 : 130;
+    const moveRangeY = window.innerHeight > 768 ? 200 : 110;
 
-    element.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+    let deltaX = (Math.random() - 0.5) * moveRangeX;
+    let deltaY = (Math.random() - 0.5) * moveRangeY;
+
+    // Viewport Boundary Guarding
+    if (currentLeft + deltaX < 60 || currentLeft + deltaX > window.innerWidth - 80) {
+        deltaX *= -1;
+    }
+    if (currentTop + deltaY < 100 || currentTop + deltaY > window.innerHeight - 100) {
+        deltaY *= -1;
+    }
+
+    element.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${0.95 + Math.random() * 0.15})`;
 }
 
 function handlePetalCatch(btn, index) {
     if (btn.classList.contains("caught")) return;
     btn.classList.add("caught");
+    
+    // Smooth Catch Burst
+    btn.style.transform += " scale(1.6)";
     btn.style.opacity = "0";
     btn.style.pointerEvents = "none";
 
     caughtCount++;
     counterBadge.textContent = `Blossoms Caught: ${caughtCount} / 7`;
 
-    // Show Compliment Modal
+    // Display Note
     complimentText.textContent = compliments[index];
     complimentModal.classList.remove("hidden");
     complimentModal.classList.add("fade-in");
@@ -191,8 +202,9 @@ continueGameBtn.addEventListener("click", () => {
     complimentModal.classList.remove("fade-in");
 
     if (caughtCount === 7) {
-        // Clear game area and reveal Golden Sakura Button
-        rainbowIntervals.forEach(clearInterval);
+        // Clear all float loops
+        activePetals.forEach(p => clearInterval(p.interval));
+        rainbowContainer.style.display = "none";
         gamePlayArea.style.display = "none";
 
         finalUnlockCard.classList.remove("hidden");
@@ -200,12 +212,12 @@ continueGameBtn.addEventListener("click", () => {
     }
 });
 
-// Scene 3 -> Scene 4 Proposal Trigger
+// Proposal Scene Transition
 congratsBtn.addEventListener("click", () => {
     gameSection.classList.remove("show");
     gameSection.classList.add("fade-out");
     setTimeout(() => {
         gameSection.style.display = "none";
-        // Final proposal scene trigger goes here!
+        // Scene 4 proposal hook
     }, 800);
 });
