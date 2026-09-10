@@ -237,3 +237,225 @@ button:active {
     }
 
 }
+
+/* ========================================
+   SCENE 2 — STORY SECTION
+   ======================================== */
+
+.story-section {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+
+    text-align: center;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform: scale(1.03);
+
+    z-index: 3;
+
+    transition:
+        opacity 1.2s ease,
+        transform 1.5s ease,
+        visibility 1.2s ease;
+}
+
+
+/* Scene 2 becomes visible */
+.story-section.show {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: scale(1);
+}
+
+
+/* Story content */
+.story-content {
+    width: 90%;
+    max-width: 650px;
+
+    padding: 40px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    border-radius: 24px;
+
+    backdrop-filter: blur(10px);
+
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.25);
+
+    animation: storyReveal 1.5s ease forwards;
+}
+
+
+/* Small label */
+.story-label {
+    display: block;
+
+    margin-bottom: 20px;
+
+    font-size: 0.8rem;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+/* Story heading */
+.story-content h2 {
+    margin-bottom: 22px;
+
+    font-size: clamp(2rem, 6vw, 3.2rem);
+
+    font-weight: 400;
+
+    line-height: 1.2;
+
+    text-shadow:
+        0 3px 18px rgba(0, 0, 0, 0.45);
+}
+
+
+/* Story paragraph */
+.story-content p {
+    margin-bottom: 25px;
+
+    font-size: 1.15rem;
+
+    line-height: 1.8;
+
+    color: rgba(255, 255, 255, 0.9);
+}
+
+
+/* Decorative line */
+.story-line {
+    width: 60px;
+
+    height: 1px;
+
+    margin: 10px auto 0;
+
+    background: rgba(255, 255, 255, 0.7);
+
+    animation: lineGrow 1.5s ease 0.5s both;
+}
+
+
+/* Opening scene fades away */
+.container.fade-out {
+    opacity: 0;
+
+    transform: translateY(-20px) scale(0.98);
+
+    transition:
+        opacity 0.9s ease,
+        transform 0.9s ease;
+
+    pointer-events: none;
+}
+
+
+/* Story entrance */
+@keyframes storyReveal {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(25px);
+
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+
+        filter: blur(0);
+    }
+
+}
+
+
+/* Decorative line animation */
+@keyframes lineGrow {
+
+    from {
+        width: 0;
+
+        opacity: 0;
+    }
+
+    to {
+        width: 60px;
+
+        opacity: 1;
+    }
+
+}
+
+
+/* Mobile Scene 2 */
+@media (max-width: 600px) {
+
+    .story-section {
+        padding: 20px;
+    }
+
+
+    .story-content {
+        width: 94%;
+
+        padding: 32px 24px;
+
+        border-radius: 20px;
+    }
+
+
+    .story-label {
+        font-size: 0.7rem;
+
+        letter-spacing: 3px;
+
+        margin-bottom: 16px;
+    }
+
+
+    .story-content h2 {
+        font-size: 2.15rem;
+
+        line-height: 1.25;
+    }
+
+
+    .story-content p {
+        font-size: 1.05rem;
+
+        line-height: 1.7;
+    }
+
+}
