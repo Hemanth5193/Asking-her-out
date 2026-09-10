@@ -2,8 +2,8 @@ const beginButton = document.getElementById("beginButton");
 const introContainer = document.getElementById("introContainer");
 const storySection = document.getElementById("storySection");
 
+const scene2Intro = document.getElementById("scene2Intro");
 const sakuraBtn = document.getElementById("sakuraBtn");
-const catchArea = document.getElementById("catchArea");
 const poemContainer = document.getElementById("poemContainer");
 const nextToScene3Btn = document.getElementById("nextToScene3Btn");
 
@@ -36,18 +36,16 @@ function moveSakura() {
     sakuraBtn.style.transform = `translate(${randomX}px, ${randomY}px) scale(1.1)`;
 }
 
-// Catching the Sakura
+// Catching the Sakura — Immediate & clean hide
 sakuraBtn.addEventListener("click", function () {
     clearInterval(moveInterval);
     
-    catchArea.style.opacity = "0";
-    catchArea.style.transition = "opacity 0.5s ease";
+    // Hide the entire intro text block instantly from DOM flow
+    scene2Intro.style.display = "none";
 
-    setTimeout(() => {
-        catchArea.style.display = "none";
-        poemContainer.classList.remove("hidden");
-        poemContainer.classList.add("fade-in");
-    }, 500);
+    // Unhide the poem block and animate its reveal
+    poemContainer.classList.remove("hidden");
+    poemContainer.classList.add("fade-in");
 });
 
 // Scene 2 -> Scene 3
@@ -57,6 +55,5 @@ nextToScene3Btn.addEventListener("click", function () {
 
     setTimeout(() => {
         storySection.style.display = "none";
-        // Ready for Scene 3 build!
     }, 800);
 });
