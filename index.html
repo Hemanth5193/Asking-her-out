@@ -9,39 +9,31 @@
 
 <body>
 
-    <video class="background-video" autoplay muted loop playsinline>
+    <video class="background-video" autoplay muted loop playsinline preload="auto">
         <source src="sakura.mp4" type="video/mp4">
     </video>
 
     <div class="video-overlay"></div>
 
-    <div class="container">
-
+    <!-- Scene 1: Intro -->
+    <div class="container" id="introContainer">
         <h1>Hey, Ananya...</h1>
-
         <p>I made something special just for YOU.</p>
-
-        <button id= "beginButton">Begin</button>
-
+        <button id="beginButton">Begin</button>
     </div>
+
+    <!-- Scene 2: Story Section -->
     <section class="story-section" id="storySection">
-
-    <div class="story-content">
-
-        <span class="story-label">A little something...</span>
-
-        <h2>Before I ask you anything...</h2>
-
-        <p>
-            I wanna create a little moment
-            that you could FEEL & KEEP.
-        </p>
-
-        <div class="story-line"></div>
-
-    </div>
-
-</section>
+        <div class="story-content">
+            <span class="story-label">A little something...</span>
+            <h2>Before I ask you anything...</h2>
+            <p>
+                I wanna create a little moment<br>
+                that you could FEEL & KEEP.
+            </p>
+            <div class="story-line"></div>
+        </div>
+    </section>
 
     <script src="script.js"></script>
 
