@@ -25,27 +25,32 @@
     <!-- Scene 2: Story, Floating Sakura & Poem -->
     <section class="story-section" id="storySection">
         <div class="story-content">
-            <span class="story-label">A little something...</span>
-            <h2>Before I ask you anything...</h2>
-            
-            <p class="instruction-text">I wanna create a little moment that you could FEEL & KEEP.</p>
 
-            <!-- Catch Prompt & Floating Sakura Button -->
-            <div id="catchArea" class="catch-area">
-                <p class="catch-hint">✨ Catch the sakura flower ✨</p>
-                <button id="sakuraBtn" class="sakura-btn" aria-label="Catch Sakura">🌸</button>
+            <!-- Initial Intro Content (Hides on Sakura click) -->
+            <div id="scene2Intro">
+                <span class="story-label">A little something...</span>
+                <h2>Before I ask you anything...</h2>
+                <p class="instruction-text">I Wanna create a little moment for you FEEL & KEEP. To know </p>
+
+                <div id="catchArea" class="catch-area">
+                    <p class="catch-hint">✨ Catch the sakura flower ✨</p>
+                    <button id="sakuraBtn" class="sakura-btn" aria-label="Catch Sakura">🌸</button>
+                </div>
             </div>
 
-            <!-- Poem (Revealed on click) -->
+            <!-- Poem Section (Appears alone after Sakura click) -->
             <div id="poemContainer" class="poem-container hidden">
-                <p class="poem-line">In a world full of noise and fleeting days,</p>
-                <p class="poem-line">You caught my heart in a million quiet ways.</p>
-                <p class="poem-line">So I built this moment, timeless and true,</p>
-                <p class="poem-line">Just to share a tiny piece of magic with you.</p>
+                <span class="story-label">For You ❤️</span>
+                <div class="poem-text">
+                    <p class="poem-line">In a world full of noise and fleeting days,</p>
+                    <p class="poem-line">You caught my heart in a million quiet ways.</p>
+                    <p class="poem-line">So I built this moment, timeless and true,</p>
+                    <p class="poem-line">Just to share a tiny piece of magic with you.</p>
+                </div>
 
                 <div class="story-line"></div>
                 
-                <button id="nextToScene3Btn" class="story-btn">Step Inside ❤️</button>
+                <button id="nextToScene3Btn" class="story-btn">Dive Inside ❤️</button>
             </div>
 
         </div>
