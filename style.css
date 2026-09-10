@@ -341,7 +341,7 @@ button:active {
 }
 
 
-/* Opening scene fade */
+/* Opening scene fade 
 .container.fade-out {
     opacity: 0;
 
@@ -352,7 +352,7 @@ button:active {
         transform 0.8s ease;
 
     pointer-events: none;
-}
+}*/
 
 
 /* Mobile */
