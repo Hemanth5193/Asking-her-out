@@ -1,5 +1,19 @@
-const beginButton = document.querySelector("button");
+const beginButton = document.getElementById("beginButton");
+
+const container = document.querySelector(".container");
+
+const storySection = document.getElementById("storySection");
+
 
 beginButton.addEventListener("click", function () {
-    alert("Okay... let's begin ❤️");
+
+    container.classList.add("fade-out");
+
+
+    setTimeout(function () {
+
+        storySection.classList.add("show");
+
+    }, 900);
+
 });
