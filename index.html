@@ -15,6 +15,9 @@
 
     <div class="video-overlay"></div>
 
+    <!-- Petal Transition Overlay -->
+    <div id="petalTransition" class="petal-transition-container"></div>
+
     <!-- Scene 1: Intro -->
     <div class="container" id="introContainer">
         <h1>Hey, Ananya...</h1>
@@ -26,11 +29,11 @@
     <section class="story-section" id="storySection">
         <div class="story-content">
 
-            <!-- Initial Intro Content (Hides on Sakura click) -->
+            <!-- Initial Intro Content -->
             <div id="scene2Intro">
                 <span class="story-label">A little something...</span>
                 <h2>Before I ask you anything...</h2>
-                <p class="instruction-text">I Wanna create a little moment for you FEEL & KEEP. To know </p>
+                <p class="instruction-text">I wanna create a little moment that you could FEEL & KEEP.</p>
 
                 <div id="catchArea" class="catch-area">
                     <p class="catch-hint">✨ Catch the sakura flower ✨</p>
@@ -38,7 +41,7 @@
                 </div>
             </div>
 
-            <!-- Poem Section (Appears alone after Sakura click) -->
+            <!-- Poem Section -->
             <div id="poemContainer" class="poem-container hidden">
                 <span class="story-label">For You ❤️</span>
                 <div class="poem-text">
@@ -50,9 +53,37 @@
 
                 <div class="story-line"></div>
                 
-                <button id="nextToScene3Btn" class="story-btn">Dive Inside ❤️</button>
+                <button id="nextToScene3Btn" class="story-btn">Step Inside ❤️</button>
             </div>
 
+        </div>
+    </section>
+
+    <!-- Scene 3: Rainbow Sakura Mini-Game -->
+    <section class="game-section" id="gameSection">
+        <div class="game-header">
+            <span class="story-label">Petals of Light</span>
+            <h2>Catch All 6 Rainbow Blossoms ✨</h2>
+            <div id="counter" class="counter-badge">Blossoms Caught: 0 / 6</div>
+        </div>
+
+        <!-- Floating Rainbow Sakura Area -->
+        <div id="rainbowContainer" class="rainbow-container"></div>
+
+        <!-- Pop-up Compliment Card -->
+        <div id="complimentModal" class="compliment-modal hidden">
+            <div class="modal-content">
+                <span class="modal-icon">🌸</span>
+                <p id="complimentText" class="compliment-text"></p>
+                <button id="continueGameBtn" class="modal-btn">Keep Collecting ✨</button>
+            </div>
+        </div>
+
+        <!-- Final Unlock Card -->
+        <div id="finalUnlockCard" class="final-card hidden">
+            <h2>You Found Every Piece... ❤️</h2>
+            <p>Now there's just one final thing left to ask.</p>
+            <button id="toProposalBtn" class="story-btn glow-btn">Ask Me ❤️</button>
         </div>
     </section>
 
