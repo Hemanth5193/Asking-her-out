@@ -22,16 +22,32 @@
         <button id="beginButton">Begin</button>
     </div>
 
-    <!-- Scene 2: Story Section -->
+    <!-- Scene 2: Story, Floating Sakura & Poem -->
     <section class="story-section" id="storySection">
         <div class="story-content">
             <span class="story-label">A little something...</span>
             <h2>Before I ask you anything...</h2>
-            <p>
-                I wanna create a little moment<br>
-                that you could FEEL & KEEP.
-            </p>
-            <div class="story-line"></div>
+            
+            <p class="instruction-text">I wanna create a little moment that you could FEEL & KEEP.</p>
+
+            <!-- Catch Prompt & Floating Sakura Button -->
+            <div id="catchArea" class="catch-area">
+                <p class="catch-hint">✨ Catch the sakura flower ✨</p>
+                <button id="sakuraBtn" class="sakura-btn" aria-label="Catch Sakura">🌸</button>
+            </div>
+
+            <!-- Poem (Revealed on click) -->
+            <div id="poemContainer" class="poem-container hidden">
+                <p class="poem-line">In a world full of noise and fleeting days,</p>
+                <p class="poem-line">You caught my heart in a million quiet ways.</p>
+                <p class="poem-line">So I built this moment, timeless and true,</p>
+                <p class="poem-line">Just to share a tiny piece of magic with you.</p>
+
+                <div class="story-line"></div>
+                
+                <button id="nextToScene3Btn" class="story-btn">Step Inside ❤️</button>
+            </div>
+
         </div>
     </section>
 
