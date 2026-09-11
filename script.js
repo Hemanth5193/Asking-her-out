@@ -27,7 +27,10 @@ const congratsBtn = document.getElementById("congratsBtn");
 let moveInterval;
 let activePetals = [];
 
-// Scene 1 -> Scene 2
+// ========================================
+// SCENE 1 & 2 TRANSITIONS & TIMINGS
+// ========================================
+
 beginButton.addEventListener("click", function () {
     introContainer.classList.add("fade-out");
 
@@ -38,7 +41,6 @@ beginButton.addEventListener("click", function () {
     }, 800);
 });
 
-// Scene 2 Sakura Float
 function startSakuraFloating() {
     moveSakura();
     moveInterval = setInterval(moveSakura, 2000);
@@ -54,7 +56,6 @@ function moveSakura() {
     sakuraBtn.style.transform = `translate(${randomX}px, ${randomY}px) scale(1.1)`;
 }
 
-// Catching Scene 2 Sakura
 sakuraBtn.addEventListener("click", function () {
     clearInterval(moveInterval);
     scene2Intro.style.display = "none";
@@ -62,7 +63,6 @@ sakuraBtn.addEventListener("click", function () {
     poemContainer.classList.add("fade-in");
 });
 
-// Scene 2 -> Scene 3 Transition
 nextToScene3Btn.addEventListener("click", function () {
     triggerPetalTransition(() => {
         storySection.classList.remove("show");
@@ -71,7 +71,6 @@ nextToScene3Btn.addEventListener("click", function () {
     });
 });
 
-// Cinematic Full-Screen Cherry Storm Transition
 function triggerPetalTransition(callback) {
     petalTransition.innerHTML = "";
     const petalCount = window.innerWidth > 768 ? 80 : 45;
@@ -92,17 +91,16 @@ function triggerPetalTransition(callback) {
     }, 2500);
 }
 
-// Start Game Prompt Action
+// ========================================
+// SCENE 3: VIBGYOR RAINBOW SAKURA GAME
+// ========================================
+
 startGameBtn.addEventListener("click", () => {
     preGamePrompt.classList.add("hidden");
     gamePlayArea.classList.remove("hidden");
     gamePlayArea.classList.add("fade-in");
     initRainbowGame();
 });
-
-/* ========================================
-   SCENE 3: VIBGYOR RAINBOW SAKURA ENGINE
-   ======================================== */
 
 const compliments = [
     "Violet 💜 — Your grace and calm presence soothe my mind in every way.",
@@ -205,7 +203,6 @@ continueGameBtn.addEventListener("click", () => {
     }
 });
 
-// Proposal Transition (Hooked to Scene 4)
 congratsBtn.addEventListener("click", () => {
     gameSection.classList.remove("show");
     gameSection.classList.add("fade-out");
@@ -215,14 +212,15 @@ congratsBtn.addEventListener("click", () => {
     }, 800);
 });
 
-/* ========================================
-   SCENE 4: SAKURA PETAL PUZZLE ENGINE (UPDATED)
-   ======================================== */
+// ========================================
+// SCENE 4: UPDATED SAKURA PUZZLE ENGINE
+// ========================================
 
 const scene4Qualities = ["Kind", "Beautiful", "Strong", "Funny", "Elegant"];
 let freeMovingPetals = [];
 let scene4CaughtCount = 0;
 
+// Authentic SVG Sakura Petal Generator (Includes signature notched top tip & smooth curved sides)
 function createSakuraPetalSVG() {
     return `
     <svg class="sakura-svg-petal" viewBox="0 0 100 130">
@@ -256,13 +254,13 @@ function initScene4Puzzle() {
     freeMovingPetals = [];
     scene4CaughtCount = 0;
 
-    // Spawn 5 independent floating petals wandering across the full screen
+    // Spawn 5 individual petals floating freely across the full screen
     scene4Qualities.forEach((quality, index) => {
         const petalWrap = document.createElement("div");
         petalWrap.classList.add("floating-petal-wrapper");
         petalWrap.innerHTML = createSakuraPetalSVG();
 
-        // Screen margins
+        // Screen boundary padding
         const marginX = 100;
         const marginY = 120;
         const initialX = marginX + Math.random() * (window.innerWidth - marginX * 2);
@@ -300,16 +298,16 @@ function animateFreePetal(p) {
     p.y += p.vy;
     p.rotation += p.vRot;
 
-    // Bounce off screen boundaries
+    // Bounce off screen borders
     if (p.x < 50 || p.x > window.innerWidth - 120) p.vx *= -1;
     if (p.y < 80 || p.y > window.innerHeight - 150) p.vy *= -1;
 
-    // Subtle trajectory changes
+    // Subtle random direction adjustments
     if (Math.random() < 0.05) {
         p.vx += (Math.random() - 0.5) * 1.5;
         p.vy += (Math.random() - 0.5) * 1.5;
         
-        // Velocity caps
+        // Speed limits
         p.vx = Math.max(-3.5, Math.min(3.5, p.vx));
         p.vy = Math.max(-3.5, Math.min(3.5, p.vy));
     }
@@ -322,12 +320,12 @@ function animateFreePetal(p) {
 function handleCatchScene4Petal(p) {
     clearInterval(p.interval);
     
-    // Smoothly fly towards center core and attach
     p.element.style.pointerEvents = "none";
     
     const centerCore = document.getElementById("sakuraCenterCore");
     const rect = centerCore.getBoundingClientRect();
 
+    // Animate caught petal toward the central Sakura core
     p.element.style.left = `${rect.left - 20}px`;
     p.element.style.top = `${rect.top - 20}px`;
     p.element.style.transform = `scale(0.2) rotate(0deg)`;
@@ -350,24 +348,22 @@ function attachPetalToFlower(quality, index) {
     petalWrap.classList.add("attached-petal-wrapper");
     petalWrap.innerHTML = createSakuraPetalSVG();
 
-    // Attach in exact 5-petal Sakura arrangement (72 degrees step starting at -90deg)
+    // 5-petal Sakura arrangement (72° step angles)
     const angleDeg = index * 72 - 90;
-    const angleRad = angleDeg * (Math.PI / 180);
 
-    // Responsive radius placement
+    // Radius from center
     const radius = window.innerWidth > 480 ? 75 : 55;
 
-    // CSS Transform positioning outwards from exact center point
+    // Precise rotational placement extending from center
     petalWrap.style.left = `calc(50% - ${window.innerWidth > 480 ? 40 : 32}px)`;
     petalWrap.style.top = `calc(50% - ${window.innerWidth > 480 ? 100 : 75}px)`;
     petalWrap.style.transformOrigin = `50% 100%`;
     petalWrap.style.transform = `rotate(${angleDeg + 90}deg) translateY(-${radius}px)`;
 
-    // Quality Label
+    // Revealed quality label
     const label = document.createElement("span");
     label.classList.add("petal-label");
     label.textContent = quality;
-    // Counter-rotate label so text remains readable straight
     label.style.transform = `rotate(-${angleDeg + 90}deg)`;
 
     petalWrap.appendChild(label);
@@ -380,17 +376,17 @@ function triggerPuzzleCompletion() {
     const completionCard = document.getElementById("scene4Completion");
 
     setTimeout(() => {
-        // Grand Golden Bloom Glow & Slow Rotational Flow
+        // Golden glow transition and continuous rotation
         container.classList.add("golden-completed");
         aura.classList.add("active");
 
-        // Fade in final message and button
+        // Fade in message & "Ready for it..? 😻" button
         completionCard.classList.remove("hidden");
         completionCard.classList.add("fade-in");
     }, 900);
 }
 
-// Scene 4 -> Scene 5 Hook
+// Scene 4 -> Scene 5 Navigation
 document.body.addEventListener("click", (e) => {
     if (e.target && e.target.id === "readyForItBtn") {
         const scene4Section = document.getElementById("scene4Section");
@@ -399,7 +395,7 @@ document.body.addEventListener("click", (e) => {
 
         setTimeout(() => {
             scene4Section.style.display = "none";
-            // Scene 5 code connects here smoothly
+            // Transition to Scene 5 connects seamlessly here
         }, 800);
     }
 });
