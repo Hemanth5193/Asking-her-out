@@ -1,146 +1,697 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Little Question ❤️</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-<body>
+/* Page Setup */
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+    text-align: center;
+    color: #fff;
+    background-color: #0d0b14;
+}
 
-    <video class="background-video" autoplay muted loop playsinline preload="auto">
-        <source src="sakura.mp4" type="video/mp4">
-    </video>
+/* Background Video & Overlay */
+.background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 0;
+}
 
-    <div class="video-overlay"></div>
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.45) 100%);
+    z-index: 1;
+}
 
-    <!-- Full-Screen Petal Transition Overlay -->
-    <div id="petalTransition" class="petal-transition-container"></div>
+/* Glassmorphism Container Classes */
+.glass-card {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 24px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
 
-    <!-- Scene 1: Intro -->
-    <div class="container" id="introContainer">
-        <h1>Hey, Ananya...</h1>
-        <p>I made something special just for YOU.</p>
-        <button id="beginButton" class="glass-btn">Begin</button>
-    </div>
+.container {
+    position: relative;
+    width: 90%;
+    max-width: 650px;
+    padding: 40px;
+    z-index: 2;
+    animation: reveal 1.5s ease forwards;
+}
 
-    <!-- Scene 2: Story, Floating Sakura & Poem -->
-    <section class="story-section" id="storySection">
-        <div class="story-content glass-card">
+.container::before {
+    content: "❀";
+    display: block;
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #fff;
+    opacity: 0.9;
+    animation: float 3s ease-in-out infinite;
+}
 
-            <!-- Initial Intro Content -->
-            <div id="scene2Intro">
-                <span class="story-label">A little something...</span>
-                <h2>Before I ask you anything...</h2>
-                <p class="instruction-text">I wanna create a little moment that you could FEEL & KEEP.</p>
+h1 {
+    font-size: clamp(2.3rem, 8vw, 4rem);
+    font-weight: 400;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+}
 
-                <div id="catchArea" class="catch-area">
-                    <p class="catch-hint">✨ Catch the sakura flower ✨</p>
-                    <button id="sakuraBtn" class="sakura-btn" aria-label="Catch Sakura">🌸</button>
-                </div>
-            </div>
+p {
+    font-size: 1.35rem;
+    line-height: 1.7;
+    color: #fff;
+    margin-bottom: 35px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
 
-            <!-- Poem Section -->
-            <div id="poemContainer" class="poem-container hidden">
-                <span class="story-label">For You ❤️</span>
-                <div class="poem-text">
-                    <p class="poem-line">In a world full of noise and fleeting days,</p>
-                    <p class="poem-line">You caught my heart in a million quiet ways.</p>
-                    <p class="poem-line">So I built this moment, timeless and true,</p>
-                    <p class="poem-line">Just to share a tiny piece of magic with you.</p>
-                </div>
+button {
+    padding: 14px 34px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: white;
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
 
-                <div class="story-line"></div>
-                
-                <button id="nextToScene3Btn" class="story-btn">Step Inside ❤️</button>
-            </div>
+button:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.95);
+}
 
-        </div>
-    </section>
+.container.fade-out,
+.story-section.fade-out,
+.game-section.fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    pointer-events: none;
+}
 
-    <!-- Scene 3: VIBGYOR Rainbow Sakura Game -->
-    <section class="game-section" id="gameSection">
+/* Scene 2 & Common Story Section */
+.story-section,
+.game-section {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 3;
+    transition: opacity 1s ease, visibility 1s ease;
+}
 
-        <!-- Pre-Game Lead-in Prompt -->
-        <div id="preGamePrompt" class="story-content glass-card">
-            <span class="story-label">A Little Secret...</span>
-            <h2>Wanna know how much you mean to me? ❤️</h2>
-            <p class="instruction-text">Catch all 7 rainbow blossoms to unlock every note...</p>
-            <button id="startGameBtn" class="story-btn glow-btn">Start Game 🌸</button>
-        </div>
+.story-section.show,
+.game-section.show {
+    opacity: 1;
+    visibility: visible;
+}
 
-        <!-- Active Game Layout -->
-        <div id="gamePlayArea" class="game-play-area hidden">
-            <div class="game-header">
-                <span class="story-label">Petals of Light</span>
-                <h2>Catch All 7 Rainbow Flowers ✨</h2>
-                <div id="counter" class="counter-badge">Blossoms Caught: 0 / 7</div>
-            </div>
+.story-content {
+    width: 90%;
+    max-width: 620px;
+    padding: 35px;
+}
 
-            <!-- VIBGYOR Floating Sakura Container -->
-            <div id="rainbowContainer" class="rainbow-container"></div>
-        </div>
+.story-label {
+    display: block;
+    margin-bottom: 14px;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+}
 
-        <!-- Pop-up Compliment Modal -->
-        <div id="complimentModal" class="compliment-modal hidden">
-            <div class="modal-content glass-card">
-                <span class="modal-icon">🌸</span>
-                <p id="complimentText" class="compliment-text"></p>
-                <button id="continueGameBtn" class="modal-btn">Keep Collecting ✨</button>
-            </div>
-        </div>
+.instruction-text {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
 
-        <!-- Final Unlock: Grand Golden Sakura Emblem -->
-        <div id="finalUnlockCard" class="final-card hidden">
-            <div class="golden-emblem-container">
-                <div class="golden-aura-ring"></div>
-                <button id="congratsBtn" class="golden-sakura-card">
-                    <div class="golden-flower-icon">🌸</div>
-                    <div class="golden-text-group">
-                        <span class="gold-badge-label">UNLOCKED ✨</span>
-                        <span class="gold-main-title">Congratulations</span>
-                    </div>
-                </button>
-            </div>
-            <p class="gold-subtext">You caught every petal of my heart... Tap to see what comes next ❤️</p>
-        </div>
+.catch-area {
+    margin: 25px 0;
+    position: relative;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
-    </section>
+.catch-hint {
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    color: #ffc0cb;
+    margin-bottom: 15px;
+    animation: pulse 2s infinite ease-in-out;
+}
 
-    <!-- Scene 4: Interactive Sakura Petal Puzzle -->
-    <section class="game-section" id="scene4Section">
-        <h2 class="scene4-heading">HAHA have to clear this PUZZLE to..</h2>
+.sakura-btn {
+    font-size: 2.2rem;
+    background: rgba(255, 182, 193, 0.25);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 182, 193, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.5);
+    transition: transform 1.8s cubic-bezier(0.25, 1, 0.5, 1);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
 
-        <div class="sakura-puzzle-wrapper">
-            <!-- Golden Bloom Aura Layer -->
-            <div class="sakura-bloom-aura" id="sakuraBloomAura"></div>
+.poem-line {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 1.3rem !important;
+    line-height: 1.8 !important;
+    color: #fff0f5 !important;
+    margin-bottom: 12px !important;
+}
 
-            <!-- Main Flower Target Container -->
-            <div class="sakura-puzzle-container" id="sakuraPuzzleContainer">
-                <div class="sakura-center-core" id="sakuraCenterCore">
-                    <div class="stamen-ring"></div>
-                </div>
+.story-line {
+    width: 50px;
+    height: 1px;
+    margin: 20px auto 0;
+    background: rgba(255, 255, 255, 0.7);
+}
 
-                <!-- Attached Petals Socket Layer -->
-                <div class="sakura-attached-petals" id="attachedPetals"></div>
-            </div>
-        </div>
+.story-btn {
+    margin-top: 25px;
+    padding: 12px 30px;
+    font-size: 0.95rem;
+    border-radius: 30px;
+}
 
-        <!-- Free Screen Floating Petals Container -->
-        <div class="sakura-screen-floating-layer" id="floatingPetalsLayer"></div>
+/* Cherry Storm Full-Screen Transition */
+.petal-transition-container {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 99;
+    overflow: hidden;
+}
 
-        <!-- Scene 4 Message and Action Button -->
-        <div id="scene4Completion" class="scene4-completion hidden">
-            <p class="golden-message">
-                You're the mix of all these qualities,<br>
-                and you just look like this golden Sakura above. ✨
-            </p>
-            <button id="readyForItBtn" class="story-btn glow-btn">Ready for it..? 😻</button>
-        </div>
-    </section>
+.transition-petal {
+    position: absolute;
+    top: -30px;
+    width: 16px;
+    height: 16px;
+    background: #ffb6c1;
+    border-radius: 15px 0 15px 0;
+    opacity: 0.9;
+    animation: petalFall linear forwards;
+    box-shadow: 0 0 12px rgba(255, 182, 193, 0.9);
+}
 
-    <script src="script.js"></script>
+@keyframes petalFall {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(0.8);
+        opacity: 0.95;
+    }
+    100% {
+        transform: translateY(112vh) rotate(540deg) scale(1.2);
+        opacity: 0;
+    }
+}
 
-</body>
-</html>
+/* Scene 3: VIBGYOR Rainbow Engine */
+.game-play-area {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+}
+
+.game-header {
+    position: relative;
+    z-index: 10;
+    margin-top: 40px;
+    pointer-events: auto;
+}
+
+.counter-badge {
+    display: inline-block;
+    padding: 8px 22px;
+    margin-top: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    backdrop-filter: blur(8px);
+}
+
+.rainbow-container {
+    position: absolute;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+}
+
+.rainbow-sakura {
+    position: absolute;
+    pointer-events: auto;
+    font-size: 2.2rem;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.5s ease;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.vibgyor-violet {
+    background: radial-gradient(circle, rgba(186, 85, 211, 0.7), rgba(138, 43, 226, 0.4));
+    box-shadow: 0 0 25px rgba(186, 85, 211, 0.95), inset 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.vibgyor-indigo {
+    background: radial-gradient(circle, rgba(106, 90, 205, 0.7), rgba(75, 0, 130, 0.4));
+    box-shadow: 0 0 25px rgba(106, 90, 205, 0.95), inset 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.vibgyor-blue {
+    background: radial-gradient(circle, rgba(30, 144, 255, 0.7), rgba(0, 191, 255, 0.4));
+    box-shadow: 0 0 25px rgba(30, 144, 255, 0.95), inset 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.vibgyor-green {
+    background: radial-gradient(circle, rgba(50, 205, 50, 0.7), rgba(0, 250, 154, 0.4));
+    box-shadow: 0 0 25px rgba(50, 205, 50, 0.95), inset 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.vibgyor-yellow {
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.8), rgba(255, 165, 0, 0.4));
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.95), inset 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.vibgyor-orange {
+    background: radial-gradient(circle, rgba(255, 140, 0, 0.8), rgba(255, 69, 0, 0.4));
+    box-shadow: 0 0 25px rgba(255, 140, 0, 0.95), inset 0 0 10px rgba(255, 69, 0, 0.4);
+}
+
+.vibgyor-red {
+    background: radial-gradient(circle, rgba(255, 45, 85, 0.8), rgba(220, 20, 60, 0.4));
+    box-shadow: 0 0 25px rgba(255, 45, 85, 0.95), inset 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+/* Modals & Final Unlock Styling */
+.compliment-modal,
+.final-card {
+    position: relative;
+    z-index: 20;
+    width: 90%;
+    max-width: 520px;
+}
+
+.modal-icon {
+    font-size: 2.8rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.compliment-text {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    color: #fff0f5;
+}
+
+.modal-btn {
+    padding: 10px 28px;
+    font-size: 0.9rem;
+    border-radius: 25px;
+}
+
+.golden-emblem-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 25px 0 20px;
+}
+
+.golden-aura-ring {
+    position: absolute;
+    width: 220px;
+    height: 110px;
+    border-radius: 60px;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.5) 0%, rgba(255, 182, 193, 0) 70%);
+    animation: goldenPulse 2.4s infinite ease-in-out;
+    z-index: 0;
+}
+
+.golden-sakura-card {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 36px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.35), rgba(255, 105, 180, 0.35));
+    border: 2px solid rgba(255, 223, 0, 0.95);
+    border-radius: 60px;
+    cursor: pointer;
+    box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), inset 0 0 18px rgba(255, 255, 255, 0.7);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.golden-sakura-card:hover {
+    transform: scale(1.06) translateY(-2px);
+    box-shadow: 0 0 50px rgba(255, 215, 0, 1), inset 0 0 25px rgba(255, 255, 255, 0.9);
+}
+
+.golden-flower-icon {
+    font-size: 2.8rem;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9));
+}
+
+.golden-text-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.gold-badge-label {
+    font-size: 0.68rem;
+    letter-spacing: 2.5px;
+    color: #fffbcf;
+    font-weight: 700;
+}
+
+.gold-main-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.gold-subtext {
+    font-size: 1.05rem;
+    color: #ffeedd;
+    opacity: 0.9;
+}
+
+.glow-btn {
+    animation: pulse 2s infinite ease-in-out;
+    box-shadow: 0 0 25px rgba(255, 182, 193, 0.8);
+}
+
+/* ========================================
+   SCENE 4: SAKURA PETAL PUZZLE STYLES (CORRECTED GEOMETRY)
+   ======================================== */
+
+.scene4-heading {
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    font-weight: 400;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    color: #fff0f5;
+    text-shadow: 0 0 12px rgba(255, 182, 193, 0.6);
+    z-index: 10;
+}
+
+/* Layout Wrapper */
+.sakura-puzzle-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px auto;
+    z-index: 5;
+}
+
+/* Soft Golden Bloom Background Aura */
+.sakura-bloom-aura {
+    position: absolute;
+    width: clamp(280px, 45vw, 440px);
+    height: clamp(280px, 45vw, 440px);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 215, 130, 0.28) 0%, rgba(255, 182, 193, 0.12) 45%, transparent 70%);
+    opacity: 0;
+    transition: opacity 1.8s ease-in-out;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.sakura-bloom-aura.active {
+    opacity: 1;
+    animation: softGoldenAuraPulse 4s infinite ease-in-out;
+}
+
+/* Main Flower Base */
+.sakura-puzzle-container {
+    position: relative;
+    width: clamp(280px, 40vw, 420px);
+    height: clamp(280px, 40vw, 420px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    z-index: 2;
+    transition: transform 1.2s ease;
+}
+
+/* Center Core */
+.sakura-center-core {
+    position: relative;
+    width: clamp(24px, 4vw, 36px);
+    height: clamp(24px, 4vw, 36px);
+    background: radial-gradient(circle, #fff5da 10%, #ffc0cb 50%, #e07a9e 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255, 192, 203, 0.85), inset 0 0 6px rgba(255, 255, 255, 0.9);
+    z-index: 10;
+    transition: background 1.5s ease, box-shadow 1.5s ease;
+}
+
+.stamen-ring {
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.6);
+    opacity: 0.7;
+}
+
+/* Socket Layer */
+.sakura-attached-petals {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Free Screen Floating Layer */
+.sakura-screen-floating-layer {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 8;
+}
+
+/* Free Moving Petals */
+.floating-petal-wrapper {
+    position: absolute;
+    pointer-events: auto;
+    width: clamp(65px, 8vw, 90px);
+    height: clamp(85px, 11vw, 120px);
+    cursor: pointer;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.3, 1), left 0.9s cubic-bezier(0.2, 0.8, 0.3, 1), top 0.9s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.floating-petal-wrapper:hover {
+    filter: drop-shadow(0 0 18px rgba(255, 223, 136, 0.95));
+}
+
+.sakura-svg-petal {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.petal-path {
+    fill: url(#sakuraPetalGrad);
+    stroke: rgba(255, 255, 255, 0.8);
+    stroke-width: 1.2;
+    transition: fill 1.5s ease, stroke 1.5s ease;
+}
+
+/* Attached Petals inside Flower Base */
+.attached-petal-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: clamp(65px, 8vw, 90px);
+    height: clamp(85px, 11vw, 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    /* Bottom center anchoring creates precise 5-star flower symmetry */
+    transform-origin: 50% 100%;
+    animation: attachSnapGlow 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.attached-petal-wrapper .petal-label {
+    position: absolute;
+    top: 32%;
+    font-size: clamp(0.7rem, 0.95vw, 0.88rem);
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.85), 0 0 4px rgba(255, 255, 255, 0.8);
+    opacity: 0;
+    animation: labelFadeIn 0.8s ease 0.2s forwards;
+    pointer-events: none;
+    letter-spacing: 0.5px;
+    z-index: 3;
+}
+
+/* Golden Completed State */
+.sakura-puzzle-container.golden-completed {
+    animation: slowRotationalFlow 24s linear infinite;
+}
+
+.sakura-puzzle-container.golden-completed .petal-path {
+    fill: url(#sakuraGoldenPetalGrad);
+    stroke: rgba(255, 255, 255, 0.95);
+}
+
+.sakura-puzzle-container.golden-completed .sakura-center-core {
+    background: radial-gradient(circle, #ffffff 10%, #ffe380 50%, #d4a017 100%);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 1), 0 0 50px rgba(255, 215, 0, 0.6);
+}
+
+.scene4-completion {
+    margin-top: 15px;
+    z-index: 10;
+}
+
+.golden-message {
+    font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+    line-height: 1.7;
+    color: #ffeedd;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+    margin-bottom: 20px;
+    animation: poemReveal 1.2s ease forwards;
+}
+
+/* Animations */
+.hidden {
+    display: none !important;
+}
+
+.fade-in {
+    display: block !important;
+    animation: poemReveal 0.9s ease forwards;
+}
+
+@keyframes reveal {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes goldenPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.25); opacity: 0.9; }
+}
+
+@keyframes poemReveal {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes attachSnapGlow {
+    0% { filter: brightness(2.2) drop-shadow(0 0 25px #fff); }
+    70% { filter: brightness(1.5) drop-shadow(0 0 15px #ffd700); }
+    100% { filter: brightness(1) drop-shadow(0 0 8px rgba(255, 182, 193, 0.6)); }
+}
+
+@keyframes labelFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes softGoldenAuraPulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.12); opacity: 1; }
+}
+
+@keyframes slowRotationalFlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    .scene4-heading {
+        margin-bottom: 10px;
+    }
+    .sakura-puzzle-wrapper {
+        margin: 5px auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    .rainbow-sakura {
+        width: 72px;
+        height: 72px;
+        font-size: 2.5rem;
+    }
+}
