@@ -136,7 +136,7 @@ function initRainbowGame() {
         // Continuous Smooth Physics Motion
         const petalObj = {
             element: btn,
-            interval: setInterval(() => glidePetal(btn), 1800 + Math.random() * 600)
+            interval: setInterval(() => glidePetal(btn), 900 + Math.random() * 400)
         };
         activePetals.push(petalObj);
 
@@ -212,82 +212,12 @@ continueGameBtn.addEventListener("click", () => {
     }
 });
 
-/* ========================================
-   SCENE 3 -> SCENE 4 TRANSITION (CONGRATS)
-   ======================================== */
-
+// Proposal Scene Transition
 congratsBtn.addEventListener("click", () => {
     gameSection.classList.remove("show");
     gameSection.classList.add("fade-out");
-
     setTimeout(() => {
         gameSection.style.display = "none";
-        loadScene4();
+        // Scene 4 proposal hook
     }, 800);
 });
-
-/* ========================================
-   SCENE 4: NIGHT LANTERN RELEASE ENGINE
-   ======================================== */
-
-const scene4Section = document.getElementById("scene-4");
-const scene4NextBtn = document.getElementById("scene4-next-btn");
-let litCount = 0;
-
-function loadScene4() {
-    // 1. Activate dark twilight theme on background
-    document.body.classList.add("scene-4-active");
-
-    // 2. Display Scene 4
-    if (scene4Section) {
-        scene4Section.style.display = "flex";
-        scene4Section.classList.remove("hidden");
-        scene4Section.classList.add("fade-in");
-    }
-}
-
-function lightLantern(index) {
-    const lantern = document.querySelector(`.lantern-item[data-index="${index}"]`);
-    
-    if (!lantern || lantern.classList.contains("lit")) return;
-
-    // Mark as lit & trigger glow animation
-    lantern.classList.add("lit");
-    litCount++;
-
-    // Reveal whisper card
-    const whisper = lantern.querySelector(".whisper-box");
-    if (whisper) {
-        whisper.classList.remove("hidden");
-        setTimeout(() => whisper.classList.add("show"), 50);
-    }
-
-    // Reveal next scene button when all 3 lanterns are lit
-    if (litCount === 3) {
-        setTimeout(() => {
-            if (scene4NextBtn) {
-                scene4NextBtn.classList.remove("hidden");
-                scene4NextBtn.classList.add("fade-in");
-            }
-        }, 900);
-    }
-}
-
-// Scene Navigation Manager (Scene 4 -> Scene 5 and beyond)
-function goToScene(sceneNumber) {
-    if (sceneNumber === 5) {
-        if (scene4Section) {
-            scene4Section.classList.add("fade-out");
-            setTimeout(() => {
-                scene4Section.style.display = "none";
-                
-                const scene5Section = document.getElementById("scene-5");
-                if (scene5Section) {
-                    scene5Section.style.display = "flex";
-                    scene5Section.classList.remove("hidden");
-                    scene5Section.classList.add("fade-in");
-                }
-            }, 800);
-        }
-    }
-}
