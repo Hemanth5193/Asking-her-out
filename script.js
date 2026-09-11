@@ -129,11 +129,9 @@ function initRainbowGame() {
         btn.innerHTML = "🌸";
         btn.setAttribute("data-index", i);
         
-        // Initial Screen Placement
         setRandomInitialPosition(btn);
         rainbowContainer.appendChild(btn);
 
-        // Continuous Smooth Physics Motion
         const petalObj = {
             element: btn,
             interval: setInterval(() => glidePetal(btn), 900 + Math.random() * 400)
@@ -207,7 +205,7 @@ continueGameBtn.addEventListener("click", () => {
     }
 });
 
-// Proposal Transition (Hooked directly to Scene 4)
+// Proposal Transition (Hooked to Scene 4)
 congratsBtn.addEventListener("click", () => {
     gameSection.classList.remove("show");
     gameSection.classList.add("fade-out");
@@ -218,112 +216,178 @@ congratsBtn.addEventListener("click", () => {
 });
 
 /* ========================================
-   SCENE 4: SAKURA PETAL PUZZLE ENGINE
+   SCENE 4: SAKURA PETAL PUZZLE ENGINE (UPDATED)
    ======================================== */
 
 const scene4Qualities = ["Kind", "Beautiful", "Strong", "Funny", "Elegant"];
-let uncaughtPetals = [];
-let petalsCaughtCount = 0;
+let freeMovingPetals = [];
+let scene4CaughtCount = 0;
+
+function createSakuraPetalSVG() {
+    return `
+    <svg class="sakura-svg-petal" viewBox="0 0 100 130">
+        <defs>
+            <linearGradient id="sakuraPetalGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stop-color="rgba(255, 182, 193, 0.95)" />
+                <stop offset="50%" stop-color="rgba(255, 192, 203, 0.85)" />
+                <stop offset="100%" stop-color="rgba(255, 240, 245, 0.95)" />
+            </linearGradient>
+            <linearGradient id="sakuraGoldenPetalGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stop-color="rgba(218, 165, 32, 0.95)" />
+                <stop offset="45%" stop-color="rgba(255, 215, 0, 0.9)" />
+                <stop offset="100%" stop-color="rgba(255, 250, 205, 0.98)" />
+            </linearGradient>
+        </defs>
+        <path class="petal-path" d="M 50 125 C 20 100, 2 65, 8 35 C 12 18, 28 8, 42 16 C 47 19, 49 22, 50 24 C 51 22, 53 19, 58 16 C 72 8, 88 18, 92 35 C 98 65, 80 100, 50 125 Z" />
+    </svg>`;
+}
 
 function initScene4Puzzle() {
     const scene4Section = document.getElementById("scene4Section");
-    const floatingPetalsContainer = document.getElementById("floatingPetals");
+    const floatingPetalsLayer = document.getElementById("floatingPetalsLayer");
     const attachedPetalsContainer = document.getElementById("attachedPetals");
+    const sakuraBloomAura = document.getElementById("sakuraBloomAura");
     
     scene4Section.classList.add("show");
-    floatingPetalsContainer.innerHTML = "";
+    floatingPetalsLayer.innerHTML = "";
     attachedPetalsContainer.innerHTML = "";
-    uncaughtPetals = [];
-    petalsCaughtCount = 0;
+    sakuraBloomAura.classList.remove("active");
+    
+    freeMovingPetals = [];
+    scene4CaughtCount = 0;
 
+    // Spawn 5 independent floating petals wandering across the full screen
     scene4Qualities.forEach((quality, index) => {
-        const petal = document.createElement("div");
-        petal.classList.add("floating-petal");
-        petal.setAttribute("data-quality", quality);
-        petal.setAttribute("data-index", index);
+        const petalWrap = document.createElement("div");
+        petalWrap.classList.add("floating-petal-wrapper");
+        petalWrap.innerHTML = createSakuraPetalSVG();
 
-        setRandomPuzzlePosition(petal);
-        floatingPetalsContainer.appendChild(petal);
+        // Screen margins
+        const marginX = 100;
+        const marginY = 120;
+        const initialX = marginX + Math.random() * (window.innerWidth - marginX * 2);
+        const initialY = marginY + Math.random() * (window.innerHeight - marginY * 2);
+
+        petalWrap.style.left = `${initialX}px`;
+        petalWrap.style.top = `${initialY}px`;
+
+        floatingPetalsLayer.appendChild(petalWrap);
 
         const petalObj = {
-            element: petal,
+            element: petalWrap,
             quality: quality,
             index: index,
-            interval: setInterval(() => glideUncaughtPetal(petal), 1000 + Math.random() * 500)
+            x: initialX,
+            y: initialY,
+            vx: (Math.random() - 0.5) * 4,
+            vy: (Math.random() - 0.5) * 4,
+            rotation: Math.random() * 360,
+            vRot: (Math.random() - 0.5) * 2,
+            interval: null
         };
 
-        uncaughtPetals.push(petalObj);
+        // Screen-wide motion loop
+        petalObj.interval = setInterval(() => animateFreePetal(petalObj), 40);
 
-        petal.addEventListener("click", () => catchPuzzlePetal(petalObj));
+        freeMovingPetals.push(petalObj);
+
+        petalWrap.addEventListener("click", () => handleCatchScene4Petal(petalObj));
     });
 }
 
-function setRandomPuzzlePosition(element) {
-    const containerRadius = window.innerWidth > 480 ? 120 : 90;
-    const angle = Math.random() * Math.PI * 2;
-    const distance = 80 + Math.random() * containerRadius;
+function animateFreePetal(p) {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.rotation += p.vRot;
 
-    const x = Math.cos(angle) * distance;
-    const y = Math.sin(angle) * distance;
+    // Bounce off screen boundaries
+    if (p.x < 50 || p.x > window.innerWidth - 120) p.vx *= -1;
+    if (p.y < 80 || p.y > window.innerHeight - 150) p.vy *= -1;
 
-    element.style.left = `calc(50% + ${x}px - 30px)`;
-    element.style.top = `calc(50% + ${y}px - 30px)`;
+    // Subtle trajectory changes
+    if (Math.random() < 0.05) {
+        p.vx += (Math.random() - 0.5) * 1.5;
+        p.vy += (Math.random() - 0.5) * 1.5;
+        
+        // Velocity caps
+        p.vx = Math.max(-3.5, Math.min(3.5, p.vx));
+        p.vy = Math.max(-3.5, Math.min(3.5, p.vy));
+    }
+
+    p.element.style.left = `${p.x}px`;
+    p.element.style.top = `${p.y}px`;
+    p.element.style.transform = `rotate(${p.rotation}deg) scale(${0.9 + Math.sin(Date.now() / 400) * 0.08})`;
 }
 
-function glideUncaughtPetal(element) {
-    const maxOffset = window.innerWidth > 480 ? 40 : 25;
-    const deltaX = (Math.random() - 0.5) * maxOffset;
-    const deltaY = (Math.random() - 0.5) * maxOffset;
+function handleCatchScene4Petal(p) {
+    clearInterval(p.interval);
+    
+    // Smoothly fly towards center core and attach
+    p.element.style.pointerEvents = "none";
+    
+    const centerCore = document.getElementById("sakuraCenterCore");
+    const rect = centerCore.getBoundingClientRect();
 
-    element.style.transform = `translate(${deltaX}px, ${deltaY}px) rotate(${45 + Math.random() * 20}deg)`;
-}
+    p.element.style.left = `${rect.left - 20}px`;
+    p.element.style.top = `${rect.top - 20}px`;
+    p.element.style.transform = `scale(0.2) rotate(0deg)`;
+    p.element.style.opacity = "0";
 
-function catchPuzzlePetal(petalObj) {
-    clearInterval(petalObj.interval);
-    petalObj.element.remove();
+    setTimeout(() => {
+        p.element.remove();
+        attachPetalToFlower(p.quality, p.index);
+    }, 700);
 
-    petalsCaughtCount++;
-
-    attachPetalToCenter(petalObj.quality, petalObj.index);
-
-    if (petalsCaughtCount === 5) {
-        completeSakuraPuzzle();
+    scene4CaughtCount++;
+    if (scene4CaughtCount === 5) {
+        triggerPuzzleCompletion();
     }
 }
 
-function attachPetalToCenter(quality, index) {
-    const attachedPetalsContainer = document.getElementById("attachedPetals");
-    const attachedPetal = document.createElement("div");
-    attachedPetal.classList.add("attached-petal");
+function attachPetalToFlower(quality, index) {
+    const attachedContainer = document.getElementById("attachedPetals");
+    const petalWrap = document.createElement("div");
+    petalWrap.classList.add("attached-petal-wrapper");
+    petalWrap.innerHTML = createSakuraPetalSVG();
 
-    const angle = (index * 72 - 90) * (Math.PI / 180);
-    const radius = window.innerWidth > 480 ? 85 : 68;
+    // Attach in exact 5-petal Sakura arrangement (72 degrees step starting at -90deg)
+    const angleDeg = index * 72 - 90;
+    const angleRad = angleDeg * (Math.PI / 180);
 
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius;
+    // Responsive radius placement
+    const radius = window.innerWidth > 480 ? 75 : 55;
 
-    attachedPetal.style.left = `calc(50% + ${x}px - 35px)`;
-    attachedPetal.style.top = `calc(50% + ${y}px - 35px)`;
-    attachedPetal.style.transform = `rotate(${index * 72 + 45}deg)`;
+    // CSS Transform positioning outwards from exact center point
+    petalWrap.style.left = `calc(50% - ${window.innerWidth > 480 ? 40 : 32}px)`;
+    petalWrap.style.top = `calc(50% - ${window.innerWidth > 480 ? 100 : 75}px)`;
+    petalWrap.style.transformOrigin = `50% 100%`;
+    petalWrap.style.transform = `rotate(${angleDeg + 90}deg) translateY(-${radius}px)`;
 
+    // Quality Label
     const label = document.createElement("span");
     label.classList.add("petal-label");
     label.textContent = quality;
-    attachedPetal.appendChild(label);
+    // Counter-rotate label so text remains readable straight
+    label.style.transform = `rotate(-${angleDeg + 90}deg)`;
 
-    attachedPetalsContainer.appendChild(attachedPetal);
+    petalWrap.appendChild(label);
+    attachedContainer.appendChild(petalWrap);
 }
 
-function completeSakuraPuzzle() {
-    const sakuraPuzzleContainer = document.getElementById("sakuraPuzzleContainer");
-    const scene4Completion = document.getElementById("scene4Completion");
+function triggerPuzzleCompletion() {
+    const container = document.getElementById("sakuraPuzzleContainer");
+    const aura = document.getElementById("sakuraBloomAura");
+    const completionCard = document.getElementById("scene4Completion");
 
     setTimeout(() => {
-        sakuraPuzzleContainer.classList.add("golden-completed");
+        // Grand Golden Bloom Glow & Slow Rotational Flow
+        container.classList.add("golden-completed");
+        aura.classList.add("active");
 
-        scene4Completion.classList.remove("hidden");
-        scene4Completion.classList.add("fade-in");
-    }, 600);
+        // Fade in final message and button
+        completionCard.classList.remove("hidden");
+        completionCard.classList.add("fade-in");
+    }, 900);
 }
 
 // Scene 4 -> Scene 5 Hook
@@ -335,7 +399,7 @@ document.body.addEventListener("click", (e) => {
 
         setTimeout(() => {
             scene4Section.style.display = "none";
-            // Scene 5 code ready to hook here
+            // Scene 5 code connects here smoothly
         }, 800);
     }
 });
