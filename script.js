@@ -212,12 +212,72 @@ continueGameBtn.addEventListener("click", () => {
     }
 });
 
-// Proposal Scene Transition
+/* ========================================
+   SCENE 4: RED THREAD OF FATE LOGIC
+   ======================================== */
+const threadSection = document.getElementById("threadSection");
+const videoOverlay = document.getElementById("videoOverlay");
+
+const ringLeft = document.getElementById("ringLeft");
+const ringRight = document.getElementById("ringRight");
+const threadSlider = document.getElementById("threadSlider");
+const glowingThread = document.getElementById("glowingThread");
+const heartKnot = document.getElementById("heartKnot");
+
+const threadInteractive = document.getElementById("threadInteractive");
+const climaxProposalCard = document.getElementById("climaxProposalCard");
+
+// Transition into Scene 4
 congratsBtn.addEventListener("click", () => {
     gameSection.classList.remove("show");
     gameSection.classList.add("fade-out");
+
     setTimeout(() => {
         gameSection.style.display = "none";
-        // Scene 4 proposal hook
+        
+        // Dim background overlay smoothly for Scene 4
+        videoOverlay.classList.add("dimmed");
+        
+        threadSection.classList.add("show");
+        threadSection.classList.add("fade-in");
     }, 800);
+});
+
+// Red Thread Slider Interaction
+threadSlider.addEventListener("input", (e) => {
+    const val = parseFloat(e.target.value); // 0 to 100
+
+    // Bring glass rings closer together as value increases
+    const pullDistance = (val / 100) * 110; 
+    ringLeft.style.transform = `translateX(${pullDistance}px)`;
+    ringRight.style.transform = `translateX(-${pullDistance}px)`;
+
+    // Thread glows brighter and becomes thicker
+    const intensity = val / 100;
+    glowingThread.style.boxShadow = `0 0 ${12 + intensity * 25}px rgba(255, 45, 85, ${0.8 + intensity * 0.2})`;
+    glowingThread.style.height = `${4 + intensity * 4}px`;
+
+    // Climax connection at 100%
+    if (val === 100) {
+        threadSlider.disabled = true;
+
+        // Hide rings and form heart knot
+        ringLeft.style.opacity = "0";
+        ringRight.style.opacity = "0";
+        glowingThread.style.opacity = "0";
+
+        heartKnot.classList.remove("hidden");
+        setTimeout(() => {
+            heartKnot.style.transform = "translate(-50%, -50%) scale(1.4)";
+        }, 50);
+
+        // Burst into Golden Petals Climax
+        setTimeout(() => {
+            triggerPetalTransition(() => {
+                threadInteractive.classList.add("hidden");
+                climaxProposalCard.classList.remove("hidden");
+                climaxProposalCard.classList.add("fade-in");
+            });
+        }, 900);
+    }
 });
