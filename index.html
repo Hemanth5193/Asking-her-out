@@ -108,46 +108,56 @@
 
     </section>
 
-    <!-- Scene 4: Cosmic Constellation Proposal -->
-    <section class="proposal-section" id="proposalSection">
+    <!-- SCENE 4: NIGHT LANTERN RELEASE -->
+<section id="scene-4" class="scene hidden">
+  <div class="scene-content">
+    <h2 class="scene-title">Light the Floating Lanterns</h2>
+    <p class="scene-subtitle">Tap each lantern to send a whisper across the water...</p>
+
+    <!-- Interactive River Area -->
+    <div class="river-container">
+      <div class="water-reflection"></div>
+      
+      <div class="lanterns-wrapper">
+        <!-- Lantern 1 -->
+        <div class="lantern-item" data-index="1" onclick="lightLantern(1)">
+          <div class="lantern-body">
+            <div class="lantern-glow"></div>
+            <div class="lantern-kanji">光</div>
+          </div>
+          <div class="lantern-base"></div>
+          <div class="whisper-box hidden">"For every smile we shared..."</div>
+        </div>
+
+        <!-- Lantern 2 -->
+        <div class="lantern-item" data-index="2" onclick="lightLantern(2)">
+          <div class="lantern-body">
+            <div class="lantern-glow"></div>
+            <div class="lantern-kanji">夢</div>
+          </div>
+          <div class="lantern-base"></div>
+          <div class="whisper-box hidden">"For every quiet moment..."</div>
+        </div>
+
+        <!-- Lantern 3 -->
+        <div class="lantern-item" data-index="3" onclick="lightLantern(3)">
+          <div class="lantern-body">
+            <div class="lantern-glow"></div>
+            <div class="lantern-kanji">縁</div>
+          </div>
+          <div class="lantern-base"></div>
+          <div class="whisper-box hidden">"For what comes next..."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proceed Button (Hidden until all 3 are lit) -->
+    <button id="scene4-next-btn" class="nav-btn hidden" onclick="goToScene(5)">
+      Follow the Light ✨
+    </button>
+  </div>
+</section>
         
-        <!-- Active Constellation Stage -->
-        <div id="constellationStage" class="constellation-stage">
-            <div class="cosmic-header">
-                <span class="story-label">Written in the Stars ✨</span>
-                <h2 id="constellationInstruction">Tap the 8 stars to light up the sky...</h2>
-            </div>
-
-            <!-- Canvas for dynamic beam lines -->
-            <canvas id="constellationCanvas"></canvas>
-
-            <!-- Interactive Glowing Stars Container -->
-            <div id="starsContainer" class="stars-container"></div>
-        </div>
-
-        <!-- Final Proposal Card (Fades in after stars are connected) -->
-        <div id="proposalCard" class="proposal-card glass-card hidden">
-            <span class="story-label">For You, Ananya ❤️</span>
-            <h2 class="proposal-title">Will you be my girlfriend?</h2>
-            <p class="proposal-text">Every star led me right to you...</p>
-
-            <div class="proposal-actions">
-                <button id="yesBtn" class="yes-btn">YES! ❤️</button>
-            </div>
-        </div>
-
-        <!-- Final Celebration Overlay -->
-        <div id="celebrationModal" class="celebration-modal hidden">
-            <div class="celebration-card glass-card">
-                <span class="celebration-icon">💖</span>
-                <h2>I knew you'd say YES!</h2>
-                <p>You just made my whole world brighter. I can't wait for our adventure together ✨</p>
-                <button onclick="location.reload()" class="story-btn">Relive The Magic 🌸</button>
-            </div>
-        </div>
-
-    </section>
-
     <script src="script.js"></script>
 
 </body>
