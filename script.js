@@ -352,7 +352,7 @@ function attachPetalToFlower(quality, index) {
     const angleDeg = index * 72 - 90;
 
     // Radius from center
-    const radius = window.innerWidth > 480 ? 75 : 55;
+    const radius = window.innerWidth > 480 ? 60 : 45;
 
     // Precise rotational placement extending from center
     petalWrap.style.left = `calc(50% - ${window.innerWidth > 480 ? 40 : 32}px)`;
