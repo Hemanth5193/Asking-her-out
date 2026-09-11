@@ -13,7 +13,7 @@
         <source src="sakura.mp4" type="video/mp4">
     </video>
 
-    <div class="video-overlay"></div>
+    <div class="video-overlay" id="videoOverlay"></div>
 
     <!-- Full-Screen Petal Transition Overlay -->
     <div id="petalTransition" class="petal-transition-container"></div>
@@ -106,6 +106,44 @@
             <p class="gold-subtext">You caught every petal of my heart... Tap to see what comes next ❤️</p>
         </div>
 
+    </section>
+
+    <!-- Scene 4: The Red Thread of Fate -->
+    <section class="story-section" id="threadSection">
+        <div class="story-content glass-card thread-card">
+
+            <!-- Phase 1: Interactive Red Thread Drag -->
+            <div id="threadInteractive">
+                <span class="story-label">Red Thread of Fate ✨</span>
+                <p class="destiny-text">The red thread of destiny connects those who are meant to meet...</p>
+                <p class="instruction-text">Drag the thread to bring us together ❤️</p>
+
+                <div class="thread-canvas-container">
+                    <div class="glass-ring ring-left" id="ringLeft">
+                        <span>Me</span>
+                    </div>
+                    
+                    <div class="thread-track">
+                        <div class="glowing-thread" id="glowingThread"></div>
+                        <input type="range" id="threadSlider" min="0" max="100" value="0" class="thread-slider">
+                    </div>
+
+                    <div class="glass-ring ring-right" id="ringRight">
+                        <span>Ananya</span>
+                    </div>
+
+                    <div id="heartKnot" class="heart-knot hidden">💖</div>
+                </div>
+            </div>
+
+            <!-- Phase 2: Climax Proposal Card -->
+            <div id="climaxProposalCard" class="proposal-card hidden">
+                <span class="story-label">Destiny Connected ❤️</span>
+                <h1 class="proposal-climax-text">Some threads are tied long before we even know it... Ananya</h1>
+                <!-- Scene 5 hook will connect here -->
+            </div>
+
+        </div>
     </section>
 
     <script src="script.js"></script>
