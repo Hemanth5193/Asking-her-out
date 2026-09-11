@@ -38,7 +38,7 @@ body {
     z-index: 1;
 }
 
-/* Glassmorphism Container Classes */
+/* Glassmorphism Classes */
 .glass-card {
     background: rgba(255, 255, 255, 0.12);
     border: 1px solid rgba(255, 255, 255, 0.35);
@@ -113,9 +113,10 @@ button:hover {
     pointer-events: none;
 }
 
-/* Scene 2 & Common Story Section */
+/* Scene 2 & Common Story Layouts */
 .story-section,
-.game-section {
+.game-section,
+.proposal-section {
     position: fixed;
     inset: 0;
     display: flex;
@@ -131,7 +132,8 @@ button:hover {
 }
 
 .story-section.show,
-.game-section.show {
+.game-section.show,
+.proposal-section.show {
     opacity: 1;
     visibility: visible;
 }
@@ -216,7 +218,7 @@ button:hover {
     border-radius: 30px;
 }
 
-/* Cherry Storm Full-Screen Transition */
+/* Full-Screen Transition Petals */
 .petal-transition-container {
     position: fixed;
     inset: 0;
@@ -250,7 +252,7 @@ button:hover {
     }
 }
 
-/* Scene 3: VIBGYOR Rainbow Engine */
+/* Scene 3: Rainbow Sakura Game */
 .game-play-area {
     position: fixed;
     inset: 0;
@@ -299,13 +301,13 @@ button:hover {
     align-items: center;
     justify-content: center;
     padding: 0;
-    /* Continuous dynamic movement via JS logic */
-    transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.5s ease;
+    /* Snappy 0.6s motion */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.4s ease;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
 }
 
-/* VIBGYOR Multi-Layered Glows */
+/* VIBGYOR Neon Color Palette */
 .vibgyor-violet {
     background: radial-gradient(circle, rgba(186, 85, 211, 0.7), rgba(138, 43, 226, 0.4));
     box-shadow: 0 0 25px rgba(186, 85, 211, 0.95), inset 0 0 10px rgba(255, 255, 255, 0.6);
@@ -341,7 +343,7 @@ button:hover {
     box-shadow: 0 0 25px rgba(255, 45, 85, 0.95), inset 0 0 10px rgba(255, 255, 255, 0.6);
 }
 
-/* Modals & Final Unlock Styling */
+/* Modals & Golden Unlock Styling */
 .compliment-modal,
 .final-card {
     position: relative;
@@ -369,7 +371,7 @@ button:hover {
     border-radius: 25px;
 }
 
-/* Redesigned Golden Emperor Sakura Trigger */
+/* Golden Emperor Sakura Button */
 .golden-emblem-container {
     position: relative;
     display: flex;
@@ -400,7 +402,7 @@ button:hover {
     border-radius: 60px;
     cursor: pointer;
     box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), inset 0 0 18px rgba(255, 255, 255, 0.7);
-    transition: transform 0.35 ease, box-shadow 0.35s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .golden-sakura-card:hover {
@@ -440,6 +442,137 @@ button:hover {
     opacity: 0.9;
 }
 
+/* Scene 4: Cosmic Constellation Stage */
+.proposal-section {
+    z-index: 4;
+}
+
+.constellation-stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cosmic-header {
+    position: relative;
+    z-index: 10;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.cosmic-header h2 {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+    color: #ffeedd;
+    text-shadow: 0 0 15px rgba(255, 182, 193, 0.8);
+}
+
+#constellationCanvas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.stars-container {
+    position: absolute;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 3;
+}
+
+.cosmic-star {
+    position: absolute;
+    font-size: 2.2rem;
+    cursor: pointer;
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 0.3s ease, filter 0.3s ease;
+    user-select: none;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7));
+    animation: starPulse 2.5s infinite ease-in-out;
+}
+
+.cosmic-star:hover {
+    transform: translate(-50%, -50%) scale(1.35);
+}
+
+.cosmic-star.activated {
+    animation: none;
+    transform: translate(-50%, -50%) scale(1.4);
+    filter: drop-shadow(0 0 20px rgba(255, 105, 180, 1));
+}
+
+.proposal-card {
+    width: 90%;
+    max-width: 540px;
+    padding: 45px 30px;
+    text-align: center;
+    z-index: 10;
+}
+
+.proposal-title {
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #ffffff, #ffb6c1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.proposal-text {
+    font-size: 1.25rem;
+    color: #ffeedd;
+    margin-bottom: 35px;
+}
+
+.proposal-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.yes-btn {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    border: none;
+    padding: 16px 48px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border-radius: 50px;
+    box-shadow: 0 0 30px rgba(255, 65, 108, 0.85);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.yes-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 50px rgba(255, 65, 108, 1);
+}
+
+.celebration-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
+}
+
+.celebration-card {
+    width: 90%;
+    max-width: 480px;
+    padding: 40px;
+    text-align: center;
+}
+
+.celebration-icon {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
 .glow-btn {
     animation: pulse 2s infinite ease-in-out;
     box-shadow: 0 0 25px rgba(255, 182, 193, 0.8);
@@ -453,6 +586,11 @@ button:hover {
 .fade-in {
     display: block !important;
     animation: poemReveal 0.9s ease forwards;
+}
+
+.fade-out-fast {
+    opacity: 0;
+    transition: opacity 0.6s ease;
 }
 
 @keyframes reveal {
@@ -475,12 +613,16 @@ button:hover {
     50% { transform: scale(1.25); opacity: 0.9; }
 }
 
+@keyframes starPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+}
+
 @keyframes poemReveal {
     from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Desktop Polish */
 @media (min-width: 1024px) {
     .rainbow-sakura {
         width: 72px;
