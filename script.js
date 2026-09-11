@@ -213,7 +213,7 @@ congratsBtn.addEventListener("click", () => {
 });
 
 // ========================================
-// SCENE 4: PERFECTED SAKURA PUZZLE ENGINE
+// SCENE 4: FIXED SAKURA PUZZLE ENGINE
 // ========================================
 
 const scene4Qualities = ["Kind", "Beautiful", "Strong", "Funny", "Elegant"];
@@ -258,8 +258,8 @@ function initScene4Puzzle() {
         petalWrap.classList.add("floating-petal-wrapper");
         petalWrap.innerHTML = createSakuraPetalSVG();
 
-        const marginX = 100;
-        const marginY = 120;
+        const marginX = 80;
+        const marginY = 100;
         const initialX = marginX + Math.random() * (window.innerWidth - marginX * 2);
         const initialY = marginY + Math.random() * (window.innerHeight - marginY * 2);
 
@@ -274,8 +274,8 @@ function initScene4Puzzle() {
             index: index,
             x: initialX,
             y: initialY,
-            vx: (Math.random() - 0.5) * 3,
-            vy: (Math.random() - 0.5) * 3,
+            vx: (Math.random() - 0.5) * 2.5,
+            vy: (Math.random() - 0.5) * 2.5,
             rotation: Math.random() * 360,
             vRot: (Math.random() - 0.5) * 2,
             interval: null
@@ -293,15 +293,15 @@ function animateFreePetal(p) {
     p.y += p.vy;
     p.rotation += p.vRot;
 
-    if (p.x < 50 || p.x > window.innerWidth - 120) p.vx *= -1;
-    if (p.y < 80 || p.y > window.innerHeight - 150) p.vy *= -1;
+    if (p.x < 40 || p.x > window.innerWidth - 100) p.vx *= -1;
+    if (p.y < 60 || p.y > window.innerHeight - 120) p.vy *= -1;
 
     if (Math.random() < 0.05) {
-        p.vx += (Math.random() - 0.5) * 1.5;
-        p.vy += (Math.random() - 0.5) * 1.5;
+        p.vx += (Math.random() - 0.5) * 1.2;
+        p.vy += (Math.random() - 0.5) * 1.2;
         
-        p.vx = Math.max(-3, Math.min(3, p.vx));
-        p.vy = Math.max(-3, Math.min(3, p.vy));
+        p.vx = Math.max(-2.5, Math.min(2.5, p.vx));
+        p.vy = Math.max(-2.5, Math.min(2.5, p.vy));
     }
 
     p.element.style.left = `${p.x}px`;
@@ -311,15 +311,14 @@ function animateFreePetal(p) {
 
 function handleCatchScene4Petal(p) {
     clearInterval(p.interval);
-    
     p.element.style.pointerEvents = "none";
     
     const centerCore = document.getElementById("sakuraCenterCore");
     const rect = centerCore.getBoundingClientRect();
 
     p.element.style.left = `${rect.left + rect.width / 2 - 40}px`;
-    p.element.style.top = `${rect.top + rect.height / 2 - 55}px`;
-    p.element.style.transform = `scale(0.2) rotate(0deg)`;
+    p.element.style.top = `${rect.top + rect.height / 2 - 50}px`;
+    p.element.style.transform = `scale(0.15) rotate(0deg)`;
     p.element.style.opacity = "0";
 
     setTimeout(() => {
@@ -339,16 +338,16 @@ function attachPetalToFlower(quality, index) {
     petalWrap.classList.add("attached-petal-wrapper");
     petalWrap.innerHTML = createSakuraPetalSVG();
 
-    // Exactly 72 degree rotation for 5 symmetrical petals
+    // 5 petals perfectly spread across 360 degrees (72 deg increments)
     const angleDeg = index * 72;
 
-    // Direct rotational placement around exact center origin
-    petalWrap.style.transform = `rotate(${angleDeg}deg) translateY(-40%)`;
+    // Apply exact rotation centered at flower middle
+    petalWrap.style.transform = `translate(-50%, -100%) rotate(${angleDeg}deg)`;
 
     const label = document.createElement("span");
     label.classList.add("petal-label");
     label.textContent = quality;
-    // Counter-rotate text so labels stay right-side up regardless of petal angle
+    // Counter-rotate text so labels are readable
     label.style.transform = `rotate(-${angleDeg}deg)`;
 
     petalWrap.appendChild(label);
