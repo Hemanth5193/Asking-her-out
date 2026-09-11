@@ -136,7 +136,7 @@ function initRainbowGame() {
         // Continuous Smooth Physics Motion
         const petalObj = {
             element: btn,
-            interval: setInterval(() => glidePetal(btn), 1800 + Math.random() * 600)
+            interval: setInterval(() => glidePetal(btn), 900 + Math.random() * 400)
         };
         activePetals.push(petalObj);
 
