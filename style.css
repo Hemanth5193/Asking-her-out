@@ -340,108 +340,100 @@ button:hover {
 }
 
 /* ========================================================
-   SCENE 3: FIXED SCREEN-CENTERED COMPLIMENT POPUP MODAL
+   COMPLIMENT MODAL - ULTRA COMPACT & SCREEN-CENTERED
    ======================================================== */
 
 .compliment-modal {
     position: fixed !important;
-    top: 50vh !important;
-    left: 50vw !important;
-    transform: translate(-50%, -50%) !important;
-    z-index: 99999 !important;
-    
-    width: 90vw !important;
-    max-width: 480px !important;
-    padding: 32px 24px !important;
-    margin: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 999999 !important;
 
-    /* Flex Centering */
     display: flex !important;
-    flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
-    text-align: center !important;
 
-    /* Glassmorphism Styling */
-    background: rgba(255, 255, 255, 0.18) !important;
-    border: 1px solid rgba(255, 255, 255, 0.45) !important;
-    border-radius: 24px !important;
-
-    backdrop-filter: blur(20px) saturate(130%) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(130%) !important;
-
-    box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
-
-    animation: modalGlassPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    background: rgba(0, 0, 0, 0.45) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
 }
 
 .compliment-modal .modal-content {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    padding: 0 !important;
-    width: 100% !important;
+    position: relative !important;
+    width: 85% !important;
+    max-width: 360px !important; /* Decreased width for desktop */
+    padding: 20px 22px !important; /* Compact padding */
+    margin: auto !important;
+
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
+    text-align: center !important;
+
+    background: rgba(255, 255, 255, 0.18) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 20px !important;
+
+    backdrop-filter: blur(20px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(140%) !important;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+    animation: compactPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
 }
 
-/* Header Icon */
-.modal-icon {
-    font-size: 2.4rem;
-    display: inline-block;
-    margin-bottom: 10px;
-    filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.6));
+/* Compact Icon */
+.compliment-modal .modal-icon {
+    font-size: 1.8rem !important;
+    margin-bottom: 8px !important;
+    display: inline-block !important;
+    filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.6)) !important;
 }
 
-/* Compliment / Meaning Text */
-.compliment-text {
-    font-family: Georgia, serif;
-    font-size: clamp(1.05rem, 3vw, 1.25rem);
-    line-height: 1.6;
-    color: #ffffff;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-    margin-bottom: 22px;
-    font-weight: 400;
+/* Compact Text */
+.compliment-modal .compliment-text {
+    font-family: Georgia, serif !important;
+    font-size: 0.98rem !important; /* Smaller desktop font size */
+    line-height: 1.5 !important;
+    color: #ffffff !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6) !important;
+    margin-bottom: 16px !important;
+    font-weight: 400 !important;
 }
 
-/* Glass Pill Button */
-.modal-btn {
-    padding: 12px 32px;
-    font-size: 0.95rem;
-    font-family: inherit;
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 50px;
-    cursor: pointer;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+/* Compact Button */
+.compliment-modal .modal-btn {
+    padding: 8px 22px !important; /* Compact button size */
+    font-size: 0.85rem !important;
+    font-family: inherit !important;
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.7) !important;
+    border-radius: 30px !important;
+    cursor: pointer !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
+    transition: all 0.25s ease !important;
 }
 
-.modal-btn:hover {
-    background: rgba(255, 255, 255, 0.4);
-    border-color: rgba(255, 255, 255, 0.95);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+.compliment-modal .modal-btn:hover {
+    background: rgba(255, 255, 255, 0.4) !important;
+    border-color: rgba(255, 255, 255, 0.95) !important;
+    transform: translateY(-2px) !important;
 }
 
-@keyframes modalGlassPop {
+@keyframes compactPop {
     0% {
         opacity: 0;
-        transform: translate(-50%, -45%) scale(0.92);
+        transform: scale(0.88);
     }
     100% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
+        transform: scale(1);
     }
 }
-
 .golden-emblem-container {
     position: relative;
     display: flex;
