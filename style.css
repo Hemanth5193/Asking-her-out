@@ -36,11 +36,6 @@ body {
     height: 100vh;
     background: radial-gradient(circle, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.45) 100%);
     z-index: 1;
-    transition: background 1s ease;
-}
-
-.video-overlay.dimmed {
-    background: rgba(0, 0, 0, 0.8);
 }
 
 /* Glassmorphism Container Classes */
@@ -127,7 +122,7 @@ button:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 25px;
     text-align: center;
     opacity: 0;
     visibility: hidden;
@@ -373,7 +368,7 @@ button:hover {
     border-radius: 25px;
 }
 
-/* Golden Emperor Sakura Trigger */
+/* Redesigned Golden Emperor Sakura Trigger */
 .golden-emblem-container {
     position: relative;
     display: flex;
@@ -450,158 +445,132 @@ button:hover {
 }
 
 /* ========================================
-   SCENE 4: WISHING BLOSSOM TREE STYLING
+   SCENE 4: SAKURA PETAL PUZZLE STYLES
    ======================================== */
-.tree-card {
-    max-width: 650px;
-    padding: 30px 20px;
+
+.scene4-heading {
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    font-weight: 400;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    color: #fff0f5;
+    text-shadow: 0 0 12px rgba(255, 182, 193, 0.6);
 }
 
-.sakura-tree-container {
+.sakura-puzzle-container {
     position: relative;
-    width: 100%;
-    height: 230px;
-    margin: 20px 0;
+    width: 320px;
+    height: 320px;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.tree-silhouette {
+/* Middle Core */
+.sakura-center {
     position: relative;
-    width: 180px;
-    height: 180px;
+    z-index: 10;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(255, 192, 203, 0.9), rgba(219, 112, 147, 0.6));
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    box-shadow: 0 0 20px rgba(255, 182, 193, 0.8);
+    transition: transform 0.6s ease, background 1s ease, box-shadow 1s ease;
 }
 
-.tree-trunk {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 18px;
-    height: 110px;
-    background: linear-gradient(to top, rgba(255, 182, 193, 0.8), rgba(255, 255, 255, 0.4));
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(255, 182, 193, 0.6);
-}
-
-.branch {
-    position: absolute;
-    height: 6px;
-    background: rgba(255, 182, 193, 0.7);
-    border-radius: 4px;
-}
-
-.branch-left {
-    width: 70px;
-    top: 60px;
-    left: 15px;
-    transform: rotate(-25deg);
-}
-
-.branch-center {
-    width: 60px;
-    top: 35px;
-    left: 60px;
-    transform: rotate(-5deg);
-}
-
-.branch-right {
-    width: 70px;
-    top: 60px;
-    right: 15px;
-    transform: rotate(25deg);
-}
-
-/* Hanging Ribbons Layout */
-.ribbons-wrapper {
+/* Floating Petals Layer */
+.sakura-floating-petals {
     position: absolute;
     inset: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    padding-bottom: 10px;
+    pointer-events: none;
 }
 
-.silk-ribbon {
+.floating-petal {
+    position: absolute;
+    pointer-events: auto;
+    width: 65px;
+    height: 65px;
+    background: radial-gradient(circle, rgba(255, 182, 193, 0.85), rgba(255, 105, 180, 0.5));
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
+    border-radius: 50% 0% 50% 50%;
+    transform: rotate(45deg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(255, 182, 193, 0.7);
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.35, 1), left 0.8s ease, top 0.8s ease;
+}
+
+/* Attached Petals Layout around center */
+.sakura-attached-petals {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.attached-petal {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle, rgba(255, 182, 193, 0.9), rgba(255, 105, 180, 0.6));
+    border: 1.5px solid rgba(255, 255, 255, 0.95);
+    border-radius: 50% 0% 50% 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 12px 18px;
-    background: linear-gradient(180deg, rgba(255, 105, 180, 0.4), rgba(255, 192, 203, 0.2));
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 20px;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
-    animation: ribbonSway 3s ease-in-out infinite alternate;
-    transition: transform 0.3s ease, background 0.3s ease;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(255, 182, 193, 0.9);
+    animation: attachSparkle 0.6s ease-out forwards;
 }
 
-.silk-ribbon:hover {
-    transform: scale(1.08) translateY(-4px);
-    background: linear-gradient(180deg, rgba(255, 105, 180, 0.6), rgba(255, 192, 203, 0.4));
-}
-
-.silk-ribbon.opened {
-    border-color: #ffd1dc;
-    background: rgba(255, 255, 255, 0.25);
-    opacity: 0.8;
-}
-
-.ribbon-2 {
-    animation-delay: -1s;
-}
-
-.ribbon-3 {
-    animation-delay: -2s;
-}
-
-.ribbon-knot {
-    font-size: 1.4rem;
-    margin-bottom: 4px;
-}
-
-.ribbon-label {
-    font-size: 0.85rem;
-    letter-spacing: 1px;
+.petal-label {
+    font-size: 0.72rem;
     font-weight: 600;
-}
-
-/* Grand Golden Ribbon Drop */
-.golden-ribbon-container {
-    position: relative;
-    margin-top: 15px;
-    animation: goldenDrop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-.golden-ribbon-card {
-    position: relative;
-    z-index: 2;
-    padding: 25px 20px;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.35), rgba(255, 105, 180, 0.35));
-    border: 2px solid rgba(255, 215, 0, 0.95);
-    border-radius: 24px;
-    box-shadow: 0 0 35px rgba(255, 215, 0, 0.8), inset 0 0 15px rgba(255, 255, 255, 0.6);
-}
-
-.golden-question {
-    font-family: Georgia, serif;
-    font-size: clamp(1.4rem, 4vw, 2.1rem);
-    margin: 12px 0 20px;
     color: #ffffff;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+    transform: rotate(-45deg);
+    animation: fadeInGlow 0.8s ease forwards;
+    white-space: nowrap;
 }
 
-.pull-ribbon-btn {
-    padding: 12px 32px;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 30px;
-    background: linear-gradient(90deg, #ff2d55, #ff3b30);
-    border: none;
-    box-shadow: 0 0 25px rgba(255, 45, 85, 0.8);
-    animation: pulse 2s infinite ease-in-out;
+/* Golden Completed State */
+.sakura-puzzle-container.golden-completed .sakura-center {
+    background: radial-gradient(circle, rgba(255, 223, 0, 1), rgba(218, 165, 32, 0.8));
+    border-color: #ffffff;
+    box-shadow: 0 0 45px rgba(255, 215, 0, 1), 0 0 90px rgba(255, 215, 0, 0.6);
+}
+
+.sakura-puzzle-container.golden-completed .attached-petal {
+    background: radial-gradient(circle, rgba(255, 235, 120, 0.95), rgba(218, 165, 32, 0.75));
+    border-color: #ffffff;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.9);
+}
+
+.sakura-puzzle-container.golden-completed {
+    animation: slowRotateSakura 18s linear infinite;
+    pointer-events: none;
+}
+
+.scene4-completion {
+    margin-top: 30px;
+    z-index: 10;
+}
+
+.golden-message {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: #ffeedd;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+    margin-bottom: 25px;
+    animation: poemReveal 1.2s ease forwards;
 }
 
 /* Animations */
@@ -634,26 +603,48 @@ button:hover {
     50% { transform: scale(1.25); opacity: 0.9; }
 }
 
-@keyframes ribbonSway {
-    0% { transform: rotate(-5deg); }
-    100% { transform: rotate(5deg); }
-}
-
-@keyframes goldenDrop {
-    0% { opacity: 0; transform: translateY(-30px) scale(0.9); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
 @keyframes poemReveal {
     from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Desktop Polish */
-@media (min-width: 1024px) {
-    .sakura-tree-container {
-        height: 260px;
+@keyframes attachSparkle {
+    0% { transform: scale(0.5) rotate(45deg); filter: brightness(2); }
+    50% { transform: scale(1.2) rotate(45deg); filter: brightness(2.5); }
+    100% { transform: scale(1) rotate(45deg); filter: brightness(1); }
+}
+
+@keyframes fadeInGlow {
+    from { opacity: 0; filter: drop-shadow(0 0 2px #fff); }
+    to { opacity: 1; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)); }
+}
+
+@keyframes slowRotateSakura {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    .sakura-puzzle-container {
+        width: 270px;
+        height: 270px;
     }
+    .sakura-center {
+        width: 65px;
+        height: 65px;
+        font-size: 2rem;
+    }
+    .floating-petal, .attached-petal {
+        width: 55px;
+        height: 55px;
+    }
+    .petal-label {
+        font-size: 0.65rem;
+    }
+}
+
+@media (min-width: 1024px) {
     .rainbow-sakura {
         width: 72px;
         height: 72px;
