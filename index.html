@@ -13,7 +13,7 @@
         <source src="sakura.mp4" type="video/mp4">
     </video>
 
-    <div class="video-overlay" id="videoOverlay"></div>
+    <div class="video-overlay"></div>
 
     <!-- Full-Screen Petal Transition Overlay -->
     <div id="petalTransition" class="petal-transition-container"></div>
@@ -108,60 +108,28 @@
 
     </section>
 
-    <!-- Scene 4: The Wishing Blossom Tree -->
-    <section class="story-section" id="treeSection">
-        <div class="story-content glass-card tree-card">
-            <span class="story-label">Tanabata Wishes ✨</span>
-            <h2>The Wishing Blossom Tree</h2>
-            <p class="instruction-text">Tap each silk ribbon to reveal a wish written for us...</p>
+    <!-- Scene 4: Interactive Sakura Petal Puzzle -->
+    <section class="game-section" id="scene4Section">
+        <h2 class="scene4-heading">HAHA have to clear this PUZZLE to..</h2>
 
-            <!-- Sakura Tree & Hanging Ribbons -->
-            <div class="sakura-tree-container">
-                <div class="tree-silhouette">
-                    <span class="tree-trunk"></span>
-                    <span class="branch branch-left"></span>
-                    <span class="branch branch-center"></span>
-                    <span class="branch branch-right"></span>
-                </div>
+        <div class="sakura-puzzle-container" id="sakuraPuzzleContainer">
+            <!-- Center Core -->
+            <div class="sakura-center" id="sakuraCenter">🌸</div>
 
-                <div class="ribbons-wrapper">
-                    <button class="silk-ribbon ribbon-1" data-index="0">
-                        <span class="ribbon-knot">🎀</span>
-                        <span class="ribbon-label">Wish I</span>
-                    </button>
+            <!-- Attached Petals Container -->
+            <div class="sakura-attached-petals" id="attachedPetals"></div>
 
-                    <button class="silk-ribbon ribbon-2" data-index="1">
-                        <span class="ribbon-knot">🎀</span>
-                        <span class="ribbon-label">Wish II</span>
-                    </button>
-
-                    <button class="silk-ribbon ribbon-3" data-index="2">
-                        <span class="ribbon-knot">🎀</span>
-                        <span class="ribbon-label">Wish III</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Golden Ribbon Drop (Appears after 3 wishes are opened) -->
-            <div id="goldenRibbonContainer" class="golden-ribbon-container hidden">
-                <div class="golden-aura-ring"></div>
-                <div class="golden-ribbon-card">
-                    <span class="ribbon-knot">👑</span>
-                    <span class="gold-badge-label">THE ULTIMATE WISH ✨</span>
-                    <h2 class="golden-question">"Ananya, will you grant my ultimate wish?"</h2>
-                    <button id="scene5PullBtn" class="pull-ribbon-btn">Pull for Scene 5 ❤️</button>
-                </div>
-            </div>
-
+            <!-- Uncaught Floating Petals Layer -->
+            <div class="sakura-floating-petals" id="floatingPetals"></div>
         </div>
 
-        <!-- Popup Modal for Opened Ribbons -->
-        <div id="wishModal" class="compliment-modal hidden">
-            <div class="modal-content glass-card">
-                <span class="modal-icon">🌸</span>
-                <p id="wishText" class="compliment-text"></p>
-                <button id="closeWishBtn" class="modal-btn">Keep Exploring ✨</button>
-            </div>
+        <!-- Scene 4 Message and Action Button -->
+        <div id="scene4Completion" class="scene4-completion hidden">
+            <p class="golden-message">
+                You're the mix of all these qualities,<br>
+                and you just look like this golden Sakura above. ✨
+            </p>
+            <button id="readyForItBtn" class="story-btn glow-btn">Ready for it..? 😻</button>
         </div>
     </section>
 
