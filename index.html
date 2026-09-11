@@ -108,41 +108,60 @@
 
     </section>
 
-    <!-- Scene 4: The Red Thread of Fate -->
-    <section class="story-section" id="threadSection">
-        <div class="story-content glass-card thread-card">
+    <!-- Scene 4: The Wishing Blossom Tree -->
+    <section class="story-section" id="treeSection">
+        <div class="story-content glass-card tree-card">
+            <span class="story-label">Tanabata Wishes ✨</span>
+            <h2>The Wishing Blossom Tree</h2>
+            <p class="instruction-text">Tap each silk ribbon to reveal a wish written for us...</p>
 
-            <!-- Phase 1: Interactive Red Thread Drag -->
-            <div id="threadInteractive">
-                <span class="story-label">Red Thread of Fate ✨</span>
-                <p class="destiny-text">The red thread of destiny connects those who are meant to meet...</p>
-                <p class="instruction-text">Drag the thread to bring us together ❤️</p>
+            <!-- Sakura Tree & Hanging Ribbons -->
+            <div class="sakura-tree-container">
+                <div class="tree-silhouette">
+                    <span class="tree-trunk"></span>
+                    <span class="branch branch-left"></span>
+                    <span class="branch branch-center"></span>
+                    <span class="branch branch-right"></span>
+                </div>
 
-                <div class="thread-canvas-container">
-                    <div class="glass-ring ring-left" id="ringLeft">
-                        <span>Me</span>
-                    </div>
-                    
-                    <div class="thread-track">
-                        <div class="glowing-thread" id="glowingThread"></div>
-                        <input type="range" id="threadSlider" min="0" max="100" value="0" class="thread-slider">
-                    </div>
+                <div class="ribbons-wrapper">
+                    <button class="silk-ribbon ribbon-1" data-index="0">
+                        <span class="ribbon-knot">🎀</span>
+                        <span class="ribbon-label">Wish I</span>
+                    </button>
 
-                    <div class="glass-ring ring-right" id="ringRight">
-                        <span>Ananya</span>
-                    </div>
+                    <button class="silk-ribbon ribbon-2" data-index="1">
+                        <span class="ribbon-knot">🎀</span>
+                        <span class="ribbon-label">Wish II</span>
+                    </button>
 
-                    <div id="heartKnot" class="heart-knot hidden">💖</div>
+                    <button class="silk-ribbon ribbon-3" data-index="2">
+                        <span class="ribbon-knot">🎀</span>
+                        <span class="ribbon-label">Wish III</span>
+                    </button>
                 </div>
             </div>
 
-            <!-- Phase 2: Climax Proposal Card -->
-            <div id="climaxProposalCard" class="proposal-card hidden">
-                <span class="story-label">Destiny Connected ❤️</span>
-                <h1 class="proposal-climax-text">Some threads are tied long before we even know it... Ananya</h1>
-                <!-- Scene 5 hook will connect here -->
+            <!-- Golden Ribbon Drop (Appears after 3 wishes are opened) -->
+            <div id="goldenRibbonContainer" class="golden-ribbon-container hidden">
+                <div class="golden-aura-ring"></div>
+                <div class="golden-ribbon-card">
+                    <span class="ribbon-knot">👑</span>
+                    <span class="gold-badge-label">THE ULTIMATE WISH ✨</span>
+                    <h2 class="golden-question">"Ananya, will you grant my ultimate wish?"</h2>
+                    <button id="scene5PullBtn" class="pull-ribbon-btn">Pull for More ❤️</button>
+                </div>
             </div>
 
+        </div>
+
+        <!-- Popup Modal for Opened Ribbons -->
+        <div id="wishModal" class="compliment-modal hidden">
+            <div class="modal-content glass-card">
+                <span class="modal-icon">🌸</span>
+                <p id="wishText" class="compliment-text"></p>
+                <button id="closeWishBtn" class="modal-btn">Keep Exploring ✨</button>
+            </div>
         </div>
     </section>
 
