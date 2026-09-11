@@ -445,70 +445,81 @@ button:hover {
 }
 
 /* ========================================
-   SCENE 4: SAKURA PETAL PUZZLE STYLES
+   SCENE 4: SAKURA PETAL PUZZLE STYLES (UPDATED)
    ======================================== */
 
 .scene4-heading {
     font-size: clamp(1.2rem, 4vw, 2rem);
     font-weight: 400;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     letter-spacing: 1px;
     color: #fff0f5;
     text-shadow: 0 0 12px rgba(255, 182, 193, 0.6);
+    z-index: 10;
 }
 
+/* Layout Wrapper */
+.sakura-puzzle-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px auto;
+    z-index: 5;
+}
+
+/* Soft Golden Bloom Background Aura */
+.sakura-bloom-aura {
+    position: absolute;
+    width: clamp(260px, 45vw, 440px);
+    height: clamp(260px, 45vw, 440px);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 215, 130, 0.25) 0%, rgba(255, 182, 193, 0.1) 45%, transparent 70%);
+    opacity: 0;
+    transition: opacity 1.8s ease-in-out;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.sakura-bloom-aura.active {
+    opacity: 1;
+    animation: softGoldenAuraPulse 4s infinite ease-in-out;
+}
+
+/* Main Flower Base */
 .sakura-puzzle-container {
     position: relative;
-    width: 320px;
-    height: 320px;
-    margin: 0 auto;
+    width: clamp(280px, 40vw, 420px);
+    height: clamp(280px, 40vw, 420px);
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-/* Middle Core */
-.sakura-center {
-    position: relative;
-    z-index: 10;
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle, rgba(255, 192, 203, 0.9), rgba(219, 112, 147, 0.6));
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    box-shadow: 0 0 20px rgba(255, 182, 193, 0.8);
-    transition: transform 0.6s ease, background 1s ease, box-shadow 1s ease;
-}
-
-/* Floating Petals Layer */
-.sakura-floating-petals {
-    position: absolute;
-    inset: 0;
     pointer-events: none;
+    z-index: 2;
+    transition: transform 1.2s ease;
 }
 
-.floating-petal {
+/* Center Core */
+.sakura-center-core {
+    position: relative;
+    width: clamp(26px, 4.5vw, 40px);
+    height: clamp(26px, 4.5vw, 40px);
+    background: radial-gradient(circle, #fff5da 10%, #ffc0cb 50%, #e07a9e 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255, 192, 203, 0.8), inset 0 0 6px rgba(255, 255, 255, 0.9);
+    z-index: 10;
+    transition: background 1.5s ease, box-shadow 1.5s ease;
+}
+
+.stamen-ring {
     position: absolute;
-    pointer-events: auto;
-    width: 65px;
-    height: 65px;
-    background: radial-gradient(circle, rgba(255, 182, 193, 0.85), rgba(255, 105, 180, 0.5));
-    border: 1.5px solid rgba(255, 255, 255, 0.9);
-    border-radius: 50% 0% 50% 50%;
-    transform: rotate(45deg);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 15px rgba(255, 182, 193, 0.7);
-    transition: transform 0.8s cubic-bezier(0.25, 1, 0.35, 1), left 0.8s ease, top 0.8s ease;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.6);
+    opacity: 0.7;
 }
 
-/* Attached Petals Layout around center */
+/* Socket Layer */
 .sakura-attached-petals {
     position: absolute;
     inset: 0;
@@ -516,60 +527,96 @@ button:hover {
     z-index: 5;
 }
 
-.attached-petal {
+/* Free Screen Floating Layer */
+.sakura-screen-floating-layer {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 8;
+}
+
+/* Free Moving Petals */
+.floating-petal-wrapper {
     position: absolute;
-    width: 70px;
-    height: 70px;
-    background: radial-gradient(circle, rgba(255, 182, 193, 0.9), rgba(255, 105, 180, 0.6));
-    border: 1.5px solid rgba(255, 255, 255, 0.95);
-    border-radius: 50% 0% 50% 50%;
+    pointer-events: auto;
+    width: clamp(65px, 8vw, 95px);
+    height: clamp(85px, 11vw, 125px);
+    cursor: pointer;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.55));
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.3, 1), left 0.9s cubic-bezier(0.2, 0.8, 0.3, 1), top 0.9s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.floating-petal-wrapper:hover {
+    filter: drop-shadow(0 0 18px rgba(255, 223, 136, 0.95));
+}
+
+.sakura-svg-petal {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.petal-path {
+    fill: url(#sakuraPetalGrad);
+    stroke: rgba(255, 255, 255, 0.75);
+    stroke-width: 1.2;
+    transition: fill 1.5s ease, stroke 1.5s ease;
+}
+
+/* Attached Petals inside Flower Base */
+.attached-petal-wrapper {
+    position: absolute;
+    width: clamp(65px, 8vw, 95px);
+    height: clamp(85px, 11vw, 125px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 20px rgba(255, 182, 193, 0.9);
-    animation: attachSparkle 0.6s ease-out forwards;
+    justify-content: flex-start;
+    animation: attachSnapGlow 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-.petal-label {
-    font-size: 0.72rem;
+.attached-petal-wrapper .petal-label {
+    position: absolute;
+    top: 38%;
+    font-size: clamp(0.72rem, 1vw, 0.92rem);
     font-weight: 600;
     color: #ffffff;
-    text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
-    transform: rotate(-45deg);
-    animation: fadeInGlow 0.8s ease forwards;
-    white-space: nowrap;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.85), 0 0 4px rgba(255, 255, 255, 0.8);
+    opacity: 0;
+    animation: labelFadeIn 0.8s ease 0.2s forwards;
+    pointer-events: none;
+    letter-spacing: 0.5px;
+    z-index: 3;
 }
 
 /* Golden Completed State */
-.sakura-puzzle-container.golden-completed .sakura-center {
-    background: radial-gradient(circle, rgba(255, 223, 0, 1), rgba(218, 165, 32, 0.8));
-    border-color: #ffffff;
-    box-shadow: 0 0 45px rgba(255, 215, 0, 1), 0 0 90px rgba(255, 215, 0, 0.6);
-}
-
-.sakura-puzzle-container.golden-completed .attached-petal {
-    background: radial-gradient(circle, rgba(255, 235, 120, 0.95), rgba(218, 165, 32, 0.75));
-    border-color: #ffffff;
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.9);
-}
-
 .sakura-puzzle-container.golden-completed {
-    animation: slowRotateSakura 18s linear infinite;
-    pointer-events: none;
+    animation: slowRotationalFlow 24s linear infinite;
+}
+
+.sakura-puzzle-container.golden-completed .petal-path {
+    fill: url(#sakuraGoldenPetalGrad);
+    stroke: rgba(255, 255, 255, 0.95);
+}
+
+.sakura-puzzle-container.golden-completed .sakura-center-core {
+    background: radial-gradient(circle, #ffffff 10%, #ffe380 50%, #d4a017 100%);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 1), 0 0 50px rgba(255, 215, 0, 0.6);
 }
 
 .scene4-completion {
-    margin-top: 30px;
+    margin-top: 15px;
     z-index: 10;
 }
 
 .golden-message {
-    font-size: 1.2rem;
+    font-size: clamp(1.05rem, 2.5vw, 1.35rem);
     line-height: 1.7;
     color: #ffeedd;
     text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     animation: poemReveal 1.2s ease forwards;
 }
 
@@ -608,39 +655,34 @@ button:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes attachSparkle {
-    0% { transform: scale(0.5) rotate(45deg); filter: brightness(2); }
-    50% { transform: scale(1.2) rotate(45deg); filter: brightness(2.5); }
-    100% { transform: scale(1) rotate(45deg); filter: brightness(1); }
+@keyframes attachSnapGlow {
+    0% { transform: scale(0.6); filter: brightness(2.2) drop-shadow(0 0 25px #fff); }
+    70% { transform: scale(1.08); filter: brightness(1.5) drop-shadow(0 0 15px #ffd700); }
+    100% { transform: scale(1); filter: brightness(1) drop-shadow(0 0 8px rgba(255, 182, 193, 0.6)); }
 }
 
-@keyframes fadeInGlow {
-    from { opacity: 0; filter: drop-shadow(0 0 2px #fff); }
-    to { opacity: 1; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)); }
+@keyframes labelFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes slowRotateSakura {
+@keyframes softGoldenAuraPulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.12); opacity: 1; }
+}
+
+@keyframes slowRotationalFlow {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 480px) {
-    .sakura-puzzle-container {
-        width: 270px;
-        height: 270px;
+    .scene4-heading {
+        margin-bottom: 10px;
     }
-    .sakura-center {
-        width: 65px;
-        height: 65px;
-        font-size: 2rem;
-    }
-    .floating-petal, .attached-petal {
-        width: 55px;
-        height: 55px;
-    }
-    .petal-label {
-        font-size: 0.65rem;
+    .sakura-puzzle-wrapper {
+        margin: 5px auto;
     }
 }
 
