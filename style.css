@@ -487,8 +487,8 @@ button:hover {
 /* Main Flower Base */
 .sakura-puzzle-container {
     position: relative;
-    width: clamp(280px, 40vw, 420px);
-    height: clamp(280px, 40vw, 420px);
+    width: clamp(280px, 40vw, 300px);
+    height: clamp(280px, 40vw, 300px);
     display: flex;
     justify-content: center;
     align-items: center;
