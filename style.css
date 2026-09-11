@@ -36,6 +36,11 @@ body {
     height: 100vh;
     background: radial-gradient(circle, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.45) 100%);
     z-index: 1;
+    transition: background 1s ease;
+}
+
+.video-overlay.dimmed {
+    background: rgba(0, 0, 0, 0.75);
 }
 
 /* Glassmorphism Container Classes */
@@ -299,7 +304,6 @@ button:hover {
     align-items: center;
     justify-content: center;
     padding: 0;
-    /* Continuous dynamic movement via JS logic */
     transition: transform 0.9s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.5s ease;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
@@ -400,7 +404,7 @@ button:hover {
     border-radius: 60px;
     cursor: pointer;
     box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), inset 0 0 18px rgba(255, 255, 255, 0.7);
-    transition: transform 0.35 ease, box-shadow 0.35s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .golden-sakura-card:hover {
@@ -443,6 +447,103 @@ button:hover {
 .glow-btn {
     animation: pulse 2s infinite ease-in-out;
     box-shadow: 0 0 25px rgba(255, 182, 193, 0.8);
+}
+
+/* ========================================
+   SCENE 4: RED THREAD OF FATE STYLING
+   ======================================== */
+.thread-card {
+    max-width: 600px;
+}
+
+.destiny-text {
+    font-style: italic;
+    font-size: 1.15rem;
+    color: #ffd1dc;
+    margin-bottom: 8px;
+}
+
+.thread-canvas-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 120px;
+    margin: 30px 0 10px;
+    padding: 0 10px;
+}
+
+.glass-ring {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    font-weight: 600;
+    box-shadow: 0 0 20px rgba(255, 182, 193, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.4);
+    z-index: 2;
+    transition: transform 0.1s linear, box-shadow 0.3s ease;
+}
+
+.thread-track {
+    position: absolute;
+    left: 45px;
+    right: 45px;
+    height: 6px;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+.glowing-thread {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #ff2d55, #ff3b30);
+    border-radius: 4px;
+    box-shadow: 0 0 12px rgba(255, 45, 85, 0.8);
+    transition: box-shadow 0.2s ease, height 0.2s ease;
+}
+
+.thread-slider {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: grab;
+    z-index: 3;
+}
+
+.thread-slider:active {
+    cursor: grabbing;
+}
+
+.heart-knot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 3.5rem;
+    z-index: 5;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.95));
+}
+
+.proposal-climax-text {
+    font-family: Georgia, serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    line-height: 1.5;
+    color: #fff0f5;
+    text-shadow: 0 0 20px rgba(255, 182, 193, 0.8);
 }
 
 /* Animations */
