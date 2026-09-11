@@ -227,19 +227,17 @@ const wishes = [
 
 let openedWishes = new Set();
 
-// Transition into Scene 4
+// Transition into Scene 4 (FIXED)
 congratsBtn.addEventListener("click", () => {
-    gameSection.classList.remove("show");
-    gameSection.classList.add("fade-out");
-
-    setTimeout(() => {
+    triggerPetalTransition(() => {
+        gameSection.classList.remove("show");
         gameSection.style.display = "none";
-        
+
         videoOverlay.classList.add("dimmed");
-        
+
         treeSection.classList.add("show");
         treeSection.classList.add("fade-in");
-    }, 800);
+    });
 });
 
 // Ribbon Click Handling
