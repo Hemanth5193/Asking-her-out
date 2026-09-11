@@ -38,7 +38,7 @@ body {
     z-index: 1;
 }
 
-/* Glassmorphism Classes */
+/* Glassmorphism Container Classes */
 .glass-card {
     background: rgba(255, 255, 255, 0.12);
     border: 1px solid rgba(255, 255, 255, 0.35);
@@ -113,10 +113,9 @@ button:hover {
     pointer-events: none;
 }
 
-/* Scene 2 & Common Story Layouts */
+/* Scene 2 & Common Story Section */
 .story-section,
-.game-section,
-.proposal-section {
+.game-section {
     position: fixed;
     inset: 0;
     display: flex;
@@ -132,8 +131,7 @@ button:hover {
 }
 
 .story-section.show,
-.game-section.show,
-.proposal-section.show {
+.game-section.show {
     opacity: 1;
     visibility: visible;
 }
@@ -218,7 +216,7 @@ button:hover {
     border-radius: 30px;
 }
 
-/* Full-Screen Transition Petals */
+/* Cherry Storm Full-Screen Transition */
 .petal-transition-container {
     position: fixed;
     inset: 0;
@@ -252,7 +250,7 @@ button:hover {
     }
 }
 
-/* Scene 3: Rainbow Sakura Game */
+/* Scene 3: VIBGYOR Rainbow Engine */
 .game-play-area {
     position: fixed;
     inset: 0;
@@ -301,13 +299,13 @@ button:hover {
     align-items: center;
     justify-content: center;
     padding: 0;
-    /* Snappy 0.6s motion */
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.4s ease;
+    /* Continuous dynamic movement via JS logic */
+    transition: transform 1.9s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.5s ease;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
 }
 
-/* VIBGYOR Neon Color Palette */
+/* VIBGYOR Multi-Layered Glows */
 .vibgyor-violet {
     background: radial-gradient(circle, rgba(186, 85, 211, 0.7), rgba(138, 43, 226, 0.4));
     box-shadow: 0 0 25px rgba(186, 85, 211, 0.95), inset 0 0 10px rgba(255, 255, 255, 0.6);
@@ -343,7 +341,7 @@ button:hover {
     box-shadow: 0 0 25px rgba(255, 45, 85, 0.95), inset 0 0 10px rgba(255, 255, 255, 0.6);
 }
 
-/* Modals & Golden Unlock Styling */
+/* Modals & Final Unlock Styling */
 .compliment-modal,
 .final-card {
     position: relative;
@@ -371,7 +369,7 @@ button:hover {
     border-radius: 25px;
 }
 
-/* Golden Emperor Sakura Button */
+/* Redesigned Golden Emperor Sakura Trigger */
 .golden-emblem-container {
     position: relative;
     display: flex;
@@ -402,7 +400,7 @@ button:hover {
     border-radius: 60px;
     cursor: pointer;
     box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), inset 0 0 18px rgba(255, 255, 255, 0.7);
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    transition: transform 0.35 ease, box-shadow 0.35s ease;
 }
 
 .golden-sakura-card:hover {
@@ -442,137 +440,6 @@ button:hover {
     opacity: 0.9;
 }
 
-/* Scene 4: Cosmic Constellation Stage */
-.proposal-section {
-    z-index: 4;
-}
-
-.constellation-stage {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.cosmic-header {
-    position: relative;
-    z-index: 10;
-    margin-top: 50px;
-    text-align: center;
-}
-
-.cosmic-header h2 {
-    font-size: clamp(1.2rem, 4vw, 1.8rem);
-    color: #ffeedd;
-    text-shadow: 0 0 15px rgba(255, 182, 193, 0.8);
-}
-
-#constellationCanvas {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 2;
-}
-
-.stars-container {
-    position: absolute;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 3;
-}
-
-.cosmic-star {
-    position: absolute;
-    font-size: 2.2rem;
-    cursor: pointer;
-    transform: translate(-50%, -50%) scale(1);
-    transition: transform 0.3s ease, filter 0.3s ease;
-    user-select: none;
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7));
-    animation: starPulse 2.5s infinite ease-in-out;
-}
-
-.cosmic-star:hover {
-    transform: translate(-50%, -50%) scale(1.35);
-}
-
-.cosmic-star.activated {
-    animation: none;
-    transform: translate(-50%, -50%) scale(1.4);
-    filter: drop-shadow(0 0 20px rgba(255, 105, 180, 1));
-}
-
-.proposal-card {
-    width: 90%;
-    max-width: 540px;
-    padding: 45px 30px;
-    text-align: center;
-    z-index: 10;
-}
-
-.proposal-title {
-    font-size: clamp(2rem, 6vw, 3rem);
-    margin-bottom: 12px;
-    background: linear-gradient(135deg, #ffffff, #ffb6c1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.proposal-text {
-    font-size: 1.25rem;
-    color: #ffeedd;
-    margin-bottom: 35px;
-}
-
-.proposal-actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.yes-btn {
-    background: linear-gradient(135deg, #ff416c, #ff4b2b);
-    border: none;
-    padding: 16px 48px;
-    font-size: 1.25rem;
-    font-weight: 700;
-    border-radius: 50px;
-    box-shadow: 0 0 30px rgba(255, 65, 108, 0.85);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.yes-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 50px rgba(255, 65, 108, 1);
-}
-
-.celebration-modal {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 50;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(12px);
-}
-
-.celebration-card {
-    width: 90%;
-    max-width: 480px;
-    padding: 40px;
-    text-align: center;
-}
-
-.celebration-icon {
-    font-size: 3.5rem;
-    display: block;
-    margin-bottom: 15px;
-}
-
 .glow-btn {
     animation: pulse 2s infinite ease-in-out;
     box-shadow: 0 0 25px rgba(255, 182, 193, 0.8);
@@ -586,11 +453,6 @@ button:hover {
 .fade-in {
     display: block !important;
     animation: poemReveal 0.9s ease forwards;
-}
-
-.fade-out-fast {
-    opacity: 0;
-    transition: opacity 0.6s ease;
 }
 
 @keyframes reveal {
@@ -613,20 +475,201 @@ button:hover {
     50% { transform: scale(1.25); opacity: 0.9; }
 }
 
-@keyframes starPulse {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-}
-
 @keyframes poemReveal {
     from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Desktop Polish */
 @media (min-width: 1024px) {
     .rainbow-sakura {
         width: 72px;
         height: 72px;
         font-size: 2.5rem;
     }
+}
+
+/* --- DYNAMIC BACKGROUND FOR SCENE 4 --- */
+body.scene-4-active {
+  background: linear-gradient(180deg, #0d0f1d 0%, #1a1c38 60%, #2b1f3d 100%) !important;
+  transition: background 1.5s ease-in-out;
+}
+
+/* Scene 4 Layout */
+#scene-4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fce4ec;
+  padding: 20px;
+}
+
+.scene-title {
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: #ffe0b2;
+  text-shadow: 0 0 12px rgba(255, 224, 178, 0.4);
+  margin-bottom: 8px;
+}
+
+.scene-subtitle {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  margin-bottom: 30px;
+}
+
+/* River & Lantern Area */
+.river-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: 280px;
+  border-radius: 20px;
+  background: radial-gradient(ellipse at bottom, rgba(30, 41, 88, 0.6) 0%, rgba(10, 12, 26, 0.9) 100%);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  overflow: hidden;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.water-reflection {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 182, 193, 0.05) 100%);
+  pointer-events: none;
+}
+
+.lanterns-wrapper {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 0 10px;
+  z-index: 2;
+}
+
+/* Individual Lantern Structure */
+.lantern-item {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.lantern-item:hover {
+  transform: translateY(-5px);
+}
+
+.lantern-body {
+  position: relative;
+  width: 60px;
+  height: 80px;
+  background: rgba(255, 248, 220, 0.2);
+  border: 2px solid rgba(255, 215, 0, 0.4);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+  transition: all 0.8s ease;
+}
+
+.lantern-kanji {
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.8s ease;
+}
+
+.lantern-base {
+  width: 66px;
+  height: 8px;
+  background: #3e2723;
+  border-radius: 2px;
+  margin-top: 2px;
+}
+
+.lantern-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+/* Lit Lantern State */
+.lantern-item.lit .lantern-body {
+  background: radial-gradient(circle, rgba(255, 223, 138, 0.95) 0%, rgba(255, 140, 0, 0.7) 100%);
+  border-color: #ffd700;
+  box-shadow: 0 0 25px rgba(255, 180, 50, 0.8), 0 0 50px rgba(255, 120, 0, 0.4);
+  animation: floatLantern 3s ease-in-out infinite alternate;
+}
+
+.lantern-item.lit .lantern-kanji {
+  color: #3e2723;
+  font-weight: bold;
+}
+
+.lantern-item.lit .lantern-glow {
+  opacity: 1;
+}
+
+/* Whispers */
+.whisper-box {
+  position: absolute;
+  top: -45px;
+  white-space: nowrap;
+  font-size: 0.85rem;
+  color: #ffe0b2;
+  background: rgba(15, 15, 30, 0.85);
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.6s ease;
+  pointer-events: none;
+}
+
+.whisper-box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animations */
+@keyframes floatLantern {
+  0% { transform: translateY(0px) rotate(-1deg); }
+  100% { transform: translateY(-10px) rotate(1deg); }
+}
+
+.nav-btn {
+  margin-top: 25px;
+  padding: 12px 28px;
+  font-size: 1rem;
+  border-radius: 25px;
+  border: none;
+  background: linear-gradient(135deg, #ffb74d, #f57c00);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(245, 124, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(245, 124, 0, 0.8);
+}
+
+.hidden {
+  display: none !important;
 }
