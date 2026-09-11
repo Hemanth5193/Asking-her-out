@@ -112,16 +112,23 @@
     <section class="game-section" id="scene4Section">
         <h2 class="scene4-heading">HAHA have to clear this PUZZLE to..</h2>
 
-        <div class="sakura-puzzle-container" id="sakuraPuzzleContainer">
-            <!-- Center Core -->
-            <div class="sakura-center" id="sakuraCenter">🌸</div>
+        <div class="sakura-puzzle-wrapper">
+            <!-- Golden Bloom Aura Layer -->
+            <div class="sakura-bloom-aura" id="sakuraBloomAura"></div>
 
-            <!-- Attached Petals Container -->
-            <div class="sakura-attached-petals" id="attachedPetals"></div>
+            <!-- Main Flower Target Container -->
+            <div class="sakura-puzzle-container" id="sakuraPuzzleContainer">
+                <div class="sakura-center-core" id="sakuraCenterCore">
+                    <div class="stamen-ring"></div>
+                </div>
 
-            <!-- Uncaught Floating Petals Layer -->
-            <div class="sakura-floating-petals" id="floatingPetals"></div>
+                <!-- Attached Petals Socket Layer -->
+                <div class="sakura-attached-petals" id="attachedPetals"></div>
+            </div>
         </div>
+
+        <!-- Free Screen Floating Petals Container -->
+        <div class="sakura-screen-floating-layer" id="floatingPetalsLayer"></div>
 
         <!-- Scene 4 Message and Action Button -->
         <div id="scene4Completion" class="scene4-completion hidden">
