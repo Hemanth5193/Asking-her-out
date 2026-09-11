@@ -304,7 +304,6 @@ button:hover {
     -webkit-backdrop-filter: blur(6px);
 }
 
-/* VIBGYOR Multi-Layered Glows */
 .vibgyor-violet {
     background: radial-gradient(circle, rgba(186, 85, 211, 0.7), rgba(138, 43, 226, 0.4));
     box-shadow: 0 0 25px rgba(186, 85, 211, 0.95), inset 0 0 10px rgba(255, 255, 255, 0.6);
@@ -332,7 +331,7 @@ button:hover {
 
 .vibgyor-orange {
     background: radial-gradient(circle, rgba(255, 140, 0, 0.8), rgba(255, 69, 0, 0.4));
-    box-shadow: 0 0 25px rgba(255, 140, 0, 0.95), inset 0 0 10px rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 25px rgba(255, 140, 0, 0.95), inset 0 0 10px rgba(255, 69, 0, 0.4);
 }
 
 .vibgyor-red {
@@ -368,7 +367,6 @@ button:hover {
     border-radius: 25px;
 }
 
-/* Redesigned Golden Emperor Sakura Trigger */
 .golden-emblem-container {
     position: relative;
     display: flex;
@@ -445,7 +443,7 @@ button:hover {
 }
 
 /* ========================================
-   SCENE 4: SAKURA PETAL PUZZLE STYLES (UPDATED)
+   SCENE 4: SAKURA PETAL PUZZLE STYLES (CORRECTED GEOMETRY)
    ======================================== */
 
 .scene4-heading {
@@ -471,10 +469,10 @@ button:hover {
 /* Soft Golden Bloom Background Aura */
 .sakura-bloom-aura {
     position: absolute;
-    width: clamp(260px, 45vw, 440px);
-    height: clamp(260px, 45vw, 440px);
+    width: clamp(280px, 45vw, 440px);
+    height: clamp(280px, 45vw, 440px);
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 215, 130, 0.25) 0%, rgba(255, 182, 193, 0.1) 45%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 215, 130, 0.28) 0%, rgba(255, 182, 193, 0.12) 45%, transparent 70%);
     opacity: 0;
     transition: opacity 1.8s ease-in-out;
     pointer-events: none;
@@ -502,11 +500,11 @@ button:hover {
 /* Center Core */
 .sakura-center-core {
     position: relative;
-    width: clamp(26px, 4.5vw, 40px);
-    height: clamp(26px, 4.5vw, 40px);
+    width: clamp(24px, 4vw, 36px);
+    height: clamp(24px, 4vw, 36px);
     background: radial-gradient(circle, #fff5da 10%, #ffc0cb 50%, #e07a9e 100%);
     border-radius: 50%;
-    box-shadow: 0 0 15px rgba(255, 192, 203, 0.8), inset 0 0 6px rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 15px rgba(255, 192, 203, 0.85), inset 0 0 6px rgba(255, 255, 255, 0.9);
     z-index: 10;
     transition: background 1.5s ease, box-shadow 1.5s ease;
 }
@@ -541,10 +539,10 @@ button:hover {
 .floating-petal-wrapper {
     position: absolute;
     pointer-events: auto;
-    width: clamp(65px, 8vw, 95px);
-    height: clamp(85px, 11vw, 125px);
+    width: clamp(65px, 8vw, 90px);
+    height: clamp(85px, 11vw, 120px);
     cursor: pointer;
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.55));
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
     transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.3, 1), left 0.9s cubic-bezier(0.2, 0.8, 0.3, 1), top 0.9s cubic-bezier(0.2, 0.8, 0.3, 1);
 }
 
@@ -560,7 +558,7 @@ button:hover {
 
 .petal-path {
     fill: url(#sakuraPetalGrad);
-    stroke: rgba(255, 255, 255, 0.75);
+    stroke: rgba(255, 255, 255, 0.8);
     stroke-width: 1.2;
     transition: fill 1.5s ease, stroke 1.5s ease;
 }
@@ -568,19 +566,23 @@ button:hover {
 /* Attached Petals inside Flower Base */
 .attached-petal-wrapper {
     position: absolute;
-    width: clamp(65px, 8vw, 95px);
-    height: clamp(85px, 11vw, 125px);
+    top: 50%;
+    left: 50%;
+    width: clamp(65px, 8vw, 90px);
+    height: clamp(85px, 11vw, 120px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    /* Bottom center anchoring creates precise 5-star flower symmetry */
+    transform-origin: 50% 100%;
     animation: attachSnapGlow 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 .attached-petal-wrapper .petal-label {
     position: absolute;
-    top: 38%;
-    font-size: clamp(0.72rem, 1vw, 0.92rem);
+    top: 32%;
+    font-size: clamp(0.7rem, 0.95vw, 0.88rem);
     font-weight: 600;
     color: #ffffff;
     text-shadow: 0 0 8px rgba(0, 0, 0, 0.85), 0 0 4px rgba(255, 255, 255, 0.8);
@@ -656,9 +658,9 @@ button:hover {
 }
 
 @keyframes attachSnapGlow {
-    0% { transform: scale(0.6); filter: brightness(2.2) drop-shadow(0 0 25px #fff); }
-    70% { transform: scale(1.08); filter: brightness(1.5) drop-shadow(0 0 15px #ffd700); }
-    100% { transform: scale(1); filter: brightness(1) drop-shadow(0 0 8px rgba(255, 182, 193, 0.6)); }
+    0% { filter: brightness(2.2) drop-shadow(0 0 25px #fff); }
+    70% { filter: brightness(1.5) drop-shadow(0 0 15px #ffd700); }
+    100% { filter: brightness(1) drop-shadow(0 0 8px rgba(255, 182, 193, 0.6)); }
 }
 
 @keyframes labelFadeIn {
