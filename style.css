@@ -443,7 +443,7 @@ button:hover {
 }
 
 /* ========================================
-   SCENE 4: SAKURA PETAL PUZZLE STYLES (CORRECTED GEOMETRY)
+   SCENE 4: SAKURA PETAL PUZZLE (FIXED GEOMETRY)
    ======================================== */
 
 .scene4-heading {
@@ -456,7 +456,6 @@ button:hover {
     z-index: 10;
 }
 
-/* Layout Wrapper */
 .sakura-puzzle-wrapper {
     position: relative;
     display: flex;
@@ -466,13 +465,12 @@ button:hover {
     z-index: 5;
 }
 
-/* Soft Golden Bloom Background Aura */
 .sakura-bloom-aura {
     position: absolute;
-    width: clamp(280px, 45vw, 440px);
-    height: clamp(280px, 45vw, 440px);
+    width: clamp(260px, 45vw, 400px);
+    height: clamp(260px, 45vw, 400px);
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 215, 130, 0.28) 0%, rgba(255, 182, 193, 0.12) 45%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 215, 130, 0.35) 0%, rgba(255, 182, 193, 0.15) 50%, transparent 70%);
     opacity: 0;
     transition: opacity 1.8s ease-in-out;
     pointer-events: none;
@@ -484,11 +482,11 @@ button:hover {
     animation: softGoldenAuraPulse 4s infinite ease-in-out;
 }
 
-/* Main Flower Base */
+/* Responsive Main Flower Container */
 .sakura-puzzle-container {
     position: relative;
-    width: clamp(280px, 40vw, 300px);
-    height: clamp(280px, 40vw, 300px);
+    width: clamp(220px, 35vw, 280px);
+    height: clamp(220px, 35vw, 280px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -497,11 +495,11 @@ button:hover {
     transition: transform 1.2s ease;
 }
 
-/* Center Core */
+/* Precise Center Core */
 .sakura-center-core {
-    position: relative;
-    width: clamp(24px, 4.5vw, 60px);
-    height: clamp(24px, 4.5vw, 60px);
+    position: absolute;
+    width: clamp(35px, 6vw, 50px);
+    height: clamp(35px, 6vw, 50px);
     background: radial-gradient(circle, #fff5da 10%, #ffc0cb 50%, #e07a9e 100%);
     border-radius: 50%;
     box-shadow: 0 0 15px rgba(255, 192, 203, 0.85), inset 0 0 6px rgba(255, 255, 255, 0.9);
@@ -517,7 +515,6 @@ button:hover {
     opacity: 0.7;
 }
 
-/* Socket Layer */
 .sakura-attached-petals {
     position: absolute;
     inset: 0;
@@ -525,7 +522,6 @@ button:hover {
     z-index: 5;
 }
 
-/* Free Screen Floating Layer */
 .sakura-screen-floating-layer {
     position: fixed;
     inset: 0;
@@ -535,15 +531,14 @@ button:hover {
     z-index: 8;
 }
 
-/* Free Moving Petals */
 .floating-petal-wrapper {
     position: absolute;
     pointer-events: auto;
-    width: clamp(65px, 8vw, 90px);
-    height: clamp(85px, 11vw, 120px);
+    width: clamp(60px, 8vw, 85px);
+    height: clamp(80px, 11vw, 110px);
     cursor: pointer;
     filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
-    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.3, 1), left 0.9s cubic-bezier(0.2, 0.8, 0.3, 1), top 0.9s cubic-bezier(0.2, 0.8, 0.3, 1);
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1), left 0.7s cubic-bezier(0.2, 0.8, 0.3, 1), top 0.7s cubic-bezier(0.2, 0.8, 0.3, 1);
 }
 
 .floating-petal-wrapper:hover {
@@ -563,37 +558,38 @@ button:hover {
     transition: fill 1.5s ease, stroke 1.5s ease;
 }
 
-/* Attached Petals inside Flower Base */
+/* Corrected Attached Petals Positioning */
 .attached-petal-wrapper {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: clamp(65px, 8vw, 90px);
-    height: clamp(85px, 11vw, 120px);
+    width: clamp(60px, 8vw, 85px);
+    height: clamp(80px, 11vw, 110px);
+    margin-left: clamp(-30px, -4vw, -42.5px);
+    margin-top: clamp(-80px, -11vw, -110px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    /* Bottom center anchoring creates precise 5-star flower symmetry */
-    transform-origin: 50% 100%;
+    justify-content: center;
+    transform-origin: 50% 100%; /* Rotates exactly around center base */
     animation: attachSnapGlow 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 .attached-petal-wrapper .petal-label {
     position: absolute;
-    top: 32%;
-    font-size: clamp(0.7rem, 0.95vw, 0.88rem);
+    top: 30%;
+    font-size: clamp(0.7rem, 1vw, 0.88rem);
     font-weight: 600;
     color: #ffffff;
-    text-shadow: 0 0 8px rgba(0, 0, 0, 0.85), 0 0 4px rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.9), 0 0 4px rgba(255, 255, 255, 0.8);
     opacity: 0;
     animation: labelFadeIn 0.8s ease 0.2s forwards;
     pointer-events: none;
-    letter-spacing: 0.5px;
+    white-space: nowrap;
     z-index: 3;
 }
 
-/* Golden Completed State */
+/* Completed Flower Golden Glow */
 .sakura-puzzle-container.golden-completed {
     animation: slowRotationalFlow 24s linear infinite;
 }
@@ -622,7 +618,7 @@ button:hover {
     animation: poemReveal 1.2s ease forwards;
 }
 
-/* Animations */
+/* Keyframe Animations */
 .hidden {
     display: none !important;
 }
@@ -678,7 +674,7 @@ button:hover {
     to { transform: rotate(360deg); }
 }
 
-/* Mobile Responsiveness */
+/* Media Queries */
 @media (max-width: 480px) {
     .scene4-heading {
         margin-bottom: 10px;
