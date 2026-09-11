@@ -40,7 +40,7 @@ body {
 }
 
 .video-overlay.dimmed {
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.8);
 }
 
 /* Glassmorphism Container Classes */
@@ -127,7 +127,7 @@ button:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 25px;
+    padding: 20px;
     text-align: center;
     opacity: 0;
     visibility: hidden;
@@ -373,7 +373,7 @@ button:hover {
     border-radius: 25px;
 }
 
-/* Redesigned Golden Emperor Sakura Trigger */
+/* Golden Emperor Sakura Trigger */
 .golden-emblem-container {
     position: relative;
     display: flex;
@@ -450,100 +450,158 @@ button:hover {
 }
 
 /* ========================================
-   SCENE 4: RED THREAD OF FATE STYLING
+   SCENE 4: WISHING BLOSSOM TREE STYLING
    ======================================== */
-.thread-card {
-    max-width: 600px;
+.tree-card {
+    max-width: 650px;
+    padding: 30px 20px;
 }
 
-.destiny-text {
-    font-style: italic;
-    font-size: 1.15rem;
-    color: #ffd1dc;
-    margin-bottom: 8px;
-}
-
-.thread-canvas-container {
+.sakura-tree-container {
     position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     width: 100%;
-    height: 120px;
-    margin: 30px 0 10px;
-    padding: 0 10px;
-}
-
-.glass-ring {
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    height: 230px;
+    margin: 20px 0;
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-size: 1.05rem;
-    font-weight: 600;
-    box-shadow: 0 0 20px rgba(255, 182, 193, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.4);
-    z-index: 2;
-    transition: transform 0.1s linear, box-shadow 0.3s ease;
-}
-
-.thread-track {
-    position: absolute;
-    left: 45px;
-    right: 45px;
-    height: 6px;
-    display: flex;
     align-items: center;
-    z-index: 1;
 }
 
-.glowing-thread {
+.tree-silhouette {
+    position: relative;
+    width: 180px;
+    height: 180px;
+}
+
+.tree-trunk {
     position: absolute;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, #ff2d55, #ff3b30);
-    border-radius: 4px;
-    box-shadow: 0 0 12px rgba(255, 45, 85, 0.8);
-    transition: box-shadow 0.2s ease, height 0.2s ease;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18px;
+    height: 110px;
+    background: linear-gradient(to top, rgba(255, 182, 193, 0.8), rgba(255, 255, 255, 0.4));
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 182, 193, 0.6);
 }
 
-.thread-slider {
+.branch {
+    position: absolute;
+    height: 6px;
+    background: rgba(255, 182, 193, 0.7);
+    border-radius: 4px;
+}
+
+.branch-left {
+    width: 70px;
+    top: 60px;
+    left: 15px;
+    transform: rotate(-25deg);
+}
+
+.branch-center {
+    width: 60px;
+    top: 35px;
+    left: 60px;
+    transform: rotate(-5deg);
+}
+
+.branch-right {
+    width: 70px;
+    top: 60px;
+    right: 15px;
+    transform: rotate(25deg);
+}
+
+/* Hanging Ribbons Layout */
+.ribbons-wrapper {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: grab;
-    z-index: 3;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding-bottom: 10px;
 }
 
-.thread-slider:active {
-    cursor: grabbing;
+.silk-ribbon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 18px;
+    background: linear-gradient(180deg, rgba(255, 105, 180, 0.4), rgba(255, 192, 203, 0.2));
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+    animation: ribbonSway 3s ease-in-out infinite alternate;
+    transition: transform 0.3s ease, background 0.3s ease;
 }
 
-.heart-knot {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    font-size: 3.5rem;
-    z-index: 5;
-    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.95));
+.silk-ribbon:hover {
+    transform: scale(1.08) translateY(-4px);
+    background: linear-gradient(180deg, rgba(255, 105, 180, 0.6), rgba(255, 192, 203, 0.4));
 }
 
-.proposal-climax-text {
+.silk-ribbon.opened {
+    border-color: #ffd1dc;
+    background: rgba(255, 255, 255, 0.25);
+    opacity: 0.8;
+}
+
+.ribbon-2 {
+    animation-delay: -1s;
+}
+
+.ribbon-3 {
+    animation-delay: -2s;
+}
+
+.ribbon-knot {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+}
+
+.ribbon-label {
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* Grand Golden Ribbon Drop */
+.golden-ribbon-container {
+    position: relative;
+    margin-top: 15px;
+    animation: goldenDrop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.golden-ribbon-card {
+    position: relative;
+    z-index: 2;
+    padding: 25px 20px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.35), rgba(255, 105, 180, 0.35));
+    border: 2px solid rgba(255, 215, 0, 0.95);
+    border-radius: 24px;
+    box-shadow: 0 0 35px rgba(255, 215, 0, 0.8), inset 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+.golden-question {
     font-family: Georgia, serif;
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
-    line-height: 1.5;
-    color: #fff0f5;
-    text-shadow: 0 0 20px rgba(255, 182, 193, 0.8);
+    font-size: clamp(1.4rem, 4vw, 2.1rem);
+    margin: 12px 0 20px;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.pull-ribbon-btn {
+    padding: 12px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 30px;
+    background: linear-gradient(90deg, #ff2d55, #ff3b30);
+    border: none;
+    box-shadow: 0 0 25px rgba(255, 45, 85, 0.8);
+    animation: pulse 2s infinite ease-in-out;
 }
 
 /* Animations */
@@ -576,6 +634,16 @@ button:hover {
     50% { transform: scale(1.25); opacity: 0.9; }
 }
 
+@keyframes ribbonSway {
+    0% { transform: rotate(-5deg); }
+    100% { transform: rotate(5deg); }
+}
+
+@keyframes goldenDrop {
+    0% { opacity: 0; transform: translateY(-30px) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 @keyframes poemReveal {
     from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
@@ -583,6 +651,9 @@ button:hover {
 
 /* Desktop Polish */
 @media (min-width: 1024px) {
+    .sakura-tree-container {
+        height: 260px;
+    }
     .rainbow-sakura {
         width: 72px;
         height: 72px;
