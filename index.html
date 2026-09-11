@@ -108,6 +108,46 @@
 
     </section>
 
+    <!-- Scene 4: Cosmic Constellation Proposal -->
+    <section class="proposal-section" id="proposalSection">
+        
+        <!-- Active Constellation Stage -->
+        <div id="constellationStage" class="constellation-stage">
+            <div class="cosmic-header">
+                <span class="story-label">Written in the Stars ✨</span>
+                <h2 id="constellationInstruction">Tap the 8 stars to light up the sky...</h2>
+            </div>
+
+            <!-- Canvas for dynamic beam lines -->
+            <canvas id="constellationCanvas"></canvas>
+
+            <!-- Interactive Glowing Stars Container -->
+            <div id="starsContainer" class="stars-container"></div>
+        </div>
+
+        <!-- Final Proposal Card (Fades in after stars are connected) -->
+        <div id="proposalCard" class="proposal-card glass-card hidden">
+            <span class="story-label">For You, Ananya ❤️</span>
+            <h2 class="proposal-title">Will you be my girlfriend?</h2>
+            <p class="proposal-text">Every star led me right to you...</p>
+
+            <div class="proposal-actions">
+                <button id="yesBtn" class="yes-btn">YES! ❤️</button>
+            </div>
+        </div>
+
+        <!-- Final Celebration Overlay -->
+        <div id="celebrationModal" class="celebration-modal hidden">
+            <div class="celebration-card glass-card">
+                <span class="celebration-icon">💖</span>
+                <h2>I knew you'd say YES!</h2>
+                <p>You just made my whole world brighter. I can't wait for our adventure together ✨</p>
+                <button onclick="location.reload()" class="story-btn">Relive The Magic 🌸</button>
+            </div>
+        </div>
+
+    </section>
+
     <script src="script.js"></script>
 
 </body>
