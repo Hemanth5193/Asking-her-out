@@ -344,42 +344,44 @@ button:hover {
    ======================================== */
 
 .compliment-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background: transparent;
-    pointer-events: auto;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 9999 !important;
+    
+    width: 90% !important;
+    max-width: 500px !important;
+    padding: 35px 28px !important;
+    
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+
+    /* Glassmorphism Styling */
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 24px !important;
+
+    backdrop-filter: blur(18px) saturate(130%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(130%) !important;
+
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+
+    animation: modalGlassPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
 }
 
 .compliment-modal .modal-content {
-    position: relative;
-    width: 90%;
-    max-width: 520px;
-    padding: 38px 30px;
-    border-radius: 24px;
-
-    /* Centered Flex Layout */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-
-    /* Frosted Glassmorphism Styling */
-    background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(22px) saturate(140%);
-    -webkit-backdrop-filter: blur(22px) saturate(140%);
-    
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    box-shadow: 
-        0 16px 40px rgba(0, 0, 0, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6);
-
-    animation: modalGlassPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    width: 100% !important;
 }
 
 /* Header Icon */
@@ -427,11 +429,11 @@ button:hover {
 @keyframes modalGlassPop {
     0% {
         opacity: 0;
-        transform: scale(0.92) translateY(10px);
+        transform: translate(-50%, -45%) scale(0.92);
     }
     100% {
         opacity: 1;
-        transform: scale(1) translateY(0);
+        transform: translate(-50%, -50%) scale(1);
     }
 }
 
