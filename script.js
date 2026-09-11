@@ -1,3 +1,6 @@
+/* ========================================
+   GLOBAL DOM ELEMENTS & INITIAL SETUP
+   ======================================== */
 const beginButton = document.getElementById("beginButton");
 const introContainer = document.getElementById("introContainer");
 const storySection = document.getElementById("storySection");
@@ -27,7 +30,9 @@ const congratsBtn = document.getElementById("congratsBtn");
 let moveInterval;
 let activePetals = [];
 
-// Scene 1 -> Scene 2
+/* ========================================
+   SCENE 1 -> SCENE 2 TRANSITION
+   ======================================== */
 beginButton.addEventListener("click", function () {
     introContainer.classList.add("fade-out");
 
@@ -38,7 +43,9 @@ beginButton.addEventListener("click", function () {
     }, 800);
 });
 
-// Scene 2 Sakura Float
+/* ========================================
+   SCENE 2: POEM & CHERRY STORM
+   ======================================== */
 function startSakuraFloating() {
     moveSakura();
     moveInterval = setInterval(moveSakura, 2000);
@@ -54,7 +61,6 @@ function moveSakura() {
     sakuraBtn.style.transform = `translate(${randomX}px, ${randomY}px) scale(1.1)`;
 }
 
-// Catching Scene 2 Sakura
 sakuraBtn.addEventListener("click", function () {
     clearInterval(moveInterval);
     scene2Intro.style.display = "none";
@@ -62,7 +68,6 @@ sakuraBtn.addEventListener("click", function () {
     poemContainer.classList.add("fade-in");
 });
 
-// Scene 2 -> Scene 3 Transition
 nextToScene3Btn.addEventListener("click", function () {
     triggerPetalTransition(() => {
         storySection.classList.remove("show");
@@ -71,7 +76,6 @@ nextToScene3Btn.addEventListener("click", function () {
     });
 });
 
-// Cinematic Full-Screen Cherry Storm Transition
 function triggerPetalTransition(callback) {
     petalTransition.innerHTML = "";
     const petalCount = window.innerWidth > 768 ? 80 : 45;
@@ -92,18 +96,9 @@ function triggerPetalTransition(callback) {
     }, 2500);
 }
 
-// Start Game Prompt Action
-startGameBtn.addEventListener("click", () => {
-    preGamePrompt.classList.add("hidden");
-    gamePlayArea.classList.remove("hidden");
-    gamePlayArea.classList.add("fade-in");
-    initRainbowGame();
-});
-
 /* ========================================
-   SCENE 3: VIBGYOR RAINBOW SAKURA ENGINE
+   SCENE 3: FASTER VIBGYOR RAINBOW ENGINE
    ======================================== */
-
 const compliments = [
     "Violet 💜 — Your grace and calm presence soothe my mind in every way.",
     "Indigo 💙 — The profound, gentle depth in the way you care about people.",
@@ -117,6 +112,13 @@ const compliments = [
 const vibgyorColors = ["violet", "indigo", "blue", "green", "yellow", "orange", "red"];
 let caughtCount = 0;
 
+startGameBtn.addEventListener("click", () => {
+    preGamePrompt.classList.add("hidden");
+    gamePlayArea.classList.remove("hidden");
+    gamePlayArea.classList.add("fade-in");
+    initRainbowGame();
+});
+
 function initRainbowGame() {
     rainbowContainer.innerHTML = "";
     activePetals = [];
@@ -129,14 +131,13 @@ function initRainbowGame() {
         btn.innerHTML = "🌸";
         btn.setAttribute("data-index", i);
         
-        // Initial Screen Placement
         setRandomInitialPosition(btn);
         rainbowContainer.appendChild(btn);
 
-        // Continuous Smooth Physics Motion
+        // Faster glide interval (600ms - 900ms)
         const petalObj = {
             element: btn,
-            interval: setInterval(() => glidePetal(btn), 900 + Math.random() * 400)
+            interval: setInterval(() => glidePetal(btn), 600 + Math.random() * 300)
         };
         activePetals.push(petalObj);
 
@@ -161,14 +162,12 @@ function glidePetal(element) {
     const currentLeft = parseFloat(element.style.left);
     const currentTop = parseFloat(element.style.top);
 
-    // Calculate dynamic float trajectory across laptop and mobile viewports
-    const moveRangeX = window.innerWidth > 768 ? 240 : 130;
-    const moveRangeY = window.innerHeight > 768 ? 200 : 110;
+    const moveRangeX = window.innerWidth > 768 ? 320 : 180;
+    const moveRangeY = window.innerHeight > 768 ? 260 : 150;
 
     let deltaX = (Math.random() - 0.5) * moveRangeX;
     let deltaY = (Math.random() - 0.5) * moveRangeY;
 
-    // Viewport Boundary Guarding
     if (currentLeft + deltaX < 60 || currentLeft + deltaX > window.innerWidth - 80) {
         deltaX *= -1;
     }
@@ -183,7 +182,6 @@ function handlePetalCatch(btn, index) {
     if (btn.classList.contains("caught")) return;
     btn.classList.add("caught");
     
-    // Smooth Catch Burst
     btn.style.transform += " scale(1.6)";
     btn.style.opacity = "0";
     btn.style.pointerEvents = "none";
@@ -191,7 +189,6 @@ function handlePetalCatch(btn, index) {
     caughtCount++;
     counterBadge.textContent = `Blossoms Caught: ${caughtCount} / 7`;
 
-    // Display Note
     complimentText.textContent = compliments[index];
     complimentModal.classList.remove("hidden");
     complimentModal.classList.add("fade-in");
@@ -202,7 +199,6 @@ continueGameBtn.addEventListener("click", () => {
     complimentModal.classList.remove("fade-in");
 
     if (caughtCount === 7) {
-        // Clear all float loops
         activePetals.forEach(p => clearInterval(p.interval));
         rainbowContainer.style.display = "none";
         gamePlayArea.style.display = "none";
@@ -212,12 +208,129 @@ continueGameBtn.addEventListener("click", () => {
     }
 });
 
-// Proposal Scene Transition
+/* ========================================
+   SCENE 4: COSMIC CONSTELLATION ENGINE
+   ======================================== */
+const proposalSection = document.getElementById("proposalSection");
+const constellationStage = document.getElementById("constellationStage");
+const starsContainer = document.getElementById("starsContainer");
+const constellationCanvas = document.getElementById("constellationCanvas");
+const constellationInstruction = document.getElementById("constellationInstruction");
+const proposalCard = document.getElementById("proposalCard");
+const yesBtn = document.getElementById("yesBtn");
+const celebrationModal = document.getElementById("celebrationModal");
+
+const ctx = constellationCanvas.getContext("2d");
+let connectedStars = [];
+let starNodes = [];
+
 congratsBtn.addEventListener("click", () => {
     gameSection.classList.remove("show");
     gameSection.classList.add("fade-out");
+
     setTimeout(() => {
         gameSection.style.display = "none";
-        // Scene 4 proposal hook
+        proposalSection.classList.add("show");
+        initConstellation();
     }, 800);
+});
+
+function initConstellation() {
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    starsContainer.innerHTML = "";
+    connectedStars = [];
+    starNodes = [];
+
+    const heartPoints = [
+        { x: 50, y: 32 },
+        { x: 35, y: 22 },
+        { x: 22, y: 35 },
+        { x: 32, y: 55 },
+        { x: 50, y: 72 },
+        { x: 68, y: 55 },
+        { x: 78, y: 35 },
+        { x: 65, y: 22 }
+    ];
+
+    heartPoints.forEach((point, index) => {
+        const star = document.createElement("div");
+        star.classList.add("cosmic-star");
+        star.innerHTML = "✨";
+        star.style.left = `${point.x}%`;
+        star.style.top = `${point.y}%`;
+        star.setAttribute("data-index", index);
+
+        starsContainer.appendChild(star);
+        starNodes.push({ element: star, xPercent: point.x, yPercent: point.y });
+
+        star.addEventListener("click", () => handleStarTap(index));
+    });
+}
+
+function resizeCanvas() {
+    const rect = constellationStage.getBoundingClientRect();
+    constellationCanvas.width = rect.width;
+    constellationCanvas.height = rect.height;
+    redrawLines();
+}
+
+function handleStarTap(index) {
+    if (connectedStars.includes(index)) return;
+
+    connectedStars.push(index);
+    const star = starNodes[index].element;
+    star.classList.add("activated");
+
+    redrawLines();
+
+    const remaining = starNodes.length - connectedStars.length;
+    if (remaining > 0) {
+        constellationInstruction.textContent = `${remaining} more star${remaining > 1 ? 's' : ''} to light up...`;
+    } else {
+        constellationInstruction.textContent = "The constellation is complete! ✨";
+        setTimeout(revealProposalCard, 1000);
+    }
+}
+
+function redrawLines() {
+    ctx.clearRect(0, 0, constellationCanvas.width, constellationCanvas.height);
+    if (connectedStars.length < 2) return;
+
+    ctx.beginPath();
+    const width = constellationCanvas.width;
+    const height = constellationCanvas.height;
+
+    const startNode = starNodes[connectedStars[0]];
+    ctx.moveTo((startNode.xPercent / 100) * width, (startNode.yPercent / 100) * height);
+
+    for (let i = 1; i < connectedStars.length; i++) {
+        const node = starNodes[connectedStars[i]];
+        ctx.lineTo((node.xPercent / 100) * width, (node.yPercent / 100) * height);
+    }
+
+    if (connectedStars.length === starNodes.length) {
+        ctx.closePath();
+    }
+
+    ctx.strokeStyle = "rgba(255, 182, 193, 0.9)";
+    ctx.lineWidth = 3;
+    ctx.shadowColor = "#ff69b4";
+    ctx.shadowBlur = 18;
+    ctx.stroke();
+}
+
+function revealProposalCard() {
+    constellationStage.classList.add("fade-out-fast");
+    setTimeout(() => {
+        constellationStage.style.display = "none";
+        proposalCard.classList.remove("hidden");
+        proposalCard.classList.add("fade-in");
+    }, 600);
+}
+
+yesBtn.addEventListener("click", () => {
+    celebrationModal.classList.remove("hidden");
+    celebrationModal.classList.add("fade-in");
 });
