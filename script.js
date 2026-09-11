@@ -129,11 +129,9 @@ function initRainbowGame() {
         btn.innerHTML = "🌸";
         btn.setAttribute("data-index", i);
         
-        // Initial Screen Placement
         setRandomInitialPosition(btn);
         rainbowContainer.appendChild(btn);
 
-        // Continuous Smooth Physics Motion
         const petalObj = {
             element: btn,
             interval: setInterval(() => glidePetal(btn), 900 + Math.random() * 400)
@@ -161,14 +159,12 @@ function glidePetal(element) {
     const currentLeft = parseFloat(element.style.left);
     const currentTop = parseFloat(element.style.top);
 
-    // Calculate dynamic float trajectory across laptop and mobile viewports
     const moveRangeX = window.innerWidth > 768 ? 240 : 130;
     const moveRangeY = window.innerHeight > 768 ? 200 : 110;
 
     let deltaX = (Math.random() - 0.5) * moveRangeX;
     let deltaY = (Math.random() - 0.5) * moveRangeY;
 
-    // Viewport Boundary Guarding
     if (currentLeft + deltaX < 60 || currentLeft + deltaX > window.innerWidth - 80) {
         deltaX *= -1;
     }
@@ -183,7 +179,6 @@ function handlePetalCatch(btn, index) {
     if (btn.classList.contains("caught")) return;
     btn.classList.add("caught");
     
-    // Smooth Catch Burst
     btn.style.transform += " scale(1.6)";
     btn.style.opacity = "0";
     btn.style.pointerEvents = "none";
@@ -191,7 +186,6 @@ function handlePetalCatch(btn, index) {
     caughtCount++;
     counterBadge.textContent = `Blossoms Caught: ${caughtCount} / 7`;
 
-    // Display Note
     complimentText.textContent = compliments[index];
     complimentModal.classList.remove("hidden");
     complimentModal.classList.add("fade-in");
@@ -202,7 +196,6 @@ continueGameBtn.addEventListener("click", () => {
     complimentModal.classList.remove("fade-in");
 
     if (caughtCount === 7) {
-        // Clear all float loops
         activePetals.forEach(p => clearInterval(p.interval));
         rainbowContainer.style.display = "none";
         gamePlayArea.style.display = "none";
@@ -213,19 +206,26 @@ continueGameBtn.addEventListener("click", () => {
 });
 
 /* ========================================
-   SCENE 4: RED THREAD OF FATE LOGIC
+   SCENE 4: THE WISHING BLOSSOM TREE
    ======================================== */
-const threadSection = document.getElementById("threadSection");
+const treeSection = document.getElementById("treeSection");
 const videoOverlay = document.getElementById("videoOverlay");
 
-const ringLeft = document.getElementById("ringLeft");
-const ringRight = document.getElementById("ringRight");
-const threadSlider = document.getElementById("threadSlider");
-const glowingThread = document.getElementById("glowingThread");
-const heartKnot = document.getElementById("heartKnot");
+const silkRibbons = document.querySelectorAll(".silk-ribbon");
+const wishModal = document.getElementById("wishModal");
+const wishText = document.getElementById("wishText");
+const closeWishBtn = document.getElementById("closeWishBtn");
 
-const threadInteractive = document.getElementById("threadInteractive");
-const climaxProposalCard = document.getElementById("climaxProposalCard");
+const goldenRibbonContainer = document.getElementById("goldenRibbonContainer");
+const scene5PullBtn = document.getElementById("scene5PullBtn");
+
+const wishes = [
+    "A wish for endless conversations that go deep into the night... ✨",
+    "A wish to keep sharing moments that make us smile uncontrollably... ❤️",
+    "A wish for every future chapter to be even brighter than today... 🌸"
+];
+
+let openedWishes = new Set();
 
 // Transition into Scene 4
 congratsBtn.addEventListener("click", () => {
@@ -235,49 +235,44 @@ congratsBtn.addEventListener("click", () => {
     setTimeout(() => {
         gameSection.style.display = "none";
         
-        // Dim background overlay smoothly for Scene 4
         videoOverlay.classList.add("dimmed");
         
-        threadSection.classList.add("show");
-        threadSection.classList.add("fade-in");
+        treeSection.classList.add("show");
+        treeSection.classList.add("fade-in");
     }, 800);
 });
 
-// Red Thread Slider Interaction
-threadSlider.addEventListener("input", (e) => {
-    const val = parseFloat(e.target.value); // 0 to 100
+// Ribbon Click Handling
+silkRibbons.forEach((ribbon) => {
+    ribbon.addEventListener("click", () => {
+        const index = parseInt(ribbon.getAttribute("data-index"));
+        openedWishes.add(index);
+        
+        ribbon.classList.add("opened");
+        ribbon.querySelector(".ribbon-label").textContent = "Revealed ✨";
 
-    // Bring glass rings closer together as value increases
-    const pullDistance = (val / 100) * 110; 
-    ringLeft.style.transform = `translateX(${pullDistance}px)`;
-    ringRight.style.transform = `translateX(-${pullDistance}px)`;
+        wishText.textContent = wishes[index];
+        wishModal.classList.remove("hidden");
+        wishModal.classList.add("fade-in");
+    });
+});
 
-    // Thread glows brighter and becomes thicker
-    const intensity = val / 100;
-    glowingThread.style.boxShadow = `0 0 ${12 + intensity * 25}px rgba(255, 45, 85, ${0.8 + intensity * 0.2})`;
-    glowingThread.style.height = `${4 + intensity * 4}px`;
+closeWishBtn.addEventListener("click", () => {
+    wishModal.classList.add("hidden");
+    wishModal.classList.remove("fade-in");
 
-    // Climax connection at 100%
-    if (val === 100) {
-        threadSlider.disabled = true;
-
-        // Hide rings and form heart knot
-        ringLeft.style.opacity = "0";
-        ringRight.style.opacity = "0";
-        glowingThread.style.opacity = "0";
-
-        heartKnot.classList.remove("hidden");
+    // Once all 3 ribbons are opened, drop the Golden Ribbon
+    if (openedWishes.size === 3 && goldenRibbonContainer.classList.contains("hidden")) {
         setTimeout(() => {
-            heartKnot.style.transform = "translate(-50%, -50%) scale(1.4)";
-        }, 50);
-
-        // Burst into Golden Petals Climax
-        setTimeout(() => {
-            triggerPetalTransition(() => {
-                threadInteractive.classList.add("hidden");
-                climaxProposalCard.classList.remove("hidden");
-                climaxProposalCard.classList.add("fade-in");
-            });
-        }, 900);
+            goldenRibbonContainer.classList.remove("hidden");
+            goldenRibbonContainer.classList.add("fade-in");
+        }, 300);
     }
+});
+
+// Hook for Scene 5
+scene5PullBtn.addEventListener("click", () => {
+    triggerPetalTransition(() => {
+        // Ready for Scene 5 implementation!
+    });
 });
