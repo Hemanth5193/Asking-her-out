@@ -129,9 +129,11 @@ function initRainbowGame() {
         btn.innerHTML = "🌸";
         btn.setAttribute("data-index", i);
         
+        // Initial Screen Placement
         setRandomInitialPosition(btn);
         rainbowContainer.appendChild(btn);
 
+        // Continuous Smooth Physics Motion
         const petalObj = {
             element: btn,
             interval: setInterval(() => glidePetal(btn), 900 + Math.random() * 400)
@@ -205,72 +207,135 @@ continueGameBtn.addEventListener("click", () => {
     }
 });
 
-/* ========================================
-   SCENE 4: THE WISHING BLOSSOM TREE
-   ======================================== */
-const treeSection = document.getElementById("treeSection");
-const videoOverlay = document.getElementById("videoOverlay");
-
-const silkRibbons = document.querySelectorAll(".silk-ribbon");
-const wishModal = document.getElementById("wishModal");
-const wishText = document.getElementById("wishText");
-const closeWishBtn = document.getElementById("closeWishBtn");
-
-const goldenRibbonContainer = document.getElementById("goldenRibbonContainer");
-const scene5PullBtn = document.getElementById("scene5PullBtn");
-
-const wishes = [
-    "A wish for endless conversations that go deep into the night... ✨",
-    "A wish to keep sharing moments that make us smile uncontrollably... ❤️",
-    "A wish for every future chapter to be even brighter than today... 🌸"
-];
-
-let openedWishes = new Set();
-
-// Transition into Scene 4 (FIXED)
+// Proposal Transition (Hooked directly to Scene 4)
 congratsBtn.addEventListener("click", () => {
-    triggerPetalTransition(() => {
-        gameSection.classList.remove("show");
+    gameSection.classList.remove("show");
+    gameSection.classList.add("fade-out");
+    setTimeout(() => {
         gameSection.style.display = "none";
-
-        videoOverlay.classList.add("dimmed");
-
-        treeSection.classList.add("show");
-        treeSection.classList.add("fade-in");
-    });
+        initScene4Puzzle();
+    }, 800);
 });
 
-// Ribbon Click Handling
-silkRibbons.forEach((ribbon) => {
-    ribbon.addEventListener("click", () => {
-        const index = parseInt(ribbon.getAttribute("data-index"));
-        openedWishes.add(index);
-        
-        ribbon.classList.add("opened");
-        ribbon.querySelector(".ribbon-label").textContent = "Revealed ✨";
+/* ========================================
+   SCENE 4: SAKURA PETAL PUZZLE ENGINE
+   ======================================== */
 
-        wishText.textContent = wishes[index];
-        wishModal.classList.remove("hidden");
-        wishModal.classList.add("fade-in");
+const scene4Qualities = ["Kind", "Beautiful", "Strong", "Funny", "Elegant"];
+let uncaughtPetals = [];
+let petalsCaughtCount = 0;
+
+function initScene4Puzzle() {
+    const scene4Section = document.getElementById("scene4Section");
+    const floatingPetalsContainer = document.getElementById("floatingPetals");
+    const attachedPetalsContainer = document.getElementById("attachedPetals");
+    
+    scene4Section.classList.add("show");
+    floatingPetalsContainer.innerHTML = "";
+    attachedPetalsContainer.innerHTML = "";
+    uncaughtPetals = [];
+    petalsCaughtCount = 0;
+
+    scene4Qualities.forEach((quality, index) => {
+        const petal = document.createElement("div");
+        petal.classList.add("floating-petal");
+        petal.setAttribute("data-quality", quality);
+        petal.setAttribute("data-index", index);
+
+        setRandomPuzzlePosition(petal);
+        floatingPetalsContainer.appendChild(petal);
+
+        const petalObj = {
+            element: petal,
+            quality: quality,
+            index: index,
+            interval: setInterval(() => glideUncaughtPetal(petal), 1000 + Math.random() * 500)
+        };
+
+        uncaughtPetals.push(petalObj);
+
+        petal.addEventListener("click", () => catchPuzzlePetal(petalObj));
     });
-});
+}
 
-closeWishBtn.addEventListener("click", () => {
-    wishModal.classList.add("hidden");
-    wishModal.classList.remove("fade-in");
+function setRandomPuzzlePosition(element) {
+    const containerRadius = window.innerWidth > 480 ? 120 : 90;
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 80 + Math.random() * containerRadius;
 
-    // Once all 3 ribbons are opened, drop the Golden Ribbon
-    if (openedWishes.size === 3 && goldenRibbonContainer.classList.contains("hidden")) {
-        setTimeout(() => {
-            goldenRibbonContainer.classList.remove("hidden");
-            goldenRibbonContainer.classList.add("fade-in");
-        }, 300);
+    const x = Math.cos(angle) * distance;
+    const y = Math.sin(angle) * distance;
+
+    element.style.left = `calc(50% + ${x}px - 30px)`;
+    element.style.top = `calc(50% + ${y}px - 30px)`;
+}
+
+function glideUncaughtPetal(element) {
+    const maxOffset = window.innerWidth > 480 ? 40 : 25;
+    const deltaX = (Math.random() - 0.5) * maxOffset;
+    const deltaY = (Math.random() - 0.5) * maxOffset;
+
+    element.style.transform = `translate(${deltaX}px, ${deltaY}px) rotate(${45 + Math.random() * 20}deg)`;
+}
+
+function catchPuzzlePetal(petalObj) {
+    clearInterval(petalObj.interval);
+    petalObj.element.remove();
+
+    petalsCaughtCount++;
+
+    attachPetalToCenter(petalObj.quality, petalObj.index);
+
+    if (petalsCaughtCount === 5) {
+        completeSakuraPuzzle();
     }
-});
+}
 
-// Hook for Scene 5
-scene5PullBtn.addEventListener("click", () => {
-    triggerPetalTransition(() => {
-        // Ready for Scene 5 implementation!
-    });
+function attachPetalToCenter(quality, index) {
+    const attachedPetalsContainer = document.getElementById("attachedPetals");
+    const attachedPetal = document.createElement("div");
+    attachedPetal.classList.add("attached-petal");
+
+    const angle = (index * 72 - 90) * (Math.PI / 180);
+    const radius = window.innerWidth > 480 ? 85 : 68;
+
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius;
+
+    attachedPetal.style.left = `calc(50% + ${x}px - 35px)`;
+    attachedPetal.style.top = `calc(50% + ${y}px - 35px)`;
+    attachedPetal.style.transform = `rotate(${index * 72 + 45}deg)`;
+
+    const label = document.createElement("span");
+    label.classList.add("petal-label");
+    label.textContent = quality;
+    attachedPetal.appendChild(label);
+
+    attachedPetalsContainer.appendChild(attachedPetal);
+}
+
+function completeSakuraPuzzle() {
+    const sakuraPuzzleContainer = document.getElementById("sakuraPuzzleContainer");
+    const scene4Completion = document.getElementById("scene4Completion");
+
+    setTimeout(() => {
+        sakuraPuzzleContainer.classList.add("golden-completed");
+
+        scene4Completion.classList.remove("hidden");
+        scene4Completion.classList.add("fade-in");
+    }, 600);
+}
+
+// Scene 4 -> Scene 5 Hook
+document.body.addEventListener("click", (e) => {
+    if (e.target && e.target.id === "readyForItBtn") {
+        const scene4Section = document.getElementById("scene4Section");
+        scene4Section.classList.remove("show");
+        scene4Section.classList.add("fade-out");
+
+        setTimeout(() => {
+            scene4Section.style.display = "none";
+            // Scene 5 code ready to hook here
+        }, 800);
+    }
 });
