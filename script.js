@@ -213,7 +213,7 @@ congratsBtn.addEventListener("click", () => {
 });
 
 // ========================================
-// SCENE 4: FIXED SAKURA PUZZLE ENGINE
+// SCENE 4: SAKURA PUZZLE ENGINE
 // ========================================
 
 const scene4Qualities = ["Kind", "Beautiful", "Strong", "Funny", "Elegant"];
@@ -361,31 +361,33 @@ function triggerPuzzleCompletion() {
 
         completionCard.classList.remove("hidden");
         completionCard.classList.add("fade-in");
+
+        // Bind click explicitly once button turns visible
+        const readyBtn = document.getElementById("readyForItBtn");
+        if (readyBtn) {
+            readyBtn.onclick = handleTransitionToProposal;
+        }
     }, 800);
 }
 
-// ========================================
-// TRANSITION FROM SCENE 4 TO SCENE 5
-// ========================================
+// Direct Handler to switch from Scene 4 into Senbonzakura Bankai -> Scene 5 Proposal
+function handleTransitionToProposal() {
+    const scene4Section = document.getElementById("scene4Section");
+    const proposalSection = document.getElementById("proposalSection");
 
-document.body.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "readyForItBtn") {
-        const scene4Section = document.getElementById("scene4Section");
-        const proposalSection = document.getElementById("proposalSection");
+    scene4Section.classList.remove("show");
+    scene4Section.classList.add("fade-out");
 
-        scene4Section.classList.remove("show");
-        scene4Section.classList.add("fade-out");
+    setTimeout(() => {
+        scene4Section.style.display = "none";
 
-        setTimeout(() => {
-            scene4Section.style.display = "none";
-            
-            triggerBankaiTransition(() => {
-                proposalSection.classList.remove("hidden");
-                proposalSection.classList.add("show");
-            });
-        }, 800);
-    }
-});
+        triggerBankaiTransition(() => {
+            proposalSection.classList.remove("hidden");
+            proposalSection.style.display = "flex";
+            proposalSection.classList.add("show");
+        });
+    }, 800);
+}
 
 // ========================================
 // SENBONZAKURA BANKAI TRANSITION ENGINE
