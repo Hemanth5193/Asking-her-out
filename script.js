@@ -390,7 +390,7 @@ function handleTransitionToProposal() {
 }
 
 // ========================================
-// SENBONZAKURA BANKAI TRANSITION ENGINE
+// 3-PHASE CINEMATIC BANKAI TRANSITION
 // ========================================
 
 function triggerBankaiTransition(onComplete) {
@@ -403,23 +403,32 @@ function triggerBankaiTransition(onComplete) {
 
     let animationFrame;
     let startTime = performance.now();
-    const duration = 3800;
+    const duration = 4000; // 4 second cinematic duration
 
+    let shakeTriggered = false;
+
+    // Create 600 multi-layered particles
     const particles = [];
-    const particleCount = 220;
+    const particleCount = window.innerWidth < 480 ? 350 : 650;
 
     for (let i = 0; i < particleCount; i++) {
+        const layer = Math.random(); 
         particles.push({
-            x: canvas.width / 2,
-            y: canvas.height / 2,
+            x: canvas.width / 2 + (Math.random() - 0.5) * 60,
+            y: canvas.height / 2 + (Math.random() - 0.5) * 60,
             angle: Math.random() * Math.PI * 2,
-            speed: Math.random() * 8 + 4,
-            radius: Math.random() * 6 + 3,
-            spin: (Math.random() - 0.5) * 0.2,
+            vortexRadius: Math.random() * (canvas.width * 0.4),
+            speed: Math.random() * 6 + 3,
+            size: layer > 0.85 ? Math.random() * 8 + 6 : (layer > 0.3 ? Math.random() * 5 + 3 : Math.random() * 3 + 1), // Depth scaling
+            spin: (Math.random() - 0.5) * 0.15,
             alpha: 1,
-            color: Math.random() > 0.3 ? '#ffb7c5' : '#ffd700'
+            layer: layer, // Depth layer: foreground, midground, background
+            colorType: Math.random()
         });
     }
+
+    // Shockwave ripple state
+    let shockwaveRadius = 0;
 
     function render(time) {
         const elapsed = time - startTime;
@@ -427,37 +436,125 @@ function triggerBankaiTransition(onComplete) {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (progress < 0.3) {
-            const bladeWidth = (progress / 0.3) * 60;
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-            ctx.shadowBlur = 30;
-            ctx.shadowColor = '#ff69b4';
-
-            ctx.fillRect(canvas.width * 0.15 - bladeWidth / 2, 0, bladeWidth, canvas.height);
-            ctx.fillRect(canvas.width * 0.85 - bladeWidth / 2, 0, bladeWidth, canvas.height);
-        }
-
-        particles.forEach(p => {
-            p.angle += p.spin;
-            p.x += Math.cos(p.angle) * p.speed * (1 + progress * 2);
-            p.y += Math.sin(p.angle) * p.speed * (1 + progress * 2);
-
-            if (progress > 0.7) {
-                p.alpha = 1 - (progress - 0.7) / 0.3;
-            }
+        // ----------------------------------------------------
+        // PHASE 1: Giant Blade Drop & Impact (0.0s - 0.9s)
+        // ----------------------------------------------------
+        if (progress < 0.25) {
+            const dropProgress = progress / 0.25;
+            const bladeHeight = canvas.height * dropProgress;
+            const bladeWidth = Math.min(45, canvas.width * 0.04);
 
             ctx.save();
-            ctx.globalAlpha = Math.max(p.alpha, 0);
-            ctx.fillStyle = p.color;
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = '#ff1493';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.shadowBlur = 35;
+            ctx.shadowColor = '#ff69b4';
+
+            // Twin Giant Blades descending from top center-left and center-right
+            const leftBladeX = canvas.width * 0.35 - bladeWidth / 2;
+            const rightBladeX = canvas.width * 0.65 - bladeWidth / 2;
+
+            ctx.fillRect(leftBladeX, 0, bladeWidth, bladeHeight);
+            ctx.fillRect(rightBladeX, 0, bladeWidth, bladeHeight);
+
+            // Blade Tips (Pointy bottom)
+            ctx.beginPath();
+            ctx.moveTo(leftBladeX, bladeHeight);
+            ctx.lineTo(leftBladeX + bladeWidth / 2, bladeHeight + 35);
+            ctx.lineTo(leftBladeX + bladeWidth, bladeHeight);
+            ctx.fill();
 
             ctx.beginPath();
-            ctx.ellipse(p.x, p.y, p.radius * 2, p.radius, p.angle, 0, Math.PI * 2);
+            ctx.moveTo(rightBladeX, bladeHeight);
+            ctx.lineTo(rightBladeX + bladeWidth / 2, bladeHeight + 35);
+            ctx.lineTo(rightBladeX + bladeWidth, bladeHeight);
             ctx.fill();
-            ctx.restore();
-        });
 
+            ctx.restore();
+        }
+
+        // ----------------------------------------------------
+        // IMPACT EVENT at ~0.9s: Trigger Screen Shake & Shockwave
+        // ----------------------------------------------------
+        if (progress >= 0.22 && !shakeTriggered) {
+            shakeTriggered = true;
+            document.body.classList.add("bankai-shake");
+            setTimeout(() => document.body.classList.remove("bankai-shake"), 400);
+        }
+
+        // Expand Radial Shockwave
+        if (progress >= 0.22 && progress < 0.55) {
+            const shockProgress = (progress - 0.22) / 0.33;
+            shockwaveRadius = shockProgress * (canvas.width * 0.85);
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(canvas.width / 2, canvas.height, shockwaveRadius, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(255, 215, 0, ${1 - shockProgress})`;
+            ctx.lineWidth = 12 * (1 - shockProgress);
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = '#ffd700';
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // ----------------------------------------------------
+        // PHASE 2: Vortex Petal Swarm (0.25s - 0.85s)
+        // ----------------------------------------------------
+        if (progress >= 0.22) {
+            const swarmProgress = (progress - 0.22) / 0.78;
+
+            particles.forEach(p => {
+                p.angle += p.spin + 0.03;
+                
+                // Spiral helical upward swirl math
+                const currentRadius = p.vortexRadius * swarmProgress;
+                const targetX = (canvas.width / 2) + Math.cos(p.angle) * currentRadius;
+                const targetY = (canvas.height * 1.1) - (swarmProgress * (canvas.height * 1.3)) + Math.sin(p.angle) * 80;
+
+                p.x += (targetX - p.x) * 0.12;
+                p.y += (targetY - p.y) * 0.12;
+
+                // Color Shifting: Pink -> Rose -> Radiant Gold
+                let fillColor = '#ffb7c5';
+                if (p.colorType > 0.6) fillColor = '#ffd700';
+                else if (p.colorType > 0.35) fillColor = '#ff69b4';
+
+                // Fade Out near end
+                if (swarmProgress > 0.75) {
+                    p.alpha = 1 - (swarmProgress - 0.75) / 0.25;
+                }
+
+                ctx.save();
+                ctx.globalAlpha = Math.max(p.alpha, 0);
+                ctx.fillStyle = fillColor;
+                
+                // Blur background layers, crisp glow foreground layers
+                if (p.layer > 0.8) {
+                    ctx.shadowBlur = 18;
+                    ctx.shadowColor = '#ffffff';
+                } else {
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = '#ff1493';
+                }
+
+                // Render as glowing petal shapes (ellipses)
+                ctx.beginPath();
+                ctx.ellipse(p.x, p.y, p.size * 1.8, p.size, p.angle, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            });
+        }
+
+        // ----------------------------------------------------
+        // PHASE 3: White Screen Burst & Transition (0.75s - 1.0s)
+        // ----------------------------------------------------
+        if (progress > 0.75) {
+            const flashProgress = (progress - 0.75) / 0.25;
+            ctx.fillStyle = `rgba(255, 255, 255, ${Math.sin(flashProgress * Math.PI) * 0.85})`;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Loop until duration completes
         if (progress < 1) {
             animationFrame = requestAnimationFrame(render);
         } else {
