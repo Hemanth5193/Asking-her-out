@@ -338,16 +338,12 @@ function attachPetalToFlower(quality, index) {
     petalWrap.classList.add("attached-petal-wrapper");
     petalWrap.innerHTML = createSakuraPetalSVG();
 
-    // 5 petals perfectly spread across 360 degrees (72 deg increments)
     const angleDeg = index * 72;
-
-    // Apply exact rotation centered at flower middle
     petalWrap.style.transform = `translate(-50%, -100%) rotate(${angleDeg}deg)`;
 
     const label = document.createElement("span");
     label.classList.add("petal-label");
     label.textContent = quality;
-    // Counter-rotate text so labels are readable
     label.style.transform = `rotate(-${angleDeg}deg)`;
 
     petalWrap.appendChild(label);
@@ -368,14 +364,106 @@ function triggerPuzzleCompletion() {
     }, 800);
 }
 
+// ========================================
+// TRANSITION FROM SCENE 4 TO SCENE 5
+// ========================================
+
 document.body.addEventListener("click", (e) => {
     if (e.target && e.target.id === "readyForItBtn") {
         const scene4Section = document.getElementById("scene4Section");
+        const proposalSection = document.getElementById("proposalSection");
+
         scene4Section.classList.remove("show");
         scene4Section.classList.add("fade-out");
 
         setTimeout(() => {
             scene4Section.style.display = "none";
+            
+            triggerBankaiTransition(() => {
+                proposalSection.classList.remove("hidden");
+                proposalSection.classList.add("show");
+            });
         }, 800);
     }
 });
+
+// ========================================
+// SENBONZAKURA BANKAI TRANSITION ENGINE
+// ========================================
+
+function triggerBankaiTransition(onComplete) {
+    const canvas = document.getElementById('bankaiCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.opacity = '1';
+
+    let animationFrame;
+    let startTime = performance.now();
+    const duration = 3800;
+
+    const particles = [];
+    const particleCount = 220;
+
+    for (let i = 0; i < particleCount; i++) {
+        particles.push({
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            angle: Math.random() * Math.PI * 2,
+            speed: Math.random() * 8 + 4,
+            radius: Math.random() * 6 + 3,
+            spin: (Math.random() - 0.5) * 0.2,
+            alpha: 1,
+            color: Math.random() > 0.3 ? '#ffb7c5' : '#ffd700'
+        });
+    }
+
+    function render(time) {
+        const elapsed = time - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (progress < 0.3) {
+            const bladeWidth = (progress / 0.3) * 60;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+            ctx.shadowBlur = 30;
+            ctx.shadowColor = '#ff69b4';
+
+            ctx.fillRect(canvas.width * 0.15 - bladeWidth / 2, 0, bladeWidth, canvas.height);
+            ctx.fillRect(canvas.width * 0.85 - bladeWidth / 2, 0, bladeWidth, canvas.height);
+        }
+
+        particles.forEach(p => {
+            p.angle += p.spin;
+            p.x += Math.cos(p.angle) * p.speed * (1 + progress * 2);
+            p.y += Math.sin(p.angle) * p.speed * (1 + progress * 2);
+
+            if (progress > 0.7) {
+                p.alpha = 1 - (progress - 0.7) / 0.3;
+            }
+
+            ctx.save();
+            ctx.globalAlpha = Math.max(p.alpha, 0);
+            ctx.fillStyle = p.color;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = '#ff1493';
+
+            ctx.beginPath();
+            ctx.ellipse(p.x, p.y, p.radius * 2, p.radius, p.angle, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        });
+
+        if (progress < 1) {
+            animationFrame = requestAnimationFrame(render);
+        } else {
+            canvas.style.opacity = '0';
+            cancelAnimationFrame(animationFrame);
+            if (onComplete) onComplete();
+        }
+    }
+
+    requestAnimationFrame(render);
+}
