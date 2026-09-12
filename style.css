@@ -363,8 +363,8 @@ button:hover {
 .compliment-modal .modal-content {
     position: relative !important;
     width: 85% !important;
-    max-width: 360px !important; /* Decreased width for desktop */
-    padding: 20px 22px !important; /* Compact padding */
+    max-width: 360px !important;
+    padding: 20px 22px !important;
     margin: auto !important;
 
     display: flex !important;
@@ -394,7 +394,7 @@ button:hover {
 /* Compact Text */
 .compliment-modal .compliment-text {
     font-family: Georgia, serif !important;
-    font-size: 0.98rem !important; /* Smaller desktop font size */
+    font-size: 0.98rem !important;
     line-height: 1.5 !important;
     color: #ffffff !important;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6) !important;
@@ -404,7 +404,7 @@ button:hover {
 
 /* Compact Button */
 .compliment-modal .modal-btn {
-    padding: 8px 22px !important; /* Compact button size */
+    padding: 8px 22px !important;
     font-size: 0.85rem !important;
     font-family: inherit !important;
     color: #ffffff !important;
@@ -677,6 +677,54 @@ button:hover {
     text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
     margin-bottom: 20px;
     animation: poemReveal 1.2s ease forwards;
+}
+
+/* ========================================
+   SENBONZAKURA BANKAI CANVAS OVERLAY STYLES
+   ======================================== */
+#bankaiCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* ========================================
+   SCENE 5: PROPOSAL STAGING
+   ======================================== */
+#proposalSection {
+    z-index: 100000;
+}
+
+.proposal-card {
+    padding: 2.5rem 2rem;
+    max-width: 550px;
+}
+
+.proposal-title {
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 182, 193, 0.9);
+    margin-bottom: 1.2rem;
+}
+
+.proposal-message {
+    font-size: 1.15rem;
+    color: #ffe4e1;
+    line-height: 1.7;
+    margin-bottom: 2.2rem;
+}
+
+.proposal-btn-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 /* Helper Utilities */
