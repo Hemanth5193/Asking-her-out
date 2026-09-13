@@ -9,6 +9,25 @@
 
 <body>
 
+    <!-- Global Reusable SVG Symbol Defs -->
+    <svg style="display: none;">
+        <defs>
+            <linearGradient id="sakuraPetalGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stop-color="rgba(255, 182, 193, 0.95)" />
+                <stop offset="50%" stop-color="rgba(255, 192, 203, 0.85)" />
+                <stop offset="100%" stop-color="rgba(255, 240, 245, 0.95)" />
+            </linearGradient>
+            <linearGradient id="sakuraGoldenPetalGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stop-color="rgba(218, 165, 32, 0.95)" />
+                <stop offset="45%" stop-color="rgba(255, 215, 0, 0.9)" />
+                <stop offset="100%" stop-color="rgba(255, 250, 205, 0.98)" />
+            </linearGradient>
+            <symbol id="sakura-petal-symbol" viewBox="0 0 100 130">
+                <path class="petal-path" d="M 50 125 C 20 100, 2 65, 8 35 C 12 18, 28 8, 42 16 C 47 19, 49 22, 50 24 C 51 22, 53 19, 58 16 C 72 8, 88 18, 92 35 C 98 65, 80 100, 50 125 Z" />
+            </symbol>
+        </defs>
+    </svg>
+
     <video class="background-video" autoplay muted loop playsinline preload="auto">
         <source src="sakura.mp4" type="video/mp4">
     </video>
@@ -41,7 +60,7 @@
     <div class="container" id="introContainer">
         <h1>Hey, Ananya...</h1>
         <p>I made this specially just for YOU.</p>
-        <button id="beginButton" class="glass-btn">Begin</button>
+        <button id="beginButton" type="button" class="glass-btn">Begin</button>
     </div>
 
     <!-- Scene 2: Story, Floating Sakura & Poem -->
@@ -56,7 +75,7 @@
 
                 <div id="catchArea" class="catch-area">
                     <p class="catch-hint">✨ Catch the Sakura Flower ✨</p>
-                    <button id="sakuraBtn" class="sakura-btn" aria-label="Catch Sakura">🌸</button>
+                    <button id="sakuraBtn" type="button" class="sakura-btn" aria-label="Catch Sakura">🌸</button>
                 </div>
             </div>
 
@@ -72,7 +91,7 @@
 
                 <div class="story-line"></div>
                 
-                <button id="nextToScene3Btn" class="story-btn">Step Inside ❤️</button>
+                <button id="nextToScene3Btn" type="button" class="story-btn">Step Inside ❤️</button>
             </div>
 
         </div>
@@ -86,7 +105,7 @@
             <span class="story-label">A Little Secret...</span>
             <h2>Wanna know how much you mean to me? ❤️</h2>
             <p class="instruction-text">Catch all 7 rainbow blossoms to unlock every note...</p>
-            <button id="startGameBtn" class="story-btn glow-btn">Start Game 🌸</button>
+            <button id="startGameBtn" type="button" class="story-btn glow-btn">Start Game 🌸</button>
         </div>
 
         <!-- Active Game Layout -->
@@ -106,7 +125,7 @@
             <div class="modal-content glass-card">
                 <span class="modal-icon">🌸</span>
                 <p id="complimentText" class="compliment-text"></p>
-                <button id="continueGameBtn" class="modal-btn">Keep Collecting ✨</button>
+                <button id="continueGameBtn" type="button" class="modal-btn">Keep Collecting ✨</button>
             </div>
         </div>
 
@@ -114,7 +133,7 @@
         <div id="finalUnlockCard" class="final-card hidden">
             <div class="golden-emblem-container">
                 <div class="golden-aura-ring"></div>
-                <button id="congratsBtn" class="golden-sakura-card">
+                <button id="congratsBtn" type="button" class="golden-sakura-card">
                     <div class="golden-flower-icon">🌸</div>
                     <div class="golden-text-group">
                         <span class="gold-badge-label">U DID IT ✨</span>
@@ -155,7 +174,7 @@
                 You're the Perfect blend of all these PETALS<br>
                 and somehow, you just Bloom like a golden Sakura above. ✨
             </p>
-            <button id="readyForItBtn" class="story-btn glow-btn">Ready for it..? 😻</button>
+            <button id="readyForItBtn" type="button" class="story-btn glow-btn">Ready for it..? 😻</button>
         </div>
     </section>
 
@@ -171,8 +190,8 @@
                 Every petal, every rainbow blossom, and every single detail was crafted just to bring a smile to your face.
             </p>
             <div class="proposal-btn-group">
-                <button id="yesBtn" class="story-btn glow-btn">Yes, forever! 💖</button>
-                <button id="alwaysBtn" class="story-btn glow-btn">Always & Forever 💕</button>
+                <button id="yesBtn" type="button" class="story-btn glow-btn">Yes, forever! 💖</button>
+                <button id="alwaysBtn" type="button" class="story-btn glow-btn">Always & Forever 💕</button>
             </div>
         </div>
     </section>
