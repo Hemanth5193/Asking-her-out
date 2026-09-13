@@ -255,6 +255,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // SCENE 4: FIXED SAKURA PUZZLE ENGINE
     // ========================================
 
+    // ========================================
+    // SCENE 4: SAKURA PUZZLE ENGINE (RESTORED)
+    // ========================================
+
     function initScene4Puzzle() {
         scene4Section.classList.add("show");
         floatingPetalsLayer.innerHTML = "";
@@ -391,7 +395,6 @@ document.addEventListener("DOMContentLoaded", () => {
             completionCard.classList.add("fade-in");
         }, 800);
     }
-
     // ========================================
     // TRANSITION FROM SCENE 4 TO SCENE 5
     // ========================================
