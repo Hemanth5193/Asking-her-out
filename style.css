@@ -17,6 +17,18 @@ body {
     background-color: #0d0b14;
 }
 
+/* Screen Shake Effect for Phase 1 */
+body.realm-tremor {
+    animation: tremorShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes tremorShake {
+    10%, 90% { transform: translate3d(-4px, 2px, 0) rotate(-0.5deg); }
+    20%, 80% { transform: translate3d(6px, -4px, 0) rotate(1deg); }
+    30%, 50%, 70% { transform: translate3d(-8px, 6px, 0) rotate(-1.5deg); }
+    40%, 60% { transform: translate3d(8px, -6px, 0) rotate(1.5deg); }
+}
+
 /* Background Video & Overlay */
 .background-video {
     position: fixed;
@@ -339,10 +351,7 @@ button:hover {
     box-shadow: 0 0 25px rgba(255, 45, 85, 0.95), inset 0 0 10px rgba(255, 255, 255, 0.6);
 }
 
-/* ========================================================
-   COMPLIMENT MODAL - ULTRA COMPACT & SCREEN-CENTERED
-   ======================================================== */
-
+/* COMPLIMENT MODAL */
 .compliment-modal {
     position: fixed !important;
     top: 0 !important;
@@ -509,10 +518,7 @@ button:hover {
     box-shadow: 0 0 25px rgba(255, 182, 193, 0.8);
 }
 
-/* ========================================
-   SCENE 4: SAKURA PUZZLE GEOMETRY
-   ======================================== */
-
+/* Scene 4: Sakura Puzzle Geometry */
 .scene4-heading {
     font-size: clamp(1.2rem, 4vw, 2rem);
     font-weight: 400;
@@ -679,9 +685,7 @@ button:hover {
     animation: poemReveal 1.2s ease forwards;
 }
 
-/* ========================================
-   SENBONZAKURA BANKAI CANVAS OVERLAY STYLES
-   ======================================== */
+/* SENBONZAKURA BANKAI CANVAS OVERLAY STYLES */
 #bankaiCanvas {
     position: fixed;
     top: 0;
@@ -694,11 +698,9 @@ button:hover {
     transition: opacity 0.5s ease;
 }
 
-/* ========================================
-   SCENE 5: PROPOSAL STAGING
-   ======================================== */
+/* SCENE 5: PROPOSAL STAGING */
 #proposalSection {
-    z-index: 100000;
+    z-index: 10000;
 }
 
 .proposal-card {
@@ -725,6 +727,144 @@ button:hover {
     gap: 15px;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+/* ========================================================
+   PROPOSAL TRANSITION PHASES (1, 2, 3)
+   ======================================================== */
+
+/* Phase 1: Crimson Aura */
+.crimson-aura-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, rgba(139, 0, 0, 0.85) 0%, rgba(40, 0, 10, 0.95) 75%, rgba(0, 0, 0, 0.98) 100%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10005;
+    transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.crimson-aura-overlay.active {
+    opacity: 1;
+}
+
+/* Phase 2: Kimono Tapestry Banners & Gold Lattice */
+.banner-cascade-container {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    pointer-events: none;
+    z-index: 10010;
+}
+
+.kimono-banner {
+    flex: 1;
+    height: 100vh;
+    transform: translateY(-100%);
+    border-left: 2px solid #ffd700;
+    border-right: 2px solid #ffd700;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), inset 0 0 20px rgba(0, 0, 0, 0.8);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.banner-violet {
+    background: linear-gradient(180deg, #1f082e 0%, #3a0d52 50%, #150321 100%);
+}
+
+.banner-crimson {
+    background: linear-gradient(180deg, #420410 0%, #7a0c1e 50%, #2b0108 100%);
+}
+
+.gold-lattice-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(45deg, rgba(255, 215, 0, 0.2) 25%, transparent 25%, transparent 75%, rgba(255, 215, 0, 0.2) 75%),
+        linear-gradient(-45deg, rgba(255, 215, 0, 0.2) 25%, transparent 25%, transparent 75%, rgba(255, 215, 0, 0.2) 75%);
+    background-size: 30px 30px;
+    animation: latticeFlow 8s linear infinite;
+}
+
+@keyframes latticeFlow {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 300px; }
+}
+
+.banner-cascade-container.active .b-1 { transform: translateY(0%); transition-delay: 0.0s; }
+.banner-cascade-container.active .b-2 { transform: translateY(0%); transition-delay: 0.1s; }
+.banner-cascade-container.active .b-3 { transform: translateY(0%); transition-delay: 0.05s; }
+.banner-cascade-container.active .b-4 { transform: translateY(0%); transition-delay: 0.15s; }
+.banner-cascade-container.active .b-5 { transform: translateY(0%); transition-delay: 0.08s; }
+.banner-cascade-container.active .b-6 { transform: translateY(0%); transition-delay: 0.18s; }
+
+/* Phase 2: Swirling Sakura Petal Rain */
+.proposal-petal-rain {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 10015;
+    overflow: hidden;
+}
+
+.proposal-rain-petal {
+    position: absolute;
+    top: -20px;
+    width: 14px;
+    height: 14px;
+    border-radius: 12px 0 12px 0;
+    opacity: 0.95;
+    animation: rainSwirl linear forwards;
+}
+
+.proposal-rain-petal.gold {
+    background: #ffd700;
+    box-shadow: 0 0 10px #ffd700, 0 0 20px #ffae00;
+}
+
+.proposal-rain-petal.pink {
+    background: #ffb6c1;
+    box-shadow: 0 0 10px #ffb6c1, 0 0 20px #ff69b4;
+}
+
+@keyframes rainSwirl {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg) scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) translateX(120px) rotate(720deg) scale(1.3);
+        opacity: 0;
+    }
+}
+
+/* Phase 3: Sacred Warm Light Lens Flash */
+.sacred-flash-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, #ffffff 0%, #fff7d1 40%, #ffd700 80%, rgba(255, 215, 0, 0.8) 100%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10020;
+    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.sacred-flash-overlay.active {
+    opacity: 1;
+}
+
+/* Scene 6 Section */
+#scene6Section {
+    z-index: 10030;
 }
 
 /* Helper Utilities */
@@ -794,153 +934,5 @@ button:hover {
     }
     .sakura-puzzle-wrapper {
         margin: 5px auto;
-    }
-}
-
-/* Screen Shake Effect for Bankai Impact */
-.bankai-shake {
-    animation: bankaiImpactShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
-}
-
-@keyframes bankaiImpactShake {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    15% { transform: translate(-8px, 5px) rotate(-1deg); }
-    30% { transform: translate(7px, -6px) rotate(1deg); }
-    45% { transform: translate(-5px, 4px) rotate(-0.5deg); }
-    60% { transform: translate(4px, -3px) rotate(0.5deg); }
-    75% { transform: translate(-2px, 1px) rotate(0deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
-}
-
-
-/* =========================================================
-   SACRED WEAVER BANKAI-INSPIRED PROPOSAL TRANSITION
-   Added module — existing styles above remain unchanged.
-   ========================================================= */
-
-#bankaiCanvas {
-    background: transparent;
-    will-change: opacity, transform;
-}
-
-body.bankai-transition-active {
-    overflow: hidden !important;
-    touch-action: none;
-}
-
-.bankai-transition-active .background-video,
-.bankai-transition-active .video-overlay {
-    transition: filter 0.7s ease, opacity 0.7s ease;
-}
-
-.bankai-transition-active .background-video {
-    filter: brightness(0.18) saturate(0.72) contrast(1.08);
-}
-
-#scene6Section {
-    z-index: 100001;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    background:
-        radial-gradient(circle at 50% 45%, rgba(255, 220, 160, 0.14), transparent 32%),
-        linear-gradient(135deg, rgba(35, 8, 25, 0.55), rgba(10, 7, 18, 0.72));
-}
-
-#scene6Section.scene6-visible {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-}
-
-.scene6-card {
-    position: relative;
-    overflow: hidden;
-    padding: clamp(2rem, 6vw, 3.5rem) clamp(1.4rem, 5vw, 3rem);
-    max-width: 620px;
-    border-color: rgba(255, 224, 165, 0.45);
-    background:
-        linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 215, 180, 0.08)),
-        rgba(25, 8, 22, 0.35);
-    box-shadow:
-        0 20px 70px rgba(0, 0, 0, 0.45),
-        0 0 55px rgba(255, 190, 100, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.42);
-    animation: scene6CardReveal 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.scene6-sakura-mark {
-    margin: 0 auto 0.7rem;
-    font-size: clamp(2.5rem, 8vw, 4rem);
-    filter: drop-shadow(0 0 18px rgba(255, 215, 140, 0.9));
-    animation: scene6FlowerFloat 4s ease-in-out infinite;
-}
-
-.scene6-title {
-    margin-bottom: 1rem;
-    font-size: clamp(2rem, 7vw, 3.4rem);
-    font-weight: 400;
-    color: #fffaf1;
-    text-shadow:
-        0 0 18px rgba(255, 206, 140, 0.5),
-        0 2px 15px rgba(0, 0, 0, 0.55);
-}
-
-.scene6-message {
-    max-width: 520px;
-    margin: 0 auto 1.5rem;
-    color: #fff1e9;
-    font-size: clamp(1.05rem, 3.5vw, 1.3rem);
-    line-height: 1.8;
-}
-
-.scene6-divider {
-    width: 90px;
-    height: 1px;
-    margin: 0 auto 1rem;
-    background: linear-gradient(90deg, transparent, rgba(255, 218, 151, 0.95), transparent);
-    box-shadow: 0 0 12px rgba(255, 210, 130, 0.55);
-}
-
-.scene6-signature {
-    margin-bottom: 0;
-    color: #ffe6c7;
-    font-family: Georgia, serif;
-    font-style: italic;
-    font-size: 1.05rem;
-}
-
-@keyframes scene6CardReveal {
-    from {
-        opacity: 0;
-        transform: translateY(24px) scale(0.97);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes scene6FlowerFloat {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50% { transform: translateY(-7px) rotate(2deg); }
-}
-
-@media (max-width: 480px) {
-    .scene6-card {
-        width: 90%;
-        padding: 2rem 1.2rem;
-    }
-
-    .scene6-message {
-        font-size: 1rem;
-        line-height: 1.7;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .scene6-card,
-    .scene6-sakura-mark {
-        animation: none !important;
     }
 }
