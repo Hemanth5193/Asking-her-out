@@ -811,3 +811,136 @@ button:hover {
     75% { transform: translate(-2px, 1px) rotate(0deg); }
     100% { transform: translate(0, 0) rotate(0deg); }
 }
+
+
+/* =========================================================
+   SACRED WEAVER BANKAI-INSPIRED PROPOSAL TRANSITION
+   Added module — existing styles above remain unchanged.
+   ========================================================= */
+
+#bankaiCanvas {
+    background: transparent;
+    will-change: opacity, transform;
+}
+
+body.bankai-transition-active {
+    overflow: hidden !important;
+    touch-action: none;
+}
+
+.bankai-transition-active .background-video,
+.bankai-transition-active .video-overlay {
+    transition: filter 0.7s ease, opacity 0.7s ease;
+}
+
+.bankai-transition-active .background-video {
+    filter: brightness(0.18) saturate(0.72) contrast(1.08);
+}
+
+#scene6Section {
+    z-index: 100001;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 50% 45%, rgba(255, 220, 160, 0.14), transparent 32%),
+        linear-gradient(135deg, rgba(35, 8, 25, 0.55), rgba(10, 7, 18, 0.72));
+}
+
+#scene6Section.scene6-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.scene6-card {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(2rem, 6vw, 3.5rem) clamp(1.4rem, 5vw, 3rem);
+    max-width: 620px;
+    border-color: rgba(255, 224, 165, 0.45);
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 215, 180, 0.08)),
+        rgba(25, 8, 22, 0.35);
+    box-shadow:
+        0 20px 70px rgba(0, 0, 0, 0.45),
+        0 0 55px rgba(255, 190, 100, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.42);
+    animation: scene6CardReveal 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.scene6-sakura-mark {
+    margin: 0 auto 0.7rem;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    filter: drop-shadow(0 0 18px rgba(255, 215, 140, 0.9));
+    animation: scene6FlowerFloat 4s ease-in-out infinite;
+}
+
+.scene6-title {
+    margin-bottom: 1rem;
+    font-size: clamp(2rem, 7vw, 3.4rem);
+    font-weight: 400;
+    color: #fffaf1;
+    text-shadow:
+        0 0 18px rgba(255, 206, 140, 0.5),
+        0 2px 15px rgba(0, 0, 0, 0.55);
+}
+
+.scene6-message {
+    max-width: 520px;
+    margin: 0 auto 1.5rem;
+    color: #fff1e9;
+    font-size: clamp(1.05rem, 3.5vw, 1.3rem);
+    line-height: 1.8;
+}
+
+.scene6-divider {
+    width: 90px;
+    height: 1px;
+    margin: 0 auto 1rem;
+    background: linear-gradient(90deg, transparent, rgba(255, 218, 151, 0.95), transparent);
+    box-shadow: 0 0 12px rgba(255, 210, 130, 0.55);
+}
+
+.scene6-signature {
+    margin-bottom: 0;
+    color: #ffe6c7;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 1.05rem;
+}
+
+@keyframes scene6CardReveal {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes scene6FlowerFloat {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-7px) rotate(2deg); }
+}
+
+@media (max-width: 480px) {
+    .scene6-card {
+        width: 90%;
+        padding: 2rem 1.2rem;
+    }
+
+    .scene6-message {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scene6-card,
+    .scene6-sakura-mark {
+        animation: none !important;
+    }
+}
